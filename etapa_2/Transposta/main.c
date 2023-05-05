@@ -23,7 +23,7 @@ complexo** allocateComplexMatrix (int linhas, int colunas)
         exit(1);
     }
     //alocação de memória para cada linha da matriz
-    for (int i = 0; i < colunas; i++)
+    for (int i = 0; i < linhas; i++)
     {
         matrix[i] = (complexo *) malloc(colunas*sizeof(complexo));
         if (matrix[i] == NULL)
@@ -40,62 +40,58 @@ complexo** allocateComplexMatrix (int linhas, int colunas)
 
 complexo** transposta(complexo** matriz,int linhas, int colunas)
 {
-	complexo** mtx;
-	int t;
-	t = linhas;
-	linhas = colunas;
-	colunas = t;
-	
-	mtx = allocateComplexMatrix(linhas,colunas);
-	for (int j = 0; j < linhas; j++)
-    {
-        for (int d = 0; d < colunas; d++)
-        {
-            mtx[j][d].real = matriz[d][j].real;
-			mtx[j][d].img = matriz[d][j].img;
-        }
-    }
-	return mtx;
+        complexo** mtx;
+
+        mtx = allocateComplexMatrix(colunas,linhas);
+        for (int j = 0; j < linhas; j++)
+		{
+			for (int d = 0; d < colunas; d++)
+			{
+				mtx[j][d].real = matriz[d][j].real;
+                mtx[j][d].img = matriz[d][j].img;
+			}
+		}
+    return mtx;
 }
-	
+
 
 int main(void)
 {
-	complexo** c1,**c2; //matriz complexa a ser transposta
-	int nlinhas,ncolunas;
-	nlinhas=3;
-	ncolunas=3;
-	//Alocação de memoria para a matriz:
-	c1 = allocateComplexMatrix(nlinhas,ncolunas);
-	
-	//Insira os valores de c1:
-	for (int j = 0; j < nlinhas; j++)
+        complexo** c1,**c2; //matriz complexa a ser transposta
+        int nlinhas,ncolunas;
+        nlinhas=3;
+        ncolunas=2;
+        //Alocação de memoria para a matriz:
+        c1 = allocateComplexMatrix(nlinhas,ncolunas);
+
+        //Insira os valores de c1:
+        for (int j = 0; j < nlinhas; j++)
     {
         for (int c = 0; c < ncolunas; c++)
         {
             c1[j][c].real = (3*j)-c;
-			c1[j][c].img = c+j;
+                        c1[j][c].img = c+j;
         }
     }
-	printf("Matriz A:\n");
-	for (int j =0 ; j < nlinhas; j++)
+        printf("Matriz A:\n");
+        for (int j =0 ; j < nlinhas; j++)
     {
         for (int c = 0; c < ncolunas; c++)
         {
            printComplex(c1[j][c]);
         }
-		printf("\n");
-    }	
-	printf("\n Transporta de A:\n");
-	c2 = transposta(c1,nlinhas,ncolunas);
-	for (int j =0 ; j < nlinhas; j++)
+                printf("\n");
+    }
+        printf("\n Transporta de A:\n");
+        c2 = transposta(c1,nlinhas,ncolunas);
+        for (int j =0 ; j < nlinhas; j++)
     {
         for (int c = 0; c < ncolunas; c++)
         {
            printComplex(c2[j][c]);
         }
-		printf("\n");
-    }	
-	return(0);
-	
+                printf("\n");
+    }
+        return(0);
+
 }
