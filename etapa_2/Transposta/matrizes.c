@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include "matrizes.h"
 
-complexo** allocateComplexMatrix(int linhas, int colunas)
+complexo** allocateComplexMatrix (int linhas, int colunas)
 {
-    complexo **matrix;
+    complexo** matrix;
 
     matrix = (complexo **) malloc(linhas*sizeof(complexo*));
 
@@ -14,7 +14,7 @@ complexo** allocateComplexMatrix(int linhas, int colunas)
         exit(1);
     }
     //alocação de memória para cada linha da matriz
-    for (int i = 0; i < colunas; i++)
+    for (int i = 0; i < linhas; i++)
     {
         matrix[i] = (complexo *) malloc(colunas*sizeof(complexo));
         if (matrix[i] == NULL)
@@ -24,22 +24,28 @@ complexo** allocateComplexMatrix(int linhas, int colunas)
         }
     }
 
-	return matrix;
+    return matrix;
 }
 
 
-complexo** transposta(complexo** c,int linhas, int colunas)
+
+complexo** transposta(complexo** matriz,int linhas, int colunas)
 {
-	complexo** mtx;
-	mtx = allocateComplexMatrix(linhas,colunas);
-	for (int j = 0; j < linhas; j++)
-    {
-        for (int d = 0; d < colunas; c++)
-        {
-            mtx[j][d].real = c[d][j].real;
-			mtx[j][d].img = c[d][j].img;
-        }
-    }
-	return mtx;
+        complexo** mtx;
+
+        mtx = allocateComplexMatrix(colunas,linhas);
+        for (int l = 0; l < linhas; l++)
+		{
+			for (int c = 0; c < colunas; c++)
+			{
+				mtx[l][c].real = matriz[c][l].real;
+                mtx[l][c].img = matriz[c][l].img;
+			}
+		}
+    return mtx;
 }
-	
+
+void printComplex(complexo z)
+{
+    printf("%+.2f %+.2fj ", z.real, z.img);
+}
