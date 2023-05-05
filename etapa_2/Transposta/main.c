@@ -43,12 +43,12 @@ complexo** transposta(complexo** matriz,int linhas, int colunas)
         complexo** mtx;
 
         mtx = allocateComplexMatrix(colunas,linhas);
-        for (int j = 0; j < linhas; j++)
+        for (int l = 0; l < linhas; l++)
 		{
-			for (int d = 0; d < colunas; d++)
+			for (int c = 0; c < colunas; c++)
 			{
-				mtx[j][d].real = matriz[d][j].real;
-                mtx[j][d].img = matriz[d][j].img;
+				mtx[l][c].real = matriz[c][l].real;
+                mtx[l][c].img = matriz[c][l].img;
 			}
 		}
     return mtx;
@@ -82,13 +82,15 @@ int main(void)
         }
                 printf("\n");
     }
+    int nlinhas_trans = ncolunas;
+    int ncolunas_trans = nlinhas;
         printf("\n Transporta de A:\n");
-        c2 = transposta(c1,nlinhas,ncolunas);
-        for (int j =0 ; j < nlinhas; j++)
+        c2 = transposta(c1,nlinhas_trans,ncolunas_trans);
+        for (int l =0 ; l < nlinhas_trans; l++)
     {
-        for (int c = 0; c < ncolunas; c++)
+        for (int c = 0; c < ncolunas_trans; c++)
         {
-           printComplex(c2[j][c]);
+           printComplex(c2[l][c]);
         }
                 printf("\n");
     }
