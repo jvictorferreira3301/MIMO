@@ -27,8 +27,6 @@ complexo** allocateComplexMatrix (int linhas, int colunas)
     return matrix;
 }
 
-
-
 complexo** transposta(complexo** matriz,int linhas, int colunas)
 {
         complexo** mtx;
@@ -56,4 +54,20 @@ complexo multcomp(complexo c, complexo c1)
 	multiplicado.real = (c.real*c1.real)-(c.img*c1.img);
 	multiplicado.img = (c.real*c1.img)+(c.img*c1.real);
 	return multiplicado;
+}
+
+complexo** somacomp(complexo** c2, complexo** c1, int linhas, int colunas)
+{
+	complexo** matrix;
+	
+	matrix = allocateComplexMatrix(linhas,colunas);
+		for (int l = 0; l < linhas; l++)
+		{
+			for (int c = 0; c < colunas; c++)
+			{
+				matrix[l][c].real = c1[l][c].real + c2[l][c].real;
+                matrix[l][c].img = c1[l][c].img + c2[l][c].img;
+			}
+		}
+	return matrix;
 }

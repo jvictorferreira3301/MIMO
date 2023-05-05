@@ -19,4 +19,7 @@ void printComplex(complexo c);
 
 /*Multiplica dois complexos*/
 complexo multcomp(complexo c,complexo c1);
+
+/*Soma duas matrizes complexas*/
+complexo** somacomp(complexo** c, complexo** c1, int linhas, int colunas);
 #endif
