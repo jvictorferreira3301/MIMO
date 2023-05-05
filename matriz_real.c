@@ -35,7 +35,7 @@ int main()
                     C[k][w] = C[k][w]+ (A[k][x]*B[x][w]);
             }
         }
-    printf("\n A Multiplicação de A*B é igual a:\n");
+    printf("\nA Multiplicação de A*B vale:\n");
         for (k=0; k<i; k++){
             for ( w=0; w<j2; w++)
                 printf("%f ", C[k][w]);
