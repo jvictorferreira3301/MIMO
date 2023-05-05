@@ -49,3 +49,11 @@ void printComplex(complexo z)
 {
     printf("%+.2f %+.2fj ", z.real, z.img);
 }
+
+complexo multcomp(complexo c, complexo c1)
+{
+	complexo multiplicado;
+	multiplicado.real = (c.real*c1.real)-(c.img*c1.img);
+	multiplicado.img = (c.real*c1.img)+(c.img*c1.real);
+	return multiplicado;
+}

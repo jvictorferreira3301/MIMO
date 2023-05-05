@@ -11,8 +11,12 @@ typedef  struct complexo
 /* a função que faz a transposta da matriz*/
 complexo** transposta(complexo** c,int linhas, int colunas);
 
+/* Alocação de memoria para uma matriz complexa*/
 complexo** allocateComplexMatrix(int linhas, int colunas);
 
-void printcomplexo(complexo c);
+/*Printa o complexo C*/
+void printComplex(complexo c);
 
+/*Multiplica dois complexos*/
+complexo multcomp(complexo c,complexo c1);
 #endif
