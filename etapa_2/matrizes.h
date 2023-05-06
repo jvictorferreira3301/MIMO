@@ -22,4 +22,5 @@ complexo multcomp(complexo c,complexo c1);
 
 /*Soma duas matrizes complexas*/
 complexo** soma(complexo** c, complexo** c1, int linhas, int colunas);
+void teste_transposta(void);
 #endif

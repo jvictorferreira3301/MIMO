@@ -72,4 +72,44 @@ complexo multcomp(complexo c, complexo c1)
 	multiplicado.img = (c.real*c1.img)+(c.img*c1.real);
 	return multiplicado;
 }
-
+void teste_transposta(void)
+{
+	complexo** c1,**c2; //matriz complexa a ser transposta
+	int nlinhas,ncolunas;
+    nlinhas=3;
+    ncolunas=3;
+    //Alocação de memoria para a matriz:
+    c1 = allocateComplexMatrix(nlinhas,ncolunas);
+	printf("\n===============================Teste da operação transposta=================================\n");
+	
+        for (int l = 0; l < nlinhas; l++)
+		{
+			for (int c = 0; c < ncolunas; c++)
+			{
+				c1[l][c].real = (3*l)-c;
+				c1[l][c].img = c+l;
+			}
+    }
+        printf("\nOperando A:\n");
+        for (int l =0 ; l < nlinhas; l++)
+		{
+			for (int c = 0; c < ncolunas; c++)
+			{
+				printComplex(c1[l][c]);
+			}
+        printf("\n");
+    }
+	int nlinhas_trans = ncolunas;
+	int ncolunas_trans = nlinhas;
+	
+	printf("\nResultado R:\n");
+    c2 = transposta(c1,nlinhas_trans,ncolunas_trans);
+        for (int l =0 ; l < nlinhas_trans; l++)
+		{
+			for (int c = 0; c < ncolunas_trans; c++)
+			{
+				printComplex(c2[l][c]);
+			}
+        printf("\n");
+		}
+}
