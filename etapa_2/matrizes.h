@@ -23,7 +23,12 @@ complexo multcomp(complexo c,complexo c1);
 /*Soma duas matrizes complexas*/
 complexo** soma(complexo** c, complexo** c1, int linhas, int colunas);
 
+/*Subtrai duas matrizes complexas*/
+complexo** subtracao(complexo** c, complexo** c2, int linhas, int colunas);
+
 void teste_transposta(void);
 
 void teste_soma(void);
+void teste_subtracao(void);
+void teste_todos(void);
 #endif
