@@ -5,6 +5,6 @@
 int main(void)
 {
     printf("=============Equipe=============\n");
-	printf("\nMarco Antonio do Espirito Santo Maues Junior\n");
+	printf("Marco Antonio do Espirito Santo Maues Junior\n");
 	teste_todos();
 }

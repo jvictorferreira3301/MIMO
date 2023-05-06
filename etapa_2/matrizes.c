@@ -85,6 +85,22 @@ void printComplex(complexo z)
     printf("%+.2f %+.2fj ", z.real, z.img);
 }
 
+/*Multiplicaçao de duas matrizes*/
+complexo** produto_matricial(complexo** c1, complexo **c2,int linhas_c1, int colunas_c2)
+{
+	complexo** matrix;
+	
+	matrix = allocateComplexMatrix(linhas_c1,colunas_c2);
+		for (int l = 0; l < linhas_c1; l++)
+		{
+			for (int c = 0; c < colunas_c2; c++)
+			{
+				matrix[l][c] = multcomp(c1[l][c],c2[l][c]);
+			}
+		}
+	return matrix;
+}
+
 /*Multiplica dois complexos*/
 complexo multcomp(complexo c, complexo c1)
 {
@@ -480,6 +496,53 @@ void teste_todos(void)
 			}
         printf("\n");
 	}
+
+	printf("\n\n===============================Teste da operação Produto Matricial===========================\n");
+	complexo **c7,**c8,**produto_matricial;
+	int linhas_c7, colunas_c7;
+	int linhas_c8, colunas_c8;
+    //Alocação de memoria para a matriz:
+    c7 = allocateComplexMatrix(nlinhas,ncolunas);
+	c8 = allocateComplexMatrix(nlinhas,ncolunas);
+	for (int l = 0; l < nlinhas; l++)
+		{
+			for (int c = 0; c < ncolunas; c++)
+			{
+				c5[l][c].real = l-1;
+				c5[l][c].img = (3*l)-2*c;
+				c6[l][c].real = (4*l)-c;
+				c6[l][c].img = -l-c;
+			}
+    }
+	
+	printf("\nOperando A:\n");
+		for (int l =0 ; l < nlinhas; l++)
+		{
+				for (int c = 0; c < ncolunas; c++)
+				{
+					printComplex(c5[l][c]);
+				}
+			printf("\n");
+		}
+	printf("\nOperando B:\n");
+		for (int l =0 ; l < nlinhas; l++)
+			{
+				for (int c = 0; c < ncolunas; c++)
+				{
+					printComplex(c6[l][c]);
+				}
+			printf("\n");
+		}
+	printf("\nResultado:\n");
+	sub1 = subtracao(c5,c6,nlinhas,ncolunas);
+	for (int l =0 ; l < nlinhas; l++)
+		{
+			for (int c = 0; c < ncolunas; c++)
+			{
+				printComplex(sub1[l][c]);
+			}
+        printf("\n");
+	}
+	
 	
 }
-	

@@ -26,6 +26,9 @@ complexo** soma(complexo** c, complexo** c1, int linhas, int colunas);
 /*Subtrai duas matrizes complexas*/
 complexo** subtracao(complexo** c, complexo** c2, int linhas, int colunas);
 
+/*Multiplica duas matrizes*/
+complexo** produto_matricial(complexo** c1, complexo **c2,int linhas_c1, int colunas_c2);
+
 void teste_transposta(void);
 
 void teste_soma(void);
