@@ -9,10 +9,11 @@ main.o:main.c
 matrizes.o:matrizes.c
 	gcc -o matrizes.o -c matrizes.c -W -Wall -pedantic
 	
-transposta:transposta.o matrizes.o
-	gcc -o transposta  transposta.o matrizes.o
-transposta.o:transposta.c
-	gcc -o transposta.o -c transposta.c
+todos:todos.o matrizes.o
+	gcc -o teste_todos  todos.o matrizes.o
+	
+todos.o:teste_todos.c
+	gcc -o todos.o -c teste_todos.c
 	
 clean:
 	rm -rf *.o

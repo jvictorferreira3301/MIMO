@@ -27,6 +27,7 @@ complexo** allocateComplexMatrix (int linhas, int colunas)
     return matrix;
 }
 
+
 complexo** transposta(complexo** matriz,int linhas, int colunas)
 {
         complexo** mtx;
@@ -42,6 +43,7 @@ complexo** transposta(complexo** matriz,int linhas, int colunas)
 		}
     return mtx;
 }
+
 
 complexo** soma(complexo** c2, complexo** c1, int linhas, int colunas)
 {
@@ -65,6 +67,7 @@ void printComplex(complexo z)
     printf("%+.2f %+.2fj ", z.real, z.img);
 }
 
+
 complexo multcomp(complexo c, complexo c1)
 {
 	complexo multiplicado;
@@ -72,6 +75,8 @@ complexo multcomp(complexo c, complexo c1)
 	multiplicado.img = (c.real*c1.img)+(c.img*c1.real);
 	return multiplicado;
 }
+
+
 void teste_transposta(void)
 {
 	complexo** c1,**c2; //matriz complexa a ser transposta
@@ -112,4 +117,55 @@ void teste_transposta(void)
 			}
         printf("\n");
 		}
+}
+
+void teste_soma(void)
+{	
+	complexo **c3,**c4,**somado;
+	int nlinhas,ncolunas;
+    nlinhas=3;
+    ncolunas=3;
+    //Alocação de memoria para a matriz:
+    c3 = allocateComplexMatrix(nlinhas,ncolunas);
+	c4 = allocateComplexMatrix(nlinhas,ncolunas);
+	 for (int l = 0; l < nlinhas; l++)
+		{
+			for (int c = 0; c < ncolunas; c++)
+			{
+				c3[l][c].real = l+1;
+				c3[l][c].img = (2*l)-c;
+				c4[l][c].real = (5*l)+c;
+				c4[l][c].img = l-c;
+			}
+    }
+	printf("\n\n===============================Teste da operação soma===============================\n");
+	printf("\nOperando A:\n");
+		for (int l =0 ; l < nlinhas; l++)
+		{
+				for (int c = 0; c < ncolunas; c++)
+				{
+					printComplex(c3[l][c]);
+				}
+			printf("\n");
+		}
+	printf("\nOperando B:\n");
+		for (int l =0 ; l < nlinhas; l++)
+			{
+				for (int c = 0; c < ncolunas; c++)
+				{
+					printComplex(c4[l][c]);
+				}
+			printf("\n");
+		}
+	printf("\nResultado:\n");
+	somado = soma(c3,c4,nlinhas,ncolunas);
+	for (int l =0 ; l < nlinhas; l++)
+		{
+			for (int c = 0; c < ncolunas; c++)
+			{
+				printComplex(somado[l][c]);
+			}
+        printf("\n");
+	}
+	
 }

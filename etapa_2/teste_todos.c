@@ -4,5 +4,6 @@
 
 int main(void){
 	teste_transposta();
+	teste_soma();
 	return(0);
 }
