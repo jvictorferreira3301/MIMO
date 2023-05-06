@@ -83,7 +83,7 @@ int main(void)
 			printf("\n");
 		}
 	printf("\n\n=========Soma de B + C=========\n");
-	somado = somacomp(c3,c4,nlinhas,ncolunas);
+	somado = soma(c3,c4,nlinhas,ncolunas);
 	for (int l =0 ; l < nlinhas; l++)
 		{
 			for (int c = 0; c < ncolunas; c++)
