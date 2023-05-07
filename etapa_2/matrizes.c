@@ -34,6 +34,15 @@ void printComplex(complexo c)
     printf("%+.2f %+.2fj ", c.real, c.img);
 }
 
+complexo soma_complexo(complexo c1, complexo c2)
+{
+	complexo soma;
+
+	soma.real = c1.real + c2.real;
+	soma.img = c1.img + c2.img;
+
+	return soma;
+}
 /*Função que faz a matriz conjugada*/
 complexo** conjugada(complexo **mtx, int linhas, int colunas) //Kauan (06.05.23)
 {
@@ -324,22 +333,223 @@ complexo** subtracao(complexo** c1, complexo** c2, int linhas, int colunas)
 }
 
 /*Multiplicaçao de duas matrizes*/
-complexo** produto_matricial(complexo** c1, complexo **c2,int linhas_c1, int colunas_c2)
+complexo** produto_matricial(complexo** mtx_a, complexo **mtx_b, int linhas, int colunas)  //Kauan (07.05.23)
 {
-	complexo** matrix;
-	
-	matrix = allocateComplexMatrix(linhas_c1,colunas_c2);
-		for (int l = 0; l < linhas_c1; l++)
+	//Validação da operação de multiplicação (colunas_a == linhas_b).
+	if(linhas != colunas)
+	{
+		printf("\nErro: O produto não pode ser realizado (incompatibilidade entre matrizes)\n");
+		exit(1);
+	}
+	//Declaração e alocação de memória.
+	complexo** matriz;
+	matriz = allocateComplexMatrix(linhas, colunas);
+	//O número de linhas da matriz B - à direita - é usado como parâmento na função.
+	int linhas_b = colunas;
+	//Início da operação. Observer que é necessário um 'acumulador' para guardar o valor da soma dos produtos Aij x Bij que geram um termo Cij.
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
 		{
-			for (int c = 0; c < colunas_c2; c++)
+			complexo acumulador;
+			acumulador.real = 0;
+			acumulador.img = 0;
+			for (int i = 0; i < linhas_b; i ++)
 			{
-				matrix[l][c] = multcomp(c1[l][c],c2[l][c]);
+				acumulador = soma_complexo(acumulador, multcomp(mtx_a[l][i],mtx_b[i][c]));
 			}
+			matriz[l][c].real = acumulador.real;
+			matriz[l][c].img = acumulador.img;
 		}
-	return matrix;
+	}
+	return matriz;
 }
 
-/*Multiplica dois complexos*/
+void teste_produto_matricial(void)
+{
+	complexo **mtx_a, **mtx_b, **mtx_produto_axb, **mtx_c, **mtx_d, **mtx_produto_cxd, **mtx_e, **mtx_f, **mtx_produto_exf;
+	
+	int nlinhas_1 = 3, ncolunas_1 = 3, nlinhas_2 = 3, ncolunas_2 = 3;
+	
+	//Alocação de memória.
+	mtx_a = allocateComplexMatrix(nlinhas_1, ncolunas_1);
+	mtx_c = allocateComplexMatrix(nlinhas_1, ncolunas_1);
+	mtx_e = allocateComplexMatrix(nlinhas_1, ncolunas_1);
+	mtx_b = allocateComplexMatrix(nlinhas_2, ncolunas_2);
+	mtx_d = allocateComplexMatrix(nlinhas_2, ncolunas_2);
+	mtx_f = allocateComplexMatrix(nlinhas_2, ncolunas_2);
+
+	//Preenchimento das matrizes operandas.
+	//Matriz A.
+	for (int l = 0; l < nlinhas_1; l++)
+	{
+		for (int c = 0; c < ncolunas_1; c++)
+		{
+ 			mtx_a[l][c].real = 1 + l;
+			mtx_a[l][c].img = 1 + c;
+		}
+	}
+	//Matriz B.
+	for (int l = 0; l < nlinhas_2; l++)
+	{
+		for (int c = 0; c < ncolunas_2; c++)
+		{
+			mtx_b[l][c].real = 0;
+			mtx_b[l][c].img = 1 + c;
+		}
+	}
+	//Matriz C.
+	for (int l = 0; l < nlinhas_1; l++)
+	{
+		for (int c = 0; c < ncolunas_1; c++)
+		{
+ 			mtx_c[l][c].real = 1 + 2*l;
+			mtx_c[l][c].img = 1 - 2*c;
+		}
+	}
+	//Matriz D.
+	for (int l = 0; l < nlinhas_2; l++)
+	{
+		for (int c = 0; c < ncolunas_2; c++)
+		{
+			mtx_d[l][c].real = l - c;
+			mtx_d[l][c].img = -1 - c;
+		}
+	}
+	//Matriz E.
+	for (int l = 0; l < nlinhas_1; l++)
+	{
+		for (int c = 0; c < ncolunas_1; c++)
+		{
+ 			mtx_e[l][c].real = 2 + l;
+			mtx_e[l][c].img = c - 2;
+		}
+	}
+	//Matriz F.
+	for (int l = 0; l < nlinhas_2; l++)
+	{
+		for (int c = 0; c < ncolunas_2; c++)
+		{
+			mtx_f[l][c].real = 2 + c - l;
+			mtx_f[l][c].img = c*l;
+		}
+	}
+	//Primeira Operação.
+	printf("\n\n=== Primeira interação: A x B ===\n");
+	//Impressão dos Operandos:
+	printf("\n\n=== Operando A ===\n");
+	//Impressão da matriz A.
+	for (int l = 0 ; l < nlinhas_1; l++)
+	{
+		for (int c = 0; c < ncolunas_1; c++)
+		{
+			printComplex(mtx_a[l][c]);
+		}
+        printf("\n");
+	}
+	
+	printf("\n\n=== Operando B ===\n");
+	//Impressão da matriz B.
+	for (int l = 0 ; l < nlinhas_2; l++)
+	{
+		for (int c = 0; c < ncolunas_2; c++)
+		{
+			printComplex(mtx_b[l][c]);
+		}
+        printf("\n");
+	}
+	//Chamada da função produto_matricial.
+	mtx_produto_axb = produto_matricial(mtx_a, mtx_b, ncolunas_1, nlinhas_2);
+	//Impressão do resultado.
+	printf("\n\n=== Resultado A x B ===\n");
+
+	for (int l = 0 ; l < ncolunas_1; l++)
+	{
+		for (int c = 0; c < nlinhas_2; c++)
+		{
+			printComplex(mtx_produto_axb[l][c]);
+		}
+        printf("\n");
+	}
+
+	//Segunda Operação.
+	printf("\n\n=== Segunda interação: C x D ===\n");
+	//Impressão dos Operandos:
+	printf("\n\n=== Operando C ===\n");
+	//Impressão da matriz C.
+	for (int l = 0 ; l < nlinhas_1; l++)
+	{
+		for (int c = 0; c < ncolunas_1; c++)
+		{
+			printComplex(mtx_c[l][c]);
+		}
+        printf("\n");
+	}
+	
+	printf("\n\n=== Operando D ===\n");
+	//Impressão da matriz D.
+	for (int l = 0 ; l < nlinhas_2; l++)
+	{
+		for (int c = 0; c < ncolunas_2; c++)
+		{
+			printComplex(mtx_d[l][c]);
+		}
+        printf("\n");
+	}
+	//Chamada da função produto_matricial
+	mtx_produto_cxd = produto_matricial(mtx_c, mtx_d, ncolunas_1, nlinhas_2);
+	//Impressão do resultado
+	printf("\n\n=== Resultado C x D ===\n");
+
+	for (int l = 0 ; l < ncolunas_1; l++)
+	{
+		for (int c = 0; c < nlinhas_2; c++)
+		{
+			printComplex(mtx_produto_cxd[l][c]);
+		}
+        printf("\n");
+	}
+
+	//Terceira Operação.
+	printf("\n\n=== Terceira interação: E x F ===\n");
+	//Impressão dos Operandos:
+	printf("\n\n=== Operando E ===\n");
+	//Impressão da matriz E.
+	for (int l = 0 ; l < nlinhas_1; l++)
+	{
+		for (int c = 0; c < ncolunas_1; c++)
+		{
+			printComplex(mtx_e[l][c]);
+		}
+        printf("\n");
+	}
+	
+	printf("\n\n=== Operando F ===\n");
+	//Impressão da matriz F.
+	for (int l = 0 ; l < nlinhas_2; l++)
+	{
+		for (int c = 0; c < ncolunas_2; c++)
+		{
+			printComplex(mtx_f[l][c]);
+		}
+        printf("\n");
+	}
+	//Chamada da função produto_matricial
+	mtx_produto_exf = produto_matricial(mtx_e, mtx_f, ncolunas_1, nlinhas_2);
+	//Impressão do resultado
+	printf("\n\n=== Resultado E x F ===\n");
+
+	for (int l = 0 ; l < ncolunas_1; l++)
+	{
+		for (int c = 0; c < nlinhas_2; c++)
+		{
+			printComplex(mtx_produto_exf[l][c]);
+		}
+        printf("\n");
+	}
+}
+
+//Função: Multiplicação de dois complexos.
 complexo multcomp(complexo c, complexo c1)
 {
 	complexo multiplicado;
@@ -735,50 +945,67 @@ void teste_todos(void)
         printf("\n");
 	}
 
-	printf("\n\n===============================Teste da operação Produto Matricial===========================\n");
-	complexo **c7,**c8,**produto_matricial;
-	int linhas_c7, colunas_c7;
-	int linhas_c8, colunas_c8;
-    //Alocação de memoria para a matriz:
-    c7 = allocateComplexMatrix(nlinhas,ncolunas);
-	c8 = allocateComplexMatrix(nlinhas,ncolunas);
-	for (int l = 0; l < nlinhas; l++)
-		{
-			for (int c = 0; c < ncolunas; c++)
-			{
-				c5[l][c].real = l-1;
-				c5[l][c].img = (3*l)-2*c;
-				c6[l][c].real = (4*l)-c;
-				c6[l][c].img = -l-c;
-			}
-    }
+	printf("\n\n===============================Teste da operação Produto Matricial===========================\n\n");
+
+	complexo **mtx_7, **mtx_8, **mtx_produto;
 	
-	printf("\nOperando A:\n");
-		for (int l =0 ; l < nlinhas; l++)
+	int nlinhas_7 = 3, ncolunas_7 = 3, nlinhas_8 = 3, ncolunas_8 = 3;
+	
+	//Alocação de memória.
+	mtx_7 = allocateComplexMatrix(nlinhas_7, ncolunas_7);
+	mtx_8 = allocateComplexMatrix(nlinhas_8, ncolunas_8);
+
+	//Preenchimento das matrizes operandas.
+	for (int l = 0; l < nlinhas_7; l++)
+	{
+		for (int c = 0; c < ncolunas_7; c++)
 		{
-				for (int c = 0; c < ncolunas; c++)
-				{
-					printComplex(c5[l][c]);
-				}
-			printf("\n");
+ 			mtx_7[l][c].real = 1 + l;
+			mtx_7[l][c].img = 1 + c;
 		}
-	printf("\nOperando B:\n");
-		for (int l =0 ; l < nlinhas; l++)
-			{
-				for (int c = 0; c < ncolunas; c++)
-				{
-					printComplex(c6[l][c]);
-				}
-			printf("\n");
-		}
-	printf("\nResultado:\n");
-	sub1 = subtracao(c5,c6,nlinhas,ncolunas);
-	for (int l =0 ; l < nlinhas; l++)
+	}
+
+	for (int l = 0; l < nlinhas_8; l++)
+	{
+		for (int c = 0; c < ncolunas_8; c++)
 		{
-			for (int c = 0; c < ncolunas; c++)
-			{
-				printComplex(sub1[l][c]);
-			}
+			mtx_8[l][c].real = 0;
+			mtx_8[l][c].img = 1 + c;
+		}
+	}
+	//Impressão dos Operandos:
+	printf("\n=== Operando A ===\n");
+	//Impressão da matriz A.
+	for (int l = 0 ; l < nlinhas_7; l++)
+	{
+		for (int c = 0; c < ncolunas_7; c++)
+		{
+			printComplex(mtx_7[l][c]);
+		}
+        printf("\n");
+	}
+	
+	printf("\n=== Operando B ===\n");
+	//Impressão da matriz B.
+	for (int l = 0 ; l < nlinhas_8; l++)
+	{
+		for (int c = 0; c < ncolunas_8; c++)
+		{
+			printComplex(mtx_8[l][c]);
+		}
+        printf("\n");
+	}
+	//Chamada da função produto_matricial
+	mtx_produto = produto_matricial(mtx_7, mtx_8, ncolunas_7, nlinhas_8);
+	//Impressão do resultado
+	printf("\n=== Resultado C = A x B ===\n");
+
+	for (int l = 0 ; l < nlinhas_7; l++)
+	{
+		for (int c = 0; c < ncolunas_8; c++)
+		{
+			printComplex(mtx_produto[l][c]);
+		}
         printf("\n");
 	}
 

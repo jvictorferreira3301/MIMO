@@ -28,7 +28,7 @@ complexo** soma(complexo** c, complexo** c1, int linhas, int colunas);
 complexo** subtracao(complexo** c, complexo** c2, int linhas, int colunas);
 
 /*Multiplica duas matrizes*/
-complexo** produto_matricial(complexo** c1, complexo **c2,int linhas_c1, int colunas_c2);
+complexo** produto_matricial(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
 
 complexo** conjugada(complexo **mtx, int linhas, int colunas);
 

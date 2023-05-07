@@ -8,4 +8,5 @@ int main(void)
 	printf("Marco Antonio do Espirito Santo Maues Junior\n");
 	printf("Kauan Miranda Tavares\n ");
 	teste_todos();
+	teste_produto_matricial();
 }
