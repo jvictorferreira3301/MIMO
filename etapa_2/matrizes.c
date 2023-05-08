@@ -365,6 +365,102 @@ complexo** produto_matricial(complexo** mtx_a, complexo **mtx_b, int linhas, int
 	return matriz;
 }
 
+complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k)
+{
+	complexo **matriz;
+
+	matriz = allocateComplexMatrix(linhas, colunas);
+
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			matriz[l][c].real = k*mtx[l][c].real;
+			matriz[l][c].img = k*mtx[l][c].img;
+		}
+	}
+	return matriz;
+}
+
+void teste_produto_por_escalar(void)
+{
+	complexo **mtx_a, **mtx_b, **mtx_ka,**mtx_kb;
+
+	int linhas = 3, colunas =3, k = 5;
+	//Alocação de memória.
+	mtx_a = allocateComplexMatrix(linhas, colunas);
+	mtx_b = allocateComplexMatrix(linhas, colunas);
+
+	//Preenchimento da(s) matriz(es).
+	printf("\n\n=== Preenchendo as Matrizes ===\n\n");
+
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			mtx_a[l][c].real = 1 + l + c;
+			mtx_a[l][c].img = l*c - 2;
+		}
+	}
+
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			mtx_b[l][c].real = 1 + l + c;
+			mtx_b[l][c].img = l*c - 2;
+		}
+	}
+
+	//Impressão da Matriz A.
+	printf("\n=== Matriz A ===\n");
+
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			printComplex(mtx_a[l][c]);
+		}
+		printf("\n");
+	}
+	//Chamada da função produto_por_escalar.
+	mtx_ka = produto_por_escalar(mtx_a, linhas, colunas, k); 
+	//Impressão do resultado.
+	printf("\n\n=== Matriz kA ===\n");
+
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			printComplex(mtx_ka[l][c]);
+		}
+		printf("\n");
+	}
+	//Operação para Matriz B.
+	printf("\n\n=== Matriz B ===\n");
+	//Impressão da Matriz B.
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			printComplex(mtx_b[l][c]);
+		}
+		printf("\n");
+	}
+	//Chamada da função produto_por_escalar.
+	mtx_kb = produto_por_escalar(mtx_b, linhas, colunas, k);
+	//Impressão do resultado.
+	printf("\n\n=== Matriz kB ===\n");
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			printComplex(mtx_kb[l][c]);
+		}
+		printf("\n");
+	}
+}
+
 void teste_produto_matricial(void)
 {
 	complexo **mtx_a, **mtx_b, **mtx_produto_axb, **mtx_c, **mtx_d, **mtx_produto_cxd, **mtx_e, **mtx_f, **mtx_produto_exf;
@@ -1096,4 +1192,47 @@ void teste_todos(void)
 	}
 	//Finalização do teste Hermetiano.
 	printf("\n===== Fim do teste da função Hermetiana =====\n");
+
+	complexo **mtx_12, **mtx_k12;
+
+	int linhas = 3, colunas =3, k = 5;
+	//Alocação de memória.
+	mtx_12 = allocateComplexMatrix(linhas, colunas);
+
+	//Preenchimento da(s) matriz(es).
+	printf("\n\n=== Preenchendo a(s) Matriz(es) ===\n\n");
+
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			mtx_12[l][c].real = 1 + l + c;
+			mtx_12[l][c].img = l*c - 2;
+		}
+	}
+	//Impressão da Matriz A.
+	printf("\n=== Matriz A ===\n");
+
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			printComplex(mtx_12[l][c]);
+		}
+		printf("\n");
+	}
+	//Chamada da função produto_por_escalar.
+	mtx_k12 = produto_por_escalar(mtx_12, linhas, colunas, k); 
+	//Impressão do resultado.
+	printf("\n\n=== Matriz kA ===\n");
+
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			printComplex(mtx_k12[l][c]);
+		}
+		printf("\n");
+	}
+	printf("\n=== Fim do teste produto_por_escalar ===\n");
 }
