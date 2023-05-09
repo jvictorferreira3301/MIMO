@@ -2,6 +2,7 @@
 #ifndef _H_MYCOMPLEX
 #define _H_MYCOMPLEX
 
+/*Estrutura das variáveis complexas*/
 typedef  struct complexo
 	{
 		float real;
@@ -14,7 +15,7 @@ complexo** transposta(complexo** c,int linhas, int colunas);
 /* Alocação de memoria para uma matriz complexa*/
 complexo** allocateComplexMatrix(int linhas, int colunas);
 
-/*Printa o complexo C*/
+/*Printa o complexo c*/
 void printComplex(complexo c);
 
 /*Multiplica dois complexos*/
@@ -27,11 +28,30 @@ complexo** soma(complexo** c, complexo** c1, int linhas, int colunas);
 complexo** subtracao(complexo** c, complexo** c2, int linhas, int colunas);
 
 /*Multiplica duas matrizes*/
-complexo** produto_matricial(complexo** c1, complexo **c2,int linhas_c1, int colunas_c2);
+complexo** produto_matricial(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
+
+complexo** conjugada(complexo **mtx, int linhas, int colunas);
+
+complexo** hermetiana(complexo **mtx, int linhas, int colunas);
+
+complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k);
+
+complexo produto_escalar(complexo**c1,complexo**c2,int linhas, int colunas);
+
+void teste_produto_por_escalar(void);
+
+void teste_conjugada(void);
 
 void teste_transposta(void);
 
+void teste_hermetiana(void);
+
 void teste_soma(void);
+
 void teste_subtracao(void);
+
 void teste_todos(void);
+
+void teste_produto_matricial(void); 
+
 #endif
