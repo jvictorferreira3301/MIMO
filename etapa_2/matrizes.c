@@ -1,4 +1,3 @@
-@@ -0,0 +1,1325 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "matrizes.h"
@@ -1312,5 +1311,34 @@ void teste_todos(void)
 		printf("\n");
 	}
 	printf("\n=== Fim do teste produto_por_escalar ===\n");
-    
+
+	complexo **c13, **c14, resultadodoProdInterno;
+    int colunasvetor=1;
+    c13 = allocateComplexMatrix(linhas, colunas);
+    c14 = allocateComplexMatrix(linhas, colunas);
+    for (int l=0; l<linhas; l++)
+    {
+        c13[l][0].real=2*l-3;
+        c13[l][0].img=3*l+4;
+        c14[l][0].real=4*l-5;
+        c14[l][0].img=5*l+6;
+    }
+    printf("\n======================Teste do Produto Interno======================\n");
+    printf("\nOperando A:\n");
+    for (int l=0; l<linhas; l++)
+    {
+        printComplex(c13[l][0]);
+        printf("\n");
+    }
+    printf("\nOperando B:\n");
+    for (int l=0; l<linhas; l++)
+    {
+        printComplex(c14[l][0]);
+        printf("\n");
+    }
+    printf("Resultado:\n");
+    printComplex(produto_interno(c13,c14,linhas,colunasvetor));
+	printf("\n");
+
+
 }
