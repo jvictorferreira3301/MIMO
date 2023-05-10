@@ -538,7 +538,8 @@ void teste_produto_por_escalar(void)
 }
 
 void teste_produto_matricial(void)
-{
+{	
+	printf("\n===============================Teste da operação Produto Matricial===========================\n");
 	complexo **mtx_a, **mtx_b, **mtx_produto_axb, **mtx_c, **mtx_d, **mtx_produto_cxd, **mtx_e, **mtx_f, **mtx_produto_exf;
 	
 	int nlinhas_1 = 3, ncolunas_1 = 3, nlinhas_2 = 3, ncolunas_2 = 3;
@@ -607,9 +608,9 @@ void teste_produto_matricial(void)
 		}
 	}
 	//Primeira Operação.
-	printf("\n\n=== Primeira interação: A x B ===\n");
+	
 	//Impressão dos Operandos:
-	printf("\n\n=== Operando A ===\n");
+	printf("\n\nOperando A:\n");
 	//Impressão da matriz A.
 	for (int l = 0 ; l < nlinhas_1; l++)
 	{
@@ -633,7 +634,7 @@ void teste_produto_matricial(void)
 	//Chamada da função produto_matricial.
 	mtx_produto_axb = produto_matricial(mtx_a, mtx_b, ncolunas_1, nlinhas_2);
 	//Impressão do resultado.
-	printf("\n\n=== Resultado A x B ===\n");
+	printf("\n\nResultado A x B:\n");
 
 	for (int l = 0 ; l < ncolunas_1; l++)
 	{
@@ -645,7 +646,7 @@ void teste_produto_matricial(void)
 	}
 
 	//Segunda Operação.
-	printf("\n\n=== Segunda interação: C x D ===\n");
+	
 	//Impressão dos Operandos:
 	printf("\n\n=== Operando C ===\n");
 	//Impressão da matriz C.
@@ -658,7 +659,7 @@ void teste_produto_matricial(void)
         printf("\n");
 	}
 	
-	printf("\n\n=== Operando D ===\n");
+	printf("\n\nOperando D:\n");
 	//Impressão da matriz D.
 	for (int l = 0 ; l < nlinhas_2; l++)
 	{
@@ -671,7 +672,7 @@ void teste_produto_matricial(void)
 	//Chamada da função produto_matricial
 	mtx_produto_cxd = produto_matricial(mtx_c, mtx_d, ncolunas_1, nlinhas_2);
 	//Impressão do resultado
-	printf("\n\n=== Resultado C x D ===\n");
+	printf("\n\nResultado C x D:\n");
 
 	for (int l = 0 ; l < ncolunas_1; l++)
 	{
@@ -683,9 +684,9 @@ void teste_produto_matricial(void)
 	}
 
 	//Terceira Operação.
-	printf("\n\n=== Terceira interação: E x F ===\n");
+
 	//Impressão dos Operandos:
-	printf("\n\n=== Operando E ===\n");
+	printf("\n\nOperando E:\n");
 	//Impressão da matriz E.
 	for (int l = 0 ; l < nlinhas_1; l++)
 	{
@@ -696,7 +697,7 @@ void teste_produto_matricial(void)
         printf("\n");
 	}
 	
-	printf("\n\n=== Operando F ===\n");
+	printf("\n\nOperando F:\n");
 	//Impressão da matriz F.
 	for (int l = 0 ; l < nlinhas_2; l++)
 	{
@@ -709,7 +710,7 @@ void teste_produto_matricial(void)
 	//Chamada da função produto_matricial
 	mtx_produto_exf = produto_matricial(mtx_e, mtx_f, ncolunas_1, nlinhas_2);
 	//Impressão do resultado
-	printf("\n\n=== Resultado E x F ===\n");
+	printf("\n\nResultado E x F:\n");
 
 	for (int l = 0 ; l < ncolunas_1; l++)
 	{
@@ -988,7 +989,7 @@ void teste_subtracao(void)
 	
 void teste_todos(void)
 {	
-	printf("\n===============================Teste da operação Transposta======================\n");
+	printf("\n===============================Teste da Operação Transposta======================\n");
 	complexo** c1,**c2; 
 	int nlinhas,ncolunas;
     nlinhas=3;
@@ -1016,7 +1017,7 @@ void teste_todos(void)
 	int nlinhas_trans = ncolunas;
 	int ncolunas_trans = nlinhas;
 	
-	printf("\nResultado R:\n");
+	printf("\nResultado:\n");
     c2 = transposta(c1,nlinhas_trans,ncolunas_trans);
         for (int l =0 ; l < nlinhas_trans; l++)
 		{
@@ -1027,7 +1028,7 @@ void teste_todos(void)
 			printf("\n");
 		}
 		
-	printf("\n===============================Teste da função Conjugada===============================\n");
+	printf("\n===============================Teste da Operação Conjugada===============================\n");
 //Kauan (06.05.23)
 	complexo **c10, **conj_c10;
 
@@ -1071,7 +1072,46 @@ void teste_todos(void)
 	}
 
 
-	printf("\n\n===============================Teste da operação Soma===========================\n");
+	printf("\n===============================Teste da operação Hermetiana===============================\n");
+
+	complexo **mtx_a, **mtx_h;
+
+    mtx_a = allocateComplexMatrix(nlinhas, ncolunas);
+
+    for (int l = 0; l < ncolunas; l++)
+    {
+        for (int c = 0; c < ncolunas; c++)
+        {
+            mtx_a[l][c].real = l + c;
+            mtx_a[l][c].img = l - 2*c;
+        }
+    }
+
+    printf("\nOperando A:\n");
+
+    for (int l = 0 ; l < nlinhas; l++)
+	{
+		for (int c = 0; c < ncolunas; c++)
+		{
+			printComplex(mtx_a[l][c]);
+		}
+        printf("\n");
+	}
+
+    mtx_h = hermetiana(mtx_a, nlinhas, ncolunas);
+
+	printf("\nResultado:\n");
+
+    for (int l = 0 ; l < nlinhas_trans; l++)
+	{
+		for (int c = 0; c < ncolunas_trans; c++)
+		{
+			printComplex(mtx_h[l][c]);
+		}
+        printf("\n");
+	}
+
+	printf("\n\n===============================Teste da Operação Soma===========================\n");
 	
 	complexo **c3,**c4,**somado1;
     //Alocação de memoria para a matriz:
@@ -1160,6 +1200,37 @@ void teste_todos(void)
 			}
         printf("\n");
 	}
+	
+	printf("\n======================Teste do Produto Interno======================\n");
+	complexo **c13, **c14;
+    int colunasvetor=1;
+    c13 = allocateComplexMatrix(nlinhas, colunasvetor);
+    c14 = allocateComplexMatrix(nlinhas, colunasvetor);
+	
+    for (int l=0; l<nlinhas; l++)
+    {
+        c13[l][0].real=2*l-3;
+        c13[l][0].img=3*l+4;
+        c14[l][0].real=4*l-5;
+        c14[l][0].img=5*l+6;
+    }
+   
+    printf("\nOperando A:\n");
+    for (int l=0; l<nlinhas; l++)
+    {
+        printComplex(c13[l][0]);
+        printf("\n");
+    }
+    printf("\nOperando B:\n");
+    for (int l=0; l<nlinhas; l++)
+    {
+        printComplex(c14[l][0]);
+        printf("\n");
+    }
+    printf("\nResultado:\n");
+    printComplex(produto_interno(c13,c14,nlinhas,colunasvetor));
+	printf("\n");
+
 
 	printf("\n===============================Teste da operação Produto Matricial===========================\n");
 
@@ -1214,7 +1285,7 @@ void teste_todos(void)
 	//Chamada da função produto_matricial
 	mtx_produto = produto_matricial(mtx_7, mtx_8, ncolunas_7, nlinhas_8);
 	//Impressão do resultado
-	printf("\n=== Resultado C = A x B ===\n");
+	printf("\nResultado:\n");
 
 	for (int l = 0 ; l < nlinhas_7; l++)
 	{
@@ -1225,46 +1296,6 @@ void teste_todos(void)
         printf("\n");
 	}
 
-	
-//Kauan (06.05.23)
-	printf("\n===============================Teste da função Hermetiana===============================\n");
-
-	complexo **mtx_a, **mtx_h;
-
-    mtx_a = allocateComplexMatrix(nlinhas, ncolunas);
-
-    for (int l = 0; l < ncolunas; l++)
-    {
-        for (int c = 0; c < ncolunas; c++)
-        {
-            mtx_a[l][c].real = l + c;
-            mtx_a[l][c].img = l - 2*c;
-        }
-    }
-
-    printf("\nOperando A:\n");
-
-    for (int l = 0 ; l < nlinhas; l++)
-	{
-		for (int c = 0; c < ncolunas; c++)
-		{
-			printComplex(mtx_a[l][c]);
-		}
-        printf("\n");
-	}
-
-    mtx_h = hermetiana(mtx_a, nlinhas, ncolunas);
-
-	printf("\nResultado:\n");
-
-    for (int l = 0 ; l < nlinhas_trans; l++)
-	{
-		for (int c = 0; c < ncolunas_trans; c++)
-		{
-			printComplex(mtx_h[l][c]);
-		}
-        printf("\n");
-	}
 	//Finalização do teste Hermetiano.
 	printf("\n===============================Teste Multiplicação por um escalar===============================\n");
 	complexo **mtx_12, **mtx_k12;
@@ -1307,34 +1338,4 @@ void teste_todos(void)
 		}
 		printf("\n");
 	}
-	printf("\n======================Teste do Produto Interno======================\n");
-	complexo **c13, **c14;
-    int colunasvetor=1;
-    c13 = allocateComplexMatrix(nlinhas, colunasvetor);
-    c14 = allocateComplexMatrix(nlinhas, colunasvetor);
-    for (int l=0; l<nlinhas; l++)
-    {
-        c13[l][0].real=2*l-3;
-        c13[l][0].img=3*l+4;
-        c14[l][0].real=4*l-5;
-        c14[l][0].img=5*l+6;
-    }
-   
-    printf("\nOperando A:\n");
-    for (int l=0; l<nlinhas; l++)
-    {
-        printComplex(c13[l][0]);
-        printf("\n");
-    }
-    printf("\nOperando B:\n");
-    for (int l=0; l<nlinhas; l++)
-    {
-        printComplex(c14[l][0]);
-        printf("\n");
-    }
-    printf("\nResultado:\n");
-    printComplex(produto_interno(c13,c14,nlinhas,colunasvetor));
-	printf("\n");
-
-
 }

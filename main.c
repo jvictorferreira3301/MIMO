@@ -9,4 +9,5 @@ int main(void)
 	printf("Kauan Miranda Tavares\n");
 	printf("João Victor Santos Brito Ferreira\n ");
 	teste_todos();
+	teste_produto_matricial();
 }
