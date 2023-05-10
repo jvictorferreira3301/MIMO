@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "matrizes.h"
 
+
 /* Alocação de memoria para uma matriz complexa*/
 complexo** allocateComplexMatrix (int linhas, int colunas)
 {
