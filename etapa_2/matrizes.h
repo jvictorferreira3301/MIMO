@@ -49,4 +49,5 @@ void teste_soma(void);
 void teste_subtracao(void);
 void teste_todos(void);
 void teste_produto_interno(void);
+void teste_produto_matricial(void);
 #endif
