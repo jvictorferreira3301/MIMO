@@ -21,19 +21,19 @@ complexo** allocateComplexMatrix(int linhas, int colunas);
 void LiberarMatriz(complexo **mtx, int linhas);
 
 /* a função que faz a transposta da matriz*/
-complexo** transposta(complexo **c, int linhas, int colunas);
+complexo** transposta(complexo **mtx, int linhas, int colunas);
 
 /* Printa o complexo c */
 void printComplex(complexo c);
 
 /* Multiplica dois complexos */
-complexo multcomp(complexo c, complexo c1);
+complexo multcomp(complexo c1, complexo c2);
 
 /* Soma duas matrizes complexas */
-complexo** soma(complexo **c, complexo **c1, int linhas, int colunas);
+complexo** soma(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
 
 /* Subtrai duas matrizes complexas */
-complexo** subtracao(complexo **c, complexo **c2, int linhas, int colunas);
+complexo** subtracao(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
 
 /* Multiplica duas matrizes */
 complexo** produto_matricial(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
