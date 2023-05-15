@@ -1,22 +1,28 @@
-all:teste
+src = ./src
+obj = ./build
+exec = teste
+all:$(exec)
+#teste: ./build/main.o ./build/matrizes.o
+#	gcc ./build/main.o ./build/matrizes.o -I ./build -o teste
+$(exec):$(obj)/main.o $(obj)/matrizes.o
+	@echo -e "\nGerando o arquivo executável $@..."
+	gcc $< $(obj)/matrizes.o -I $(obj) -o $@ -W -Wall -pedantic
+	@echo -e "\nPara rodar o codigo 'main.c' execute o arquivo ./main.exe ou o comando 'make run'!!"
+#./build/objeto.o: ./src/source.c
+#	gcc -c objeto.o -J ./build -o ./build/objeto.o
+$(obj)/%.o:$(src)/%.c
+	@echo -e "\nGerando o aqruivo objeto $@..."
+	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
+#run: teste
+#	./teste
+run: $(exec).exe
+	./$(exec).exe
 
-teste:main.o matrizes.o
-	@echo "Gerando o arquivo executável 'teste.exe'..."
-	gcc -o teste ./build/main.o ./build/matrizes.o -W -Wall -pedantic
-	@echo "Para rodar o codigo 'main.c' execute o arquivo ./main.exe!!"
-
-main.o:./src/main.c
-	@echo "Gerando o arquivo 'main.o'..."
-	gcc -o ./build/main.o -c ./src/main.c -W -Wall -pedantic
-
-matrizes.o:./src/matrizes.c
-	@echo "Gerando o aqruivo 'matrizes.o...'"
-	gcc -o ./build/matrizes.o -c ./src/matrizes.c -W -Wall -pedantic
-	
 clean:
-	@echo "Removendo arquivos '.o'..."
-	rm -rf ./build/*.o
-mrproper:clean
-	@echo "Removendo arquivos executáveis '.exe'"
+	@echo -e "\nRemovendo arquivos '.o'..."
+	rm -rf $(obj)/*.o
+	rm -rf *.o
+allclean:clean
+	@echo -e "\nRemovendo arquivos executáveis '.exe'"
 	rm -rf *.exe
 
