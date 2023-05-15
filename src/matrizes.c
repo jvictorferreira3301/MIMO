@@ -1,7 +1,11 @@
+/// @file matrizes.c
+/// @page Matrizes.C
 #include <stdio.h>
 #include <stdlib.h>
 #include "matrizes.h"
-//Teste de todas as funções
+/**Teste de todas as funções:
+ * Executa cada função de teste uma vez
+*/
 void teste_todos(void)
 {	
 	printf("\n===============================Teste da Operação Transposta======================\n");
@@ -354,24 +358,32 @@ void teste_todos(void)
 		printf("\n");
 	}
 }
-//Função Transporta.
-complexo** transposta(complexo** matriz,int linhas, int colunas)
+/**###Função Transporta: 
+ * Calcula a matriz transposta de uma matriz A de n linhas e m colunas.
+ * @param[in] mtx, linhas, colunas
+ * @param[out] mtx_transposta
+ * */
+complexo **transposta(complexo** mtx,int linhas, int colunas)
 {
-        complexo** mtx;
+        complexo** matriz;
 
-        mtx = allocateComplexMatrix(colunas,linhas);
+        matriz = allocateComplexMatrix(colunas,linhas);
         for (int l = 0; l < linhas; l++)
 		{
 			for (int c = 0; c < colunas; c++)
 			{
-				mtx[l][c].real = matriz[c][l].real;
-                mtx[l][c].img = matriz[c][l].img;
+				matriz[l][c].real = mtx[c][l].real;
+                matriz[l][c].img = mtx[c][l].img;
 			}
 		}
-    return mtx;
+    return matriz;
 }
-//Função Conjugada.
-complexo** conjugada(complexo **mtx, int linhas, int colunas) 
+/**###Função Conjugada:
+ * Calcula a matriz conjugada de uma matriz A de n linhas e m colunas.
+ * @param[in] mtx, linhas, colunas
+ * @param[out] mtx_conjugada
+ * */
+complexo **conjugada(complexo **mtx, int linhas, int colunas) 
 {
     complexo ** matrix;
     //alocação da matriz 
@@ -389,7 +401,7 @@ complexo** conjugada(complexo **mtx, int linhas, int colunas)
     return matrix;
 }
 //Função Hermitiana.
-complexo** hermetiana(complexo** mtx, int linhas, int colunas)
+complexo **hermetiana(complexo** mtx, int linhas, int colunas)
 {
     complexo **matriz, **matriz_h;
 
@@ -402,7 +414,7 @@ complexo** hermetiana(complexo** mtx, int linhas, int colunas)
     return matriz_h;
 }
 //Função Soma.
-complexo** soma(complexo** mtx_a, complexo** mtx_b, int linhas, int colunas)
+complexo **soma(complexo** mtx_a, complexo** mtx_b, int linhas, int colunas)
 {
 	complexo** matriz;
 	
@@ -418,7 +430,7 @@ complexo** soma(complexo** mtx_a, complexo** mtx_b, int linhas, int colunas)
 	return matriz;
 }
 //Função Subtração.
-complexo** subtracao(complexo** mtx_a, complexo** mtx_b, int linhas, int colunas)
+complexo **subtracao(complexo** mtx_a, complexo** mtx_b, int linhas, int colunas)
 {
 	complexo** matriz;
 	
@@ -453,7 +465,7 @@ complexo produto_interno(complexo **v1, complexo **v2, int linhas, int colunas)
 
 }
 //Função Multiplicação Matricial.
-complexo** produto_matricial(complexo** mtx_a, complexo **mtx_b, int linhas, int colunas)  
+complexo **produto_matricial(complexo** mtx_a, complexo **mtx_b, int linhas, int colunas)  
 {
 	//Validação da operação de multiplicação (colunas_a == linhas_b).
 	if(linhas != colunas)
@@ -1186,7 +1198,7 @@ void printComplex(complexo c)
     printf("%+.2f %+.2fj ", c.real, c.img);
 }
 //Função: Alocação de memória para uma matriz complexa.
-complexo** allocateComplexMatrix (int linhas, int colunas)
+complexo **allocateComplexMatrix (int linhas, int colunas)
 {
     //Declaração.
     complexo** matrix;

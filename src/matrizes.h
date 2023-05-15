@@ -1,12 +1,15 @@
+/// @file Main.H
 #ifndef _H_MYCOMPLEX
 #define _H_MYCOMPLEX
 
 #include <stdlib.h>
 
-/*Estrutura das variáveis complexas*/
+/** Estrutura das variáveis complexas.
+ *  Define a estrutura do tipo complexo em parte real e parte imaginária.
+ */
 typedef struct complexo {
-    float real;
-    float img;
+    float real; ///< Parte real
+    float img; ///< Parte imaginária
 } complexo;
 
 complexo soma_complexo(complexo c1, complexo c2);
