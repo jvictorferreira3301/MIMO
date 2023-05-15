@@ -1,3 +1,4 @@
 #Arquivos a serem ser ignorados
 *.exe
 *.o
+.vscode
