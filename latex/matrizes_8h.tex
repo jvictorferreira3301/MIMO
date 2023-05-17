@@ -1,0 +1,202 @@
+\hypertarget{matrizes_8h}{}\doxysection{matrizes.\+h File Reference}
+\label{matrizes_8h}\index{matrizes.h@{matrizes.h}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for matrizes.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{matrizes_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{matrizes_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcomplexo}{complexo}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structcomplexo}{complexo}} \mbox{\hyperlink{matrizes_8h_a7985d84e6018cc0dbca23bbf764d3b7d}{complexo}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} \mbox{\hyperlink{matrizes_8h_a05b04543866b53f506c523cc2eb861fa}{soma\+\_\+complexo}} (\mbox{\hyperlink{structcomplexo}{complexo}} c1, \mbox{\hyperlink{structcomplexo}{complexo}} c2)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8h_aa90aee15388876e1b634c4ad52ac00a6}{allocate\+Complex\+Matrix}} (int linhas, int colunas)
+\item 
+void \mbox{\hyperlink{matrizes_8h_a0d8704f7084c2a5d92a100aee613071c}{Liberar\+Matriz}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8h_a274a456cb4d36e61f3255f9edefab161}{transposta}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$c, int linhas, int colunas)
+\item 
+void \mbox{\hyperlink{matrizes_8h_ac55611891ace3a8f1ee1bd1061ac101d}{print\+Complex}} (\mbox{\hyperlink{structcomplexo}{complexo}} c)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} \mbox{\hyperlink{matrizes_8h_a5cc63ebae3af0751c5455c9b74754fb8}{multcomp}} (\mbox{\hyperlink{structcomplexo}{complexo}} c, \mbox{\hyperlink{structcomplexo}{complexo}} c1)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8h_a2f5a8854b216b56eb35bb5eafd76c3b0}{soma}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$c, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$c1, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8h_af82eec862887392f1f0e87dd5949d696}{subtracao}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$c, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$c2, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8h_a3892c48c33910aef73bc59273c596b5b}{produto\+\_\+matricial}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+a, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+b, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} \mbox{\hyperlink{matrizes_8h_ae9090c46635b64006efe6fa3ba3d0471}{produto\+\_\+interno}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$v1, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$v2, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8h_a8114594cf98abb2ef63638954f3a4385}{conjugada}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8h_ab90777758af183ac2472d233031ff530}{hermetiana}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas)
+\item 
+void \mbox{\hyperlink{matrizes_8h_ad5852d275ebeccd1a78727dc9a0835ef}{teste\+\_\+conjugada}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8h_a8aafafd8fe49c18928ecbfac41ac9bdf}{teste\+\_\+transposta}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8h_ac4861504a5ec0e4941051c630e975b75}{teste\+\_\+hermetiana}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8h_a51484ff5677a5d204b8c09b292e56628}{teste\+\_\+soma}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8h_acb524111ea00a722483c75f54489939c}{teste\+\_\+subtracao}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8h_a8214d171fd20751ee734ab0115eeba5f}{teste\+\_\+todos}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8h_a617ab559ef89a9678d599998094170f2}{teste\+\_\+produto\+\_\+interno}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8h_a5fa152ec83e7ad257f2a8c4ca86be397}{teste\+\_\+produto\+\_\+matricial}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{matrizes_8h_a7985d84e6018cc0dbca23bbf764d3b7d}\label{matrizes_8h_a7985d84e6018cc0dbca23bbf764d3b7d}} 
+\index{matrizes.h@{matrizes.h}!complexo@{complexo}}
+\index{complexo@{complexo}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{complexo}{complexo}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structcomplexo}{complexo}} \mbox{\hyperlink{structcomplexo}{complexo}}}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{matrizes_8h_aa90aee15388876e1b634c4ad52ac00a6}\label{matrizes_8h_aa90aee15388876e1b634c4ad52ac00a6}} 
+\index{matrizes.h@{matrizes.h}!allocateComplexMatrix@{allocateComplexMatrix}}
+\index{allocateComplexMatrix@{allocateComplexMatrix}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{allocateComplexMatrix()}{allocateComplexMatrix()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ allocate\+Complex\+Matrix (\begin{DoxyParamCaption}\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a8114594cf98abb2ef63638954f3a4385}\label{matrizes_8h_a8114594cf98abb2ef63638954f3a4385}} 
+\index{matrizes.h@{matrizes.h}!conjugada@{conjugada}}
+\index{conjugada@{conjugada}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{conjugada()}{conjugada()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ conjugada (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_ab90777758af183ac2472d233031ff530}\label{matrizes_8h_ab90777758af183ac2472d233031ff530}} 
+\index{matrizes.h@{matrizes.h}!hermetiana@{hermetiana}}
+\index{hermetiana@{hermetiana}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{hermetiana()}{hermetiana()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ hermetiana (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a0d8704f7084c2a5d92a100aee613071c}\label{matrizes_8h_a0d8704f7084c2a5d92a100aee613071c}} 
+\index{matrizes.h@{matrizes.h}!LiberarMatriz@{LiberarMatriz}}
+\index{LiberarMatriz@{LiberarMatriz}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{LiberarMatriz()}{LiberarMatriz()}}
+{\footnotesize\ttfamily void Liberar\+Matriz (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a5cc63ebae3af0751c5455c9b74754fb8}\label{matrizes_8h_a5cc63ebae3af0751c5455c9b74754fb8}} 
+\index{matrizes.h@{matrizes.h}!multcomp@{multcomp}}
+\index{multcomp@{multcomp}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{multcomp()}{multcomp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}} multcomp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}}}]{c,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}}}]{c1 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_ac55611891ace3a8f1ee1bd1061ac101d}\label{matrizes_8h_ac55611891ace3a8f1ee1bd1061ac101d}} 
+\index{matrizes.h@{matrizes.h}!printComplex@{printComplex}}
+\index{printComplex@{printComplex}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{printComplex()}{printComplex()}}
+{\footnotesize\ttfamily void print\+Complex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}}}]{c }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_ae9090c46635b64006efe6fa3ba3d0471}\label{matrizes_8h_ae9090c46635b64006efe6fa3ba3d0471}} 
+\index{matrizes.h@{matrizes.h}!produto\_interno@{produto\_interno}}
+\index{produto\_interno@{produto\_interno}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{produto\_interno()}{produto\_interno()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}} produto\+\_\+interno (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{v1,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{v2,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a3892c48c33910aef73bc59273c596b5b}\label{matrizes_8h_a3892c48c33910aef73bc59273c596b5b}} 
+\index{matrizes.h@{matrizes.h}!produto\_matricial@{produto\_matricial}}
+\index{produto\_matricial@{produto\_matricial}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{produto\_matricial()}{produto\_matricial()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ produto\+\_\+matricial (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx\+\_\+a,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx\+\_\+b,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a2f5a8854b216b56eb35bb5eafd76c3b0}\label{matrizes_8h_a2f5a8854b216b56eb35bb5eafd76c3b0}} 
+\index{matrizes.h@{matrizes.h}!soma@{soma}}
+\index{soma@{soma}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{soma()}{soma()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ soma (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{c,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{c1,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a05b04543866b53f506c523cc2eb861fa}\label{matrizes_8h_a05b04543866b53f506c523cc2eb861fa}} 
+\index{matrizes.h@{matrizes.h}!soma\_complexo@{soma\_complexo}}
+\index{soma\_complexo@{soma\_complexo}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{soma\_complexo()}{soma\_complexo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}} soma\+\_\+complexo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}}}]{c1,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}}}]{c2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_af82eec862887392f1f0e87dd5949d696}\label{matrizes_8h_af82eec862887392f1f0e87dd5949d696}} 
+\index{matrizes.h@{matrizes.h}!subtracao@{subtracao}}
+\index{subtracao@{subtracao}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{subtracao()}{subtracao()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ subtracao (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{c,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{c2,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_ad5852d275ebeccd1a78727dc9a0835ef}\label{matrizes_8h_ad5852d275ebeccd1a78727dc9a0835ef}} 
+\index{matrizes.h@{matrizes.h}!teste\_conjugada@{teste\_conjugada}}
+\index{teste\_conjugada@{teste\_conjugada}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{teste\_conjugada()}{teste\_conjugada()}}
+{\footnotesize\ttfamily void teste\+\_\+conjugada (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_ac4861504a5ec0e4941051c630e975b75}\label{matrizes_8h_ac4861504a5ec0e4941051c630e975b75}} 
+\index{matrizes.h@{matrizes.h}!teste\_hermetiana@{teste\_hermetiana}}
+\index{teste\_hermetiana@{teste\_hermetiana}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{teste\_hermetiana()}{teste\_hermetiana()}}
+{\footnotesize\ttfamily void teste\+\_\+hermetiana (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a617ab559ef89a9678d599998094170f2}\label{matrizes_8h_a617ab559ef89a9678d599998094170f2}} 
+\index{matrizes.h@{matrizes.h}!teste\_produto\_interno@{teste\_produto\_interno}}
+\index{teste\_produto\_interno@{teste\_produto\_interno}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{teste\_produto\_interno()}{teste\_produto\_interno()}}
+{\footnotesize\ttfamily void teste\+\_\+produto\+\_\+interno (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a5fa152ec83e7ad257f2a8c4ca86be397}\label{matrizes_8h_a5fa152ec83e7ad257f2a8c4ca86be397}} 
+\index{matrizes.h@{matrizes.h}!teste\_produto\_matricial@{teste\_produto\_matricial}}
+\index{teste\_produto\_matricial@{teste\_produto\_matricial}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{teste\_produto\_matricial()}{teste\_produto\_matricial()}}
+{\footnotesize\ttfamily void teste\+\_\+produto\+\_\+matricial (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a51484ff5677a5d204b8c09b292e56628}\label{matrizes_8h_a51484ff5677a5d204b8c09b292e56628}} 
+\index{matrizes.h@{matrizes.h}!teste\_soma@{teste\_soma}}
+\index{teste\_soma@{teste\_soma}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{teste\_soma()}{teste\_soma()}}
+{\footnotesize\ttfamily void teste\+\_\+soma (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_acb524111ea00a722483c75f54489939c}\label{matrizes_8h_acb524111ea00a722483c75f54489939c}} 
+\index{matrizes.h@{matrizes.h}!teste\_subtracao@{teste\_subtracao}}
+\index{teste\_subtracao@{teste\_subtracao}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{teste\_subtracao()}{teste\_subtracao()}}
+{\footnotesize\ttfamily void teste\+\_\+subtracao (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a8214d171fd20751ee734ab0115eeba5f}\label{matrizes_8h_a8214d171fd20751ee734ab0115eeba5f}} 
+\index{matrizes.h@{matrizes.h}!teste\_todos@{teste\_todos}}
+\index{teste\_todos@{teste\_todos}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{teste\_todos()}{teste\_todos()}}
+{\footnotesize\ttfamily void teste\+\_\+todos (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a8aafafd8fe49c18928ecbfac41ac9bdf}\label{matrizes_8h_a8aafafd8fe49c18928ecbfac41ac9bdf}} 
+\index{matrizes.h@{matrizes.h}!teste\_transposta@{teste\_transposta}}
+\index{teste\_transposta@{teste\_transposta}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{teste\_transposta()}{teste\_transposta()}}
+{\footnotesize\ttfamily void teste\+\_\+transposta (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{matrizes_8h_a274a456cb4d36e61f3255f9edefab161}\label{matrizes_8h_a274a456cb4d36e61f3255f9edefab161}} 
+\index{matrizes.h@{matrizes.h}!transposta@{transposta}}
+\index{transposta@{transposta}!matrizes.h@{matrizes.h}}
+\doxysubsubsection{\texorpdfstring{transposta()}{transposta()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ transposta (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{c,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
