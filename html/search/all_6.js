@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['printcomplex_11',['printComplex',['../matrizes_8c.html#ac55611891ace3a8f1ee1bd1061ac101d',1,'printComplex(complexo c):&#160;matrizes.c'],['../matrizes_8h.html#ac55611891ace3a8f1ee1bd1061ac101d',1,'printComplex(complexo c):&#160;matrizes.c']]],
-  ['produto_5finterno_12',['produto_interno',['../matrizes_8c.html#ae9090c46635b64006efe6fa3ba3d0471',1,'produto_interno(complexo **v1, complexo **v2, int linhas, int colunas):&#160;matrizes.c'],['../matrizes_8h.html#ae9090c46635b64006efe6fa3ba3d0471',1,'produto_interno(complexo **v1, complexo **v2, int linhas, int colunas):&#160;matrizes.c']]],
-  ['produto_5fmatricial_13',['produto_matricial',['../matrizes_8c.html#a3892c48c33910aef73bc59273c596b5b',1,'produto_matricial(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas):&#160;matrizes.c'],['../matrizes_8h.html#a3892c48c33910aef73bc59273c596b5b',1,'produto_matricial(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas):&#160;matrizes.c']]],
-  ['produto_5fpor_5fescalar_14',['produto_por_escalar',['../matrizes_8c.html#a55b2aefd735321dabcb5669eb4d14ffc',1,'matrizes.c']]]
+  ['main_7',['main',['../main_8c.html#a840291bc02cba5474a4cb46a9b9566fe',1,'main.c']]],
+  ['main_2ec_8',['main.c',['../main_8c.html',1,'']]],
+  ['mainpage_2emd_9',['mainpage.md',['../mainpage_8md.html',1,'']]],
+  ['matrizes_2ec_10',['matrizes.c',['../matrizes_8c.html',1,'']]],
+  ['matrizes_2eh_11',['matrizes.h',['../matrizes_8h.html',1,'']]],
+  ['multcomp_12',['multcomp',['../matrizes_8c.html#a5cc63ebae3af0751c5455c9b74754fb8',1,'multcomp(complexo c, complexo c1):&#160;matrizes.c'],['../matrizes_8h.html#a5cc63ebae3af0751c5455c9b74754fb8',1,'multcomp(complexo c, complexo c1):&#160;matrizes.c']]]
 ];

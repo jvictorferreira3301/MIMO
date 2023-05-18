@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['liberarmatriz_5',['LiberarMatriz',['../matrizes_8h.html#a0d8704f7084c2a5d92a100aee613071c',1,'matrizes.h']]]
+  ['img_5',['img',['../structcomplexo.html#a79a197441746245afe1cc423b2a28666',1,'complexo']]]
 ];

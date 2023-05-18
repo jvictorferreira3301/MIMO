@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['allocatecomplexmatrix_0',['allocateComplexMatrix',['../matrizes_8c.html#aa90aee15388876e1b634c4ad52ac00a6',1,'allocateComplexMatrix(int linhas, int colunas):&#160;matrizes.c'],['../matrizes_8h.html#aa90aee15388876e1b634c4ad52ac00a6',1,'allocateComplexMatrix(int linhas, int colunas):&#160;matrizes.c']]]
+  ['_3cstrong_3emy_20complex_3c_2fstrong_3e_0',['&lt;strong&gt;My Complex&lt;/strong&gt;',['../index.html',1,'']]]
 ];
