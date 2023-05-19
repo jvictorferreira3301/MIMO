@@ -1,3 +1,6 @@
 #Arquivos a serem ser ignorados
 *.exe
 *.o
+.vscode
+/doc/html
+/doc/rtf
