@@ -496,6 +496,23 @@ complexo **produto_matricial(complexo** mtx_a, complexo **mtx_b, int linhas, int
 	}
 	return matriz;
 }
+
+complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k)
+{
+	complexo **matriz;
+
+	matriz = allocateComplexMatrix(linhas, colunas);
+
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			matriz[l][c].real = k*mtx[l][c].real;
+			matriz[l][c].img = k*mtx[l][c].img;
+		}
+	}
+	return matriz;
+}
 //Teste da função Transposta.
 void teste_transposta(void)
 {
