@@ -13,9 +13,9 @@ Para mais informações, visite https://github.com/jvictorferreira3301/Projeto-d
 - 
 - 
 
+<div style="text-align:center">
+  <img src="/home/jv/Desktop/work/projetosII/Projeto-de-Engenharia-II/etapa_2/figures/ufpa.png" alt="Texto alternativo" title="Título opcional" style="display:block; margin:auto;" width="300px" />
+</div>
 
 
-![Imagem](/home/jv/Desktop/work/projetosII/Projeto-de-Engenharia-II/etapa_2/ufpa.png)
-
-
-
+ 

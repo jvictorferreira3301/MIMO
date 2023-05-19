@@ -1,0 +1,151 @@
+\begin{theindex}
+
+  \item {allocateComplexMatrix}
+    \subitem {matrizes.c}, \hyperpage{11}
+    \subitem {matrizes.h}, \hyperpage{16}
+
+  \indexspace
+
+  \item {complexo}, \hyperpage{7}
+    \subitem {img}, \hyperpage{7}
+    \subitem {matrizes.h}, \hyperpage{16}
+    \subitem {real}, \hyperpage{7}
+  \item {conjugada}
+    \subitem {matrizes.c}, \hyperpage{11}
+    \subitem {matrizes.h}, \hyperpage{16}
+
+  \indexspace
+
+  \item {hermetiana}
+    \subitem {matrizes.c}, \hyperpage{11}
+    \subitem {matrizes.h}, \hyperpage{16}
+
+  \indexspace
+
+  \item {img}
+    \subitem {complexo}, \hyperpage{7}
+
+  \indexspace
+
+  \item {LiberarMatriz}
+    \subitem {matrizes.h}, \hyperpage{17}
+
+  \indexspace
+
+  \item {main}
+    \subitem {main.c}, \hyperpage{9}
+  \item {main.c}, \hyperpage{9}
+    \subitem {main}, \hyperpage{9}
+  \item {mainpage.md}, \hyperpage{10}
+  \item {matrizes.c}, \hyperpage{10}
+    \subitem {allocateComplexMatrix}, \hyperpage{11}
+    \subitem {conjugada}, \hyperpage{11}
+    \subitem {hermetiana}, \hyperpage{11}
+    \subitem {multcomp}, \hyperpage{11}
+    \subitem {printComplex}, \hyperpage{11}
+    \subitem {produto\_interno}, \hyperpage{11}
+    \subitem {produto\_matricial}, \hyperpage{12}
+    \subitem {produto\_por\_escalar}, \hyperpage{12}
+    \subitem {soma}, \hyperpage{12}
+    \subitem {soma\_complexo}, \hyperpage{12}
+    \subitem {subtracao}, \hyperpage{12}
+    \subitem {teste\_conjugada}, \hyperpage{13}
+    \subitem {teste\_hermetiana}, \hyperpage{13}
+    \subitem {teste\_produto\_interno}, \hyperpage{13}
+    \subitem {teste\_produto\_matricial}, \hyperpage{13}
+    \subitem {teste\_produto\_por\_escalar}, \hyperpage{13}
+    \subitem {teste\_soma}, \hyperpage{13}
+    \subitem {teste\_subtracao}, \hyperpage{14}
+    \subitem {teste\_todos}, \hyperpage{14}
+    \subitem {teste\_transposta}, \hyperpage{14}
+    \subitem {transposta}, \hyperpage{14}
+  \item {matrizes.h}, \hyperpage{15}
+    \subitem {allocateComplexMatrix}, \hyperpage{16}
+    \subitem {complexo}, \hyperpage{16}
+    \subitem {conjugada}, \hyperpage{16}
+    \subitem {hermetiana}, \hyperpage{16}
+    \subitem {LiberarMatriz}, \hyperpage{17}
+    \subitem {multcomp}, \hyperpage{17}
+    \subitem {printComplex}, \hyperpage{17}
+    \subitem {produto\_interno}, \hyperpage{17}
+    \subitem {produto\_matricial}, \hyperpage{17}
+    \subitem {soma}, \hyperpage{17}
+    \subitem {soma\_complexo}, \hyperpage{18}
+    \subitem {subtracao}, \hyperpage{18}
+    \subitem {teste\_conjugada}, \hyperpage{18}
+    \subitem {teste\_hermetiana}, \hyperpage{18}
+    \subitem {teste\_produto\_interno}, \hyperpage{18}
+    \subitem {teste\_produto\_matricial}, \hyperpage{18}
+    \subitem {teste\_soma}, \hyperpage{19}
+    \subitem {teste\_subtracao}, \hyperpage{19}
+    \subitem {teste\_todos}, \hyperpage{19}
+    \subitem {teste\_transposta}, \hyperpage{19}
+    \subitem {transposta}, \hyperpage{19}
+  \item {multcomp}
+    \subitem {matrizes.c}, \hyperpage{11}
+    \subitem {matrizes.h}, \hyperpage{17}
+
+  \indexspace
+
+  \item {printComplex}
+    \subitem {matrizes.c}, \hyperpage{11}
+    \subitem {matrizes.h}, \hyperpage{17}
+  \item {produto\_interno}
+    \subitem {matrizes.c}, \hyperpage{11}
+    \subitem {matrizes.h}, \hyperpage{17}
+  \item {produto\_matricial}
+    \subitem {matrizes.c}, \hyperpage{12}
+    \subitem {matrizes.h}, \hyperpage{17}
+  \item {produto\_por\_escalar}
+    \subitem {matrizes.c}, \hyperpage{12}
+
+  \indexspace
+
+  \item {real}
+    \subitem {complexo}, \hyperpage{7}
+
+  \indexspace
+
+  \item {soma}
+    \subitem {matrizes.c}, \hyperpage{12}
+    \subitem {matrizes.h}, \hyperpage{17}
+  \item {soma\_complexo}
+    \subitem {matrizes.c}, \hyperpage{12}
+    \subitem {matrizes.h}, \hyperpage{18}
+  \item {subtracao}
+    \subitem {matrizes.c}, \hyperpage{12}
+    \subitem {matrizes.h}, \hyperpage{18}
+
+  \indexspace
+
+  \item {teste\_conjugada}
+    \subitem {matrizes.c}, \hyperpage{13}
+    \subitem {matrizes.h}, \hyperpage{18}
+  \item {teste\_hermetiana}
+    \subitem {matrizes.c}, \hyperpage{13}
+    \subitem {matrizes.h}, \hyperpage{18}
+  \item {teste\_produto\_interno}
+    \subitem {matrizes.c}, \hyperpage{13}
+    \subitem {matrizes.h}, \hyperpage{18}
+  \item {teste\_produto\_matricial}
+    \subitem {matrizes.c}, \hyperpage{13}
+    \subitem {matrizes.h}, \hyperpage{18}
+  \item {teste\_produto\_por\_escalar}
+    \subitem {matrizes.c}, \hyperpage{13}
+  \item {teste\_soma}
+    \subitem {matrizes.c}, \hyperpage{13}
+    \subitem {matrizes.h}, \hyperpage{19}
+  \item {teste\_subtracao}
+    \subitem {matrizes.c}, \hyperpage{14}
+    \subitem {matrizes.h}, \hyperpage{19}
+  \item {teste\_todos}
+    \subitem {matrizes.c}, \hyperpage{14}
+    \subitem {matrizes.h}, \hyperpage{19}
+  \item {teste\_transposta}
+    \subitem {matrizes.c}, \hyperpage{14}
+    \subitem {matrizes.h}, \hyperpage{19}
+  \item {transposta}
+    \subitem {matrizes.c}, \hyperpage{14}
+    \subitem {matrizes.h}, \hyperpage{19}
+
+\end{theindex}
