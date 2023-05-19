@@ -27,7 +27,6 @@ clean:
 	@echo -e "\nRemovendo arquivos '.o'..."
 	rm -rf $(obj)/*.o
 	rm -rf *.o
-allclean:clean
 	@echo -e "\nRemovendo arquivos executáveis '.exe'"
 	rm -rf *.exe
 
