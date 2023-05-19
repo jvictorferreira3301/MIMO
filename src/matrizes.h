@@ -45,6 +45,8 @@ complexo** conjugada(complexo **mtx, int linhas, int colunas);
 
 complexo** hermetiana(complexo **mtx, int linhas, int colunas);
 
+complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k);
+
 void teste_conjugada(void);
 void teste_transposta(void);
 void teste_hermetiana(void);
