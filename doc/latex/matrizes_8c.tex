@@ -19,8 +19,7 @@ void \mbox{\hyperlink{matrizes_8c_a8214d171fd20751ee734ab0115eeba5f}{teste\+\_\+
 \item 
 \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_a8114594cf98abb2ef63638954f3a4385}{conjugada}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas)
 \item 
-\mbox{\Hypertarget{matrizes_8c_ab90777758af183ac2472d233031ff530}\label{matrizes_8c_ab90777758af183ac2472d233031ff530}} 
-\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ {\bfseries hermetiana} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas)
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_ab90777758af183ac2472d233031ff530}{hermetiana}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas)
 \item 
 \mbox{\Hypertarget{matrizes_8c_adf520dbe06d6f70b80d8edd3b6a5e75f}\label{matrizes_8c_adf520dbe06d6f70b80d8edd3b6a5e75f}} 
 \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ {\bfseries soma} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+a, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+b, int linhas, int colunas)
@@ -87,19 +86,36 @@ Calcula a matriz conjugada de uma matriz A de n linhas e m colunas.
 \mbox{\texttt{ out}}  & {\em mtx\+\_\+conjugada} & \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{matrizes_8c_ab90777758af183ac2472d233031ff530}\label{matrizes_8c_ab90777758af183ac2472d233031ff530}} 
+\index{matrizes.c@{matrizes.c}!hermetiana@{hermetiana}}
+\index{hermetiana@{hermetiana}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{hermetiana()}{hermetiana()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ hermetiana (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md4}{}\doxyparagraph{Função Hermitiana\+:}\label{matrizes_8h_autotoc_md4}
+A função hermetiana recebe três parâmetros\+: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz) e colunas (o número de colunas da matriz). Ela declara duas variáveis do tipo complexo$\ast$$\ast$\+: matriz e matriz\+\_\+h. Em seguida, a função aloca memória para duas matrizes usando a função allocate\+Complex\+Matrix. A primeira matriz (matriz) tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz (matriz\+\_\+h), também tem o mesmo tamanho. A função chama a função conjugada passando a matriz de entrada mtx, linhas e colunas. Essa função retorna a matriz conjugada da matriz de entrada. O resultado da função conjugada é atribuído à matriz matriz. Em seguida, a função chama a função transposta passando a matriz matriz, linhas e colunas. Essa função retorna a transposta da matriz passada como argumento. O resultado da função transposta é atribuído à matriz matriz\+\_\+h. Por fim, a função retorna a matriz matriz\+\_\+h, que é a matriz hermitiana resultante. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em mtx,linhas,colunas} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em matriz\+\_\+h.} & \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{matrizes_8c_a8214d171fd20751ee734ab0115eeba5f}\label{matrizes_8c_a8214d171fd20751ee734ab0115eeba5f}} 
 \index{matrizes.c@{matrizes.c}!teste\_todos@{teste\_todos}}
 \index{teste\_todos@{teste\_todos}!matrizes.c@{matrizes.c}}
 \doxysubsubsection{\texorpdfstring{teste\_todos()}{teste\_todos()}}
 {\footnotesize\ttfamily void teste\+\_\+todos (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
-Teste de todas as funções\+: Executa cada função de teste uma vez \mbox{\Hypertarget{matrizes_8c_aff0ae830addccc15068fc29baec88651}\label{matrizes_8c_aff0ae830addccc15068fc29baec88651}} 
+Teste de todas as funções\+: Executa cada função de teste uma vez
+\begin{DoxyItemize}
+\item Esta função realiza o teste de todas as funções implementadas na biblioteca Matrizes. Cada teste é realizado para garantir o correto funcionamento das funções. 
+\end{DoxyItemize}\mbox{\Hypertarget{matrizes_8c_aff0ae830addccc15068fc29baec88651}\label{matrizes_8c_aff0ae830addccc15068fc29baec88651}} 
 \index{matrizes.c@{matrizes.c}!transposta@{transposta}}
 \index{transposta@{transposta}!matrizes.c@{matrizes.c}}
 \doxysubsubsection{\texorpdfstring{transposta()}{transposta()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ transposta (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
 
-\hypertarget{matrizes_8h_autotoc_md2}{}\doxyparagraph{Função Transporta\+:}\label{matrizes_8h_autotoc_md2}
+\hypertarget{matrizes_8h_autotoc_md2}{}\doxyparagraph{Função Transposta\+:}\label{matrizes_8h_autotoc_md2}
 Calcula a matriz transposta de uma matriz A de n linhas e m colunas. 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em mtx,linhas,colunas} & \\
