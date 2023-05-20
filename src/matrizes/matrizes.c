@@ -3,9 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "matrizes.h"
-/**Teste de todas as funções:
- * Executa cada função de teste uma vez
-*/
+
+/**
+ * @brief Executa cada função de teste uma vez.
+ *
+ * Esta função realiza o teste de todas as funções implementadas na biblioteca Matrizes.
+ * Cada teste é realizado para garantir o correto funcionamento das funções.
+ */
 void teste_todos(void)
 {	
 	printf("\n===============================Teste da Operação Transposta======================\n");

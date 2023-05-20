@@ -14,7 +14,7 @@ Include dependency graph for matrizes.\+c\+:\nopagebreak
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{matrizes_8c_a8214d171fd20751ee734ab0115eeba5f}{teste\+\_\+todos}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Executa cada função de teste uma vez. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_aff0ae830addccc15068fc29baec88651}{transposta}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas)
 \item 
 \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_a8114594cf98abb2ef63638954f3a4385}{conjugada}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas)
@@ -125,13 +125,17 @@ A função {\ttfamily hermetiana} implementa a operação de matriz hermitiana. 
 \doxysubsubsection{\texorpdfstring{teste\_todos()}{teste\_todos()}}
 {\footnotesize\ttfamily void teste\+\_\+todos (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
-Teste de todas as funções\+: Executa cada função de teste uma vez \mbox{\Hypertarget{matrizes_8c_aff0ae830addccc15068fc29baec88651}\label{matrizes_8c_aff0ae830addccc15068fc29baec88651}} 
+
+
+Executa cada função de teste uma vez. 
+
+Esta função realiza o teste de todas as funções implementadas na biblioteca Matrizes. Cada teste é realizado para garantir o correto funcionamento das funções. \mbox{\Hypertarget{matrizes_8c_aff0ae830addccc15068fc29baec88651}\label{matrizes_8c_aff0ae830addccc15068fc29baec88651}} 
 \index{matrizes.c@{matrizes.c}!transposta@{transposta}}
 \index{transposta@{transposta}!matrizes.c@{matrizes.c}}
 \doxysubsubsection{\texorpdfstring{transposta()}{transposta()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ transposta (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
 
-\hypertarget{matrizes_8h_autotoc_md2}{}\doxyparagraph{Função Transporta\+:}\label{matrizes_8h_autotoc_md2}
+\hypertarget{matrizes_8h_autotoc_md2}{}\doxyparagraph{Função Transposta\+:}\label{matrizes_8h_autotoc_md2}
 A função {\ttfamily transposta} implementa a operação de transposição de matriz. Essa operação consiste em trocar as linhas pelas colunas da matriz de entrada.
 \begin{DoxyItemize}
 \item A função {\ttfamily transposta} recebe três parâmetros\+: {\ttfamily mtx} (uma matriz de números complexos), {\ttfamily linhas} (o número de linhas da matriz) e {\ttfamily colunas} (o número de colunas da matriz).
