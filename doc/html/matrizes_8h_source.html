@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Complex - Projeto de Engenharia II: matrizes.h Source File</title>
+<title>My Complex - Projeto de Engenharia II: src/matrizes/matrizes.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,7 +46,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,88 +60,76 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a836d43c960440afd24561ddfc2947e0.html">matrizes</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">matrizes.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="matrizes_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _H_MYCOMPLEX</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _H_MYCOMPLEX</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">/*Estrutura das variáveis complexas*/</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="structcomplexo.html">    7</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structcomplexo.html">complexo</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="structcomplexo.html#a818f60e91b2bc5cb5706a4bae415f053">    8</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structcomplexo.html#a818f60e91b2bc5cb5706a4bae415f053">real</a>;</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="structcomplexo.html#a79a197441746245afe1cc423b2a28666">    9</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structcomplexo.html#a79a197441746245afe1cc423b2a28666">img</a>;</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="matrizes_8h.html#a7985d84e6018cc0dbca23bbf764d3b7d">   10</a></span>&#160;} <a class="code" href="matrizes_8h.html#a7985d84e6018cc0dbca23bbf764d3b7d">complexo</a>;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<a class="code" href="structcomplexo.html">complexo</a> <a class="code" href="matrizes_8h.html#a05b04543866b53f506c523cc2eb861fa">soma_complexo</a>(<a class="code" href="structcomplexo.html">complexo</a> c1, <a class="code" href="structcomplexo.html">complexo</a> c2);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">/* Alocação de memoria para uma matriz complexa*/</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** <a class="code" href="matrizes_8h.html#aa90aee15388876e1b634c4ad52ac00a6">allocateComplexMatrix</a>(<span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _H_MYCOMPLEX</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define _H_MYCOMPLEX</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="structcomplexo.html">   10</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structcomplexo.html">complexo</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="structcomplexo.html#a818f60e91b2bc5cb5706a4bae415f053">   11</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structcomplexo.html#a818f60e91b2bc5cb5706a4bae415f053">real</a>; </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="structcomplexo.html#a79a197441746245afe1cc423b2a28666">   12</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structcomplexo.html#a79a197441746245afe1cc423b2a28666">img</a>; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <a class="code" href="structcomplexo.html">complexo</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<a class="code" href="structcomplexo.html">complexo</a> soma_complexo(<a class="code" href="structcomplexo.html">complexo</a> c1, <a class="code" href="structcomplexo.html">complexo</a> c2);</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">/* Liberação de memória de uma matriz complexa*/</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="matrizes_8h.html#a0d8704f7084c2a5d92a100aee613071c">   18</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrizes_8h.html#a0d8704f7084c2a5d92a100aee613071c">LiberarMatriz</a>(<a class="code" href="structcomplexo.html">complexo</a> **mtx, <span class="keywordtype">int</span> linhas);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">/* Alocação de memoria para uma matriz complexa*/</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** allocateComplexMatrix(<span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">/* a função que faz a transposta da matriz*/</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** <a class="code" href="matrizes_8h.html#a274a456cb4d36e61f3255f9edefab161">transposta</a>(<a class="code" href="structcomplexo.html">complexo</a> **c, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">/* Liberação de memória de uma matriz complexa*/</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> LiberarMatriz(<a class="code" href="structcomplexo.html">complexo</a> **mtx, <span class="keywordtype">int</span> linhas);</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">/* Printa o complexo c */</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrizes_8h.html#ac55611891ace3a8f1ee1bd1061ac101d">printComplex</a>(<a class="code" href="structcomplexo.html">complexo</a> c);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">/* a função que faz a transposta da matriz*/</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** <a class="code" href="matrizes_8c.html#aff0ae830addccc15068fc29baec88651">transposta</a>(<a class="code" href="structcomplexo.html">complexo</a> **mtx, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/* Multiplica dois complexos */</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<a class="code" href="structcomplexo.html">complexo</a> <a class="code" href="matrizes_8h.html#a5cc63ebae3af0751c5455c9b74754fb8">multcomp</a>(<a class="code" href="structcomplexo.html">complexo</a> c, <a class="code" href="structcomplexo.html">complexo</a> c1);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/* Printa o complexo c */</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">void</span> printComplex(<a class="code" href="structcomplexo.html">complexo</a> c);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">/* Soma duas matrizes complexas */</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** <a class="code" href="matrizes_8h.html#a2f5a8854b216b56eb35bb5eafd76c3b0">soma</a>(<a class="code" href="structcomplexo.html">complexo</a> **c, <a class="code" href="structcomplexo.html">complexo</a> **c1, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">/* Multiplica dois complexos */</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<a class="code" href="structcomplexo.html">complexo</a> multcomp(<a class="code" href="structcomplexo.html">complexo</a> c1, <a class="code" href="structcomplexo.html">complexo</a> c2);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">/* Subtrai duas matrizes complexas */</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** <a class="code" href="matrizes_8h.html#af82eec862887392f1f0e87dd5949d696">subtracao</a>(<a class="code" href="structcomplexo.html">complexo</a> **c, <a class="code" href="structcomplexo.html">complexo</a> **c2, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">/* Soma duas matrizes complexas */</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** soma(<a class="code" href="structcomplexo.html">complexo</a> **mtx_a, <a class="code" href="structcomplexo.html">complexo</a> **mtx_b, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">/* Multiplica duas matrizes */</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** <a class="code" href="matrizes_8h.html#a3892c48c33910aef73bc59273c596b5b">produto_matricial</a>(<a class="code" href="structcomplexo.html">complexo</a> **mtx_a, <a class="code" href="structcomplexo.html">complexo</a> **mtx_b, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">/* Subtrai duas matrizes complexas */</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** subtracao(<a class="code" href="structcomplexo.html">complexo</a> **mtx_a, <a class="code" href="structcomplexo.html">complexo</a> **mtx_b, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">/* Calcula o produto interno entre dois vetores */</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<a class="code" href="structcomplexo.html">complexo</a> <a class="code" href="matrizes_8h.html#ae9090c46635b64006efe6fa3ba3d0471">produto_interno</a>(<a class="code" href="structcomplexo.html">complexo</a> **v1, <a class="code" href="structcomplexo.html">complexo</a> **v2, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">/* Multiplica duas matrizes */</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** produto_matricial(<a class="code" href="structcomplexo.html">complexo</a> **mtx_a, <a class="code" href="structcomplexo.html">complexo</a> **mtx_b, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** <a class="code" href="matrizes_8h.html#a8114594cf98abb2ef63638954f3a4385">conjugada</a>(<a class="code" href="structcomplexo.html">complexo</a> **mtx, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** <a class="code" href="matrizes_8h.html#ab90777758af183ac2472d233031ff530">hermetiana</a>(<a class="code" href="structcomplexo.html">complexo</a> **mtx, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrizes_8h.html#ad5852d275ebeccd1a78727dc9a0835ef">teste_conjugada</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrizes_8h.html#a8aafafd8fe49c18928ecbfac41ac9bdf">teste_transposta</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrizes_8h.html#ac4861504a5ec0e4941051c630e975b75">teste_hermetiana</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrizes_8h.html#a51484ff5677a5d204b8c09b292e56628">teste_soma</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrizes_8h.html#acb524111ea00a722483c75f54489939c">teste_subtracao</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrizes_8h.html#a8214d171fd20751ee734ab0115eeba5f">teste_todos</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrizes_8h.html#a617ab559ef89a9678d599998094170f2">teste_produto_interno</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrizes_8h.html#a5fa152ec83e7ad257f2a8c4ca86be397">teste_produto_matricial</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="amatrizes_8h_html_a05b04543866b53f506c523cc2eb861fa"><div class="ttname"><a href="matrizes_8h.html#a05b04543866b53f506c523cc2eb861fa">soma_complexo</a></div><div class="ttdeci">complexo soma_complexo(complexo c1, complexo c2)</div><div class="ttdef"><b>Definition:</b> matrizes.c:39</div></div>
-<div class="ttc" id="amatrizes_8h_html_a0d8704f7084c2a5d92a100aee613071c"><div class="ttname"><a href="matrizes_8h.html#a0d8704f7084c2a5d92a100aee613071c">LiberarMatriz</a></div><div class="ttdeci">void LiberarMatriz(complexo **mtx, int linhas)</div></div>
-<div class="ttc" id="amatrizes_8h_html_a274a456cb4d36e61f3255f9edefab161"><div class="ttname"><a href="matrizes_8h.html#a274a456cb4d36e61f3255f9edefab161">transposta</a></div><div class="ttdeci">complexo ** transposta(complexo **c, int linhas, int colunas)</div><div class="ttdef"><b>Definition:</b> matrizes.c:243</div></div>
-<div class="ttc" id="amatrizes_8h_html_a2f5a8854b216b56eb35bb5eafd76c3b0"><div class="ttname"><a href="matrizes_8h.html#a2f5a8854b216b56eb35bb5eafd76c3b0">soma</a></div><div class="ttdeci">complexo ** soma(complexo **c, complexo **c1, int linhas, int colunas)</div><div class="ttdef"><b>Definition:</b> matrizes.c:374</div></div>
-<div class="ttc" id="amatrizes_8h_html_a3892c48c33910aef73bc59273c596b5b"><div class="ttname"><a href="matrizes_8h.html#a3892c48c33910aef73bc59273c596b5b">produto_matricial</a></div><div class="ttdeci">complexo ** produto_matricial(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas)</div><div class="ttdef"><b>Definition:</b> matrizes.c:408</div></div>
-<div class="ttc" id="amatrizes_8h_html_a51484ff5677a5d204b8c09b292e56628"><div class="ttname"><a href="matrizes_8h.html#a51484ff5677a5d204b8c09b292e56628">teste_soma</a></div><div class="ttdeci">void teste_soma(void)</div><div class="ttdef"><b>Definition:</b> matrizes.c:805</div></div>
-<div class="ttc" id="amatrizes_8h_html_a5cc63ebae3af0751c5455c9b74754fb8"><div class="ttname"><a href="matrizes_8h.html#a5cc63ebae3af0751c5455c9b74754fb8">multcomp</a></div><div class="ttdeci">complexo multcomp(complexo c, complexo c1)</div><div class="ttdef"><b>Definition:</b> matrizes.c:722</div></div>
-<div class="ttc" id="amatrizes_8h_html_a5fa152ec83e7ad257f2a8c4ca86be397"><div class="ttname"><a href="matrizes_8h.html#a5fa152ec83e7ad257f2a8c4ca86be397">teste_produto_matricial</a></div><div class="ttdeci">void teste_produto_matricial(void)</div><div class="ttdef"><b>Definition:</b> matrizes.c:536</div></div>
-<div class="ttc" id="amatrizes_8h_html_a617ab559ef89a9678d599998094170f2"><div class="ttname"><a href="matrizes_8h.html#a617ab559ef89a9678d599998094170f2">teste_produto_interno</a></div><div class="ttdeci">void teste_produto_interno(void)</div><div class="ttdef"><b>Definition:</b> matrizes.c:185</div></div>
-<div class="ttc" id="amatrizes_8h_html_a7985d84e6018cc0dbca23bbf764d3b7d"><div class="ttname"><a href="matrizes_8h.html#a7985d84e6018cc0dbca23bbf764d3b7d">complexo</a></div><div class="ttdeci">struct complexo complexo</div></div>
-<div class="ttc" id="amatrizes_8h_html_a8114594cf98abb2ef63638954f3a4385"><div class="ttname"><a href="matrizes_8h.html#a8114594cf98abb2ef63638954f3a4385">conjugada</a></div><div class="ttdeci">complexo ** conjugada(complexo **mtx, int linhas, int colunas)</div><div class="ttdef"><b>Definition:</b> matrizes.c:49</div></div>
-<div class="ttc" id="amatrizes_8h_html_a8214d171fd20751ee734ab0115eeba5f"><div class="ttname"><a href="matrizes_8h.html#a8214d171fd20751ee734ab0115eeba5f">teste_todos</a></div><div class="ttdeci">void teste_todos(void)</div><div class="ttdef"><b>Definition:</b> matrizes.c:986</div></div>
-<div class="ttc" id="amatrizes_8h_html_a8aafafd8fe49c18928ecbfac41ac9bdf"><div class="ttname"><a href="matrizes_8h.html#a8aafafd8fe49c18928ecbfac41ac9bdf">teste_transposta</a></div><div class="ttdeci">void teste_transposta(void)</div><div class="ttdef"><b>Definition:</b> matrizes.c:731</div></div>
-<div class="ttc" id="amatrizes_8h_html_aa90aee15388876e1b634c4ad52ac00a6"><div class="ttname"><a href="matrizes_8h.html#aa90aee15388876e1b634c4ad52ac00a6">allocateComplexMatrix</a></div><div class="ttdeci">complexo ** allocateComplexMatrix(int linhas, int colunas)</div><div class="ttdef"><b>Definition:</b> matrizes.c:7</div></div>
-<div class="ttc" id="amatrizes_8h_html_ab90777758af183ac2472d233031ff530"><div class="ttname"><a href="matrizes_8h.html#ab90777758af183ac2472d233031ff530">hermetiana</a></div><div class="ttdeci">complexo ** hermetiana(complexo **mtx, int linhas, int colunas)</div><div class="ttdef"><b>Definition:</b> matrizes.c:259</div></div>
-<div class="ttc" id="amatrizes_8h_html_ac4861504a5ec0e4941051c630e975b75"><div class="ttname"><a href="matrizes_8h.html#ac4861504a5ec0e4941051c630e975b75">teste_hermetiana</a></div><div class="ttdeci">void teste_hermetiana(void)</div><div class="ttdef"><b>Definition:</b> matrizes.c:272</div></div>
-<div class="ttc" id="amatrizes_8h_html_ac55611891ace3a8f1ee1bd1061ac101d"><div class="ttname"><a href="matrizes_8h.html#ac55611891ace3a8f1ee1bd1061ac101d">printComplex</a></div><div class="ttdeci">void printComplex(complexo c)</div><div class="ttdef"><b>Definition:</b> matrizes.c:34</div></div>
-<div class="ttc" id="amatrizes_8h_html_acb524111ea00a722483c75f54489939c"><div class="ttname"><a href="matrizes_8h.html#acb524111ea00a722483c75f54489939c">teste_subtracao</a></div><div class="ttdeci">void teste_subtracao(void)</div><div class="ttdef"><b>Definition:</b> matrizes.c:896</div></div>
-<div class="ttc" id="amatrizes_8h_html_ad5852d275ebeccd1a78727dc9a0835ef"><div class="ttname"><a href="matrizes_8h.html#ad5852d275ebeccd1a78727dc9a0835ef">teste_conjugada</a></div><div class="ttdeci">void teste_conjugada(void)</div><div class="ttdef"><b>Definition:</b> matrizes.c:67</div></div>
-<div class="ttc" id="amatrizes_8h_html_ae9090c46635b64006efe6fa3ba3d0471"><div class="ttname"><a href="matrizes_8h.html#ae9090c46635b64006efe6fa3ba3d0471">produto_interno</a></div><div class="ttdeci">complexo produto_interno(complexo **v1, complexo **v2, int linhas, int colunas)</div><div class="ttdef"><b>Definition:</b> matrizes.c:166</div></div>
-<div class="ttc" id="amatrizes_8h_html_af82eec862887392f1f0e87dd5949d696"><div class="ttname"><a href="matrizes_8h.html#af82eec862887392f1f0e87dd5949d696">subtracao</a></div><div class="ttdeci">complexo ** subtracao(complexo **c, complexo **c2, int linhas, int colunas)</div><div class="ttdef"><b>Definition:</b> matrizes.c:391</div></div>
-<div class="ttc" id="astructcomplexo_html"><div class="ttname"><a href="structcomplexo.html">complexo</a></div><div class="ttdef"><b>Definition:</b> matrizes.h:7</div></div>
-<div class="ttc" id="astructcomplexo_html_a79a197441746245afe1cc423b2a28666"><div class="ttname"><a href="structcomplexo.html#a79a197441746245afe1cc423b2a28666">complexo::img</a></div><div class="ttdeci">float img</div><div class="ttdef"><b>Definition:</b> matrizes.h:9</div></div>
-<div class="ttc" id="astructcomplexo_html_a818f60e91b2bc5cb5706a4bae415f053"><div class="ttname"><a href="structcomplexo.html#a818f60e91b2bc5cb5706a4bae415f053">complexo::real</a></div><div class="ttdeci">float real</div><div class="ttdef"><b>Definition:</b> matrizes.h:8</div></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">/* Calcula o produto interno entre dois vetores */</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<a class="code" href="structcomplexo.html">complexo</a> produto_interno(<a class="code" href="structcomplexo.html">complexo</a> **v1, <a class="code" href="structcomplexo.html">complexo</a> **v2, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** <a class="code" href="matrizes_8c.html#a8114594cf98abb2ef63638954f3a4385">conjugada</a>(<a class="code" href="structcomplexo.html">complexo</a> **mtx, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** hermetiana(<a class="code" href="structcomplexo.html">complexo</a> **mtx, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<a class="code" href="structcomplexo.html">complexo</a>** produto_por_escalar(<a class="code" href="structcomplexo.html">complexo</a> **mtx, <span class="keywordtype">int</span> linhas, <span class="keywordtype">int</span> colunas, <span class="keywordtype">int</span> k);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">void</span> teste_conjugada(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">void</span> teste_transposta(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">void</span> teste_hermetiana(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">void</span> teste_soma(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> teste_subtracao(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">void</span> <a class="code" href="matrizes_8c.html#a8214d171fd20751ee734ab0115eeba5f">teste_todos</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">void</span> teste_produto_interno(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keywordtype">void</span> teste_produto_matricial(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="amatrizes_8c_html_a8114594cf98abb2ef63638954f3a4385"><div class="ttname"><a href="matrizes_8c.html#a8114594cf98abb2ef63638954f3a4385">conjugada</a></div><div class="ttdeci">complexo ** conjugada(complexo **mtx, int linhas, int colunas)</div><div class="ttdef"><b>Definition:</b> matrizes.c:386</div></div>
+<div class="ttc" id="amatrizes_8c_html_a8214d171fd20751ee734ab0115eeba5f"><div class="ttname"><a href="matrizes_8c.html#a8214d171fd20751ee734ab0115eeba5f">teste_todos</a></div><div class="ttdeci">void teste_todos(void)</div><div class="ttdef"><b>Definition:</b> matrizes.c:9</div></div>
+<div class="ttc" id="amatrizes_8c_html_aff0ae830addccc15068fc29baec88651"><div class="ttname"><a href="matrizes_8c.html#aff0ae830addccc15068fc29baec88651">transposta</a></div><div class="ttdeci">complexo ** transposta(complexo **mtx, int linhas, int colunas)</div><div class="ttdef"><b>Definition:</b> matrizes.c:366</div></div>
+<div class="ttc" id="astructcomplexo_html"><div class="ttname"><a href="structcomplexo.html">complexo</a></div><div class="ttdef"><b>Definition:</b> matrizes.h:10</div></div>
+<div class="ttc" id="astructcomplexo_html_a79a197441746245afe1cc423b2a28666"><div class="ttname"><a href="structcomplexo.html#a79a197441746245afe1cc423b2a28666">complexo::img</a></div><div class="ttdeci">float img</div><div class="ttdoc">Parte imaginária.</div><div class="ttdef"><b>Definition:</b> matrizes.h:12</div></div>
+<div class="ttc" id="astructcomplexo_html_a818f60e91b2bc5cb5706a4bae415f053"><div class="ttname"><a href="structcomplexo.html#a818f60e91b2bc5cb5706a4bae415f053">complexo::real</a></div><div class="ttdeci">float real</div><div class="ttdoc">Parte real.</div><div class="ttdef"><b>Definition:</b> matrizes.h:11</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

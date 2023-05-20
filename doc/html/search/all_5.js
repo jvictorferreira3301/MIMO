@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['liberarmatriz_6',['LiberarMatriz',['../matrizes_8h.html#a0d8704f7084c2a5d92a100aee613071c',1,'matrizes.h']]]
+  ['teste_5ftodos_6',['teste_todos',['../matrizes_8c.html#a8214d171fd20751ee734ab0115eeba5f',1,'matrizes.c']]],
+  ['transposta_7',['transposta',['../matrizes_8c.html#aff0ae830addccc15068fc29baec88651',1,'matrizes.c']]]
 ];

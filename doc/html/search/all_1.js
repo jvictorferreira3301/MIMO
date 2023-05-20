@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['allocatecomplexmatrix_1',['allocateComplexMatrix',['../matrizes_8c.html#aa90aee15388876e1b634c4ad52ac00a6',1,'allocateComplexMatrix(int linhas, int colunas):&#160;matrizes.c'],['../matrizes_8h.html#aa90aee15388876e1b634c4ad52ac00a6',1,'allocateComplexMatrix(int linhas, int colunas):&#160;matrizes.c']]]
+  ['complexo_1',['complexo',['../structcomplexo.html',1,'']]],
+  ['conjugada_2',['conjugada',['../matrizes_8c.html#a8114594cf98abb2ef63638954f3a4385',1,'matrizes.c']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['conjugada_37',['conjugada',['../matrizes_8c.html#a8114594cf98abb2ef63638954f3a4385',1,'conjugada(complexo **mtx, int linhas, int colunas):&#160;matrizes.c'],['../matrizes_8h.html#a8114594cf98abb2ef63638954f3a4385',1,'conjugada(complexo **mtx, int linhas, int colunas):&#160;matrizes.c']]]
+  ['teste_5ftodos_11',['teste_todos',['../matrizes_8c.html#a8214d171fd20751ee734ab0115eeba5f',1,'matrizes.c']]],
+  ['transposta_12',['transposta',['../matrizes_8c.html#aff0ae830addccc15068fc29baec88651',1,'matrizes.c']]]
 ];
