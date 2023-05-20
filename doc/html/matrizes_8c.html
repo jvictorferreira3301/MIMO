@@ -95,8 +95,7 @@ Functions</h2></td></tr>
 <tr class="separator:aff0ae830addccc15068fc29baec88651"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8114594cf98abb2ef63638954f3a4385"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcomplexo.html">complexo</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matrizes_8c.html#a8114594cf98abb2ef63638954f3a4385">conjugada</a> (<a class="el" href="structcomplexo.html">complexo</a> **mtx, int linhas, int colunas)</td></tr>
 <tr class="separator:a8114594cf98abb2ef63638954f3a4385"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab90777758af183ac2472d233031ff530"><td class="memItemLeft" align="right" valign="top"><a id="ab90777758af183ac2472d233031ff530"></a>
-<a class="el" href="structcomplexo.html">complexo</a> **&#160;</td><td class="memItemRight" valign="bottom"><b>hermetiana</b> (<a class="el" href="structcomplexo.html">complexo</a> **mtx, int linhas, int colunas)</td></tr>
+<tr class="memitem:ab90777758af183ac2472d233031ff530"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcomplexo.html">complexo</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matrizes_8c.html#ab90777758af183ac2472d233031ff530">hermetiana</a> (<a class="el" href="structcomplexo.html">complexo</a> **mtx, int linhas, int colunas)</td></tr>
 <tr class="separator:ab90777758af183ac2472d233031ff530"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf520dbe06d6f70b80d8edd3b6a5e75f"><td class="memItemLeft" align="right" valign="top"><a id="adf520dbe06d6f70b80d8edd3b6a5e75f"></a>
 <a class="el" href="structcomplexo.html">complexo</a> **&#160;</td><td class="memItemRight" valign="bottom"><b>soma</b> (<a class="el" href="structcomplexo.html">complexo</a> **mtx_a, <a class="el" href="structcomplexo.html">complexo</a> **mtx_b, int linhas, int colunas)</td></tr>
@@ -185,6 +184,49 @@ Função Conjugada:</h3>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">mtx,linhas,colunas</td><td></td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">mtx_conjugada</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab90777758af183ac2472d233031ff530"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab90777758af183ac2472d233031ff530">&#9670;&nbsp;</a></span>hermetiana()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcomplexo.html">complexo</a>** hermetiana </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcomplexo.html">complexo</a> **&#160;</td>
+          <td class="paramname"><em>mtx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>linhas</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>colunas</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<h3><a class="anchor" id="autotoc_md4"></a>
+Função Hermitiana:</h3>
+<p>A função hermetiana recebe três parâmetros: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz) e colunas (o número de colunas da matriz). Ela declara duas variáveis do tipo complexo**: matriz e matriz_h. Em seguida, a função aloca memória para duas matrizes usando a função allocateComplexMatrix. A primeira matriz (matriz) tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz (matriz_h), também tem o mesmo tamanho. A função chama a função conjugada passando a matriz de entrada mtx, linhas e colunas. Essa função retorna a matriz conjugada da matriz de entrada. O resultado da função conjugada é atribuído à matriz matriz. Em seguida, a função chama a função transposta passando a matriz matriz, linhas e colunas. Essa função retorna a transposta da matriz passada como argumento. O resultado da função transposta é atribuído à matriz matriz_h. Por fim, a função retorna a matriz matriz_h, que é a matriz hermitiana resultante. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">mtx,linhas,colunas</td><td></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">matriz_h.</td><td></td></tr>
   </table>
   </dd>
 </dl>
