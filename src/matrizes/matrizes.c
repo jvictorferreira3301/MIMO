@@ -1,11 +1,17 @@
-/// @file matrizes.c
-/// @page Matrizes.C
+/**
+ * @file matrizes.c
+ * @page Matrizes.C
+ * @brief Implementação das funções da biblioteca Matrizes.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "matrizes.h"
 /**Teste de todas as funções:
  * Executa cada função de teste uma vez
-*/
+ * * Esta função realiza o teste de todas as funções implementadas na biblioteca Matrizes.
+ * Cada teste é realizado para garantir o correto funcionamento das funções.
+ */
 void teste_todos(void)
 {	
 	printf("\n===============================Teste da Operação Transposta======================\n");
@@ -358,7 +364,7 @@ void teste_todos(void)
 		printf("\n");
 	}
 }
-/**###Função Transporta: 
+/**###Função Transposta: 
  * Calcula a matriz transposta de uma matriz A de n linhas e m colunas.
  * @param[in] mtx, linhas, colunas
  * @param[out] mtx_transposta
@@ -400,7 +406,20 @@ complexo **conjugada(complexo **mtx, int linhas, int colunas)
 
     return matrix;
 }
-//Função Hermitiana.
+
+/**###Função Hermitiana: 
+* A função hermetiana recebe três parâmetros: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz) e colunas (o número de colunas da matriz).
+Ela declara duas variáveis do tipo complexo**: matriz e matriz_h.
+Em seguida, a função aloca memória para duas matrizes usando a função allocateComplexMatrix. A primeira matriz (matriz) tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz (matriz_h), também tem o mesmo tamanho.
+A função chama a função conjugada passando a matriz de entrada mtx, linhas e colunas. Essa função retorna a matriz conjugada da matriz de entrada.
+O resultado da função conjugada é atribuído à matriz matriz.
+Em seguida, a função chama a função transposta passando a matriz matriz, linhas e colunas. Essa função retorna a transposta da matriz passada como argumento.
+O resultado da função transposta é atribuído à matriz matriz_h.
+Por fim, a função retorna a matriz matriz_h, que é a matriz hermitiana resultante.
+* @param[in] mtx, linhas, colunas
+* @param[out] matriz_h.
+*/
+
 complexo **hermetiana(complexo** mtx, int linhas, int colunas)
 {
     complexo **matriz, **matriz_h;
