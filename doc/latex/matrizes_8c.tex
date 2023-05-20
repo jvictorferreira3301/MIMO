@@ -83,7 +83,7 @@ A função {\ttfamily conjugada} implementa a operação de matriz conjugada. Es
 \begin{DoxyItemize}
 \item A função {\ttfamily conjugada} recebe três parâmetros\+: {\ttfamily mtx} (uma matriz de números complexos), {\ttfamily linhas} (o número de linhas da matriz) e {\ttfamily colunas} (o número de colunas da matriz).
 \item Ela declara uma variável do tipo {\ttfamily complexo$\ast$$\ast$} chamada {\ttfamily matrix}, que será usada para armazenar a matriz conjugada.
-\item Em seguida, a função aloca memória para a matriz {\ttfamily matrix} usando a função {\ttfamily allocate\+Complex\+Matrix}, que provavelmente é uma função auxiliar definida em outro lugar no código. A matriz {\ttfamily matrix} tem o mesmo tamanho da matriz de entrada {\ttfamily mtx}.
+\item Em seguida, a função aloca memória para a matriz {\ttfamily matrix} usando a função {\ttfamily allocate\+Complex\+Matrix}. A matriz {\ttfamily matrix} tem o mesmo tamanho da matriz de entrada {\ttfamily mtx}.
 \item A função usa dois loops aninhados para percorrer cada elemento da matriz {\ttfamily mtx}. O loop externo itera pelas linhas e o loop interno itera pelas colunas.
 \item Dentro do loop, a função atribui o valor real do elemento da matriz de entrada {\ttfamily mtx\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.real} ao elemento correspondente da matriz {\ttfamily matrix\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.real}, preservando o mesmo valor.
 \item A função inverte o sinal da parte imaginária do elemento da matriz de entrada, multiplicando-\/a por -\/1\+: {\ttfamily matrix\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.img = -\/mtx\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.img}.
@@ -132,10 +132,20 @@ Teste de todas as funções\+: Executa cada função de teste uma vez \mbox{\Hyp
 {\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ transposta (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
 
 \hypertarget{matrizes_8h_autotoc_md2}{}\doxyparagraph{Função Transporta\+:}\label{matrizes_8h_autotoc_md2}
-Calcula a matriz transposta de uma matriz A de n linhas e m colunas. 
+A função {\ttfamily transposta} implementa a operação de transposição de matriz. Essa operação consiste em trocar as linhas pelas colunas da matriz de entrada.
+\begin{DoxyItemize}
+\item A função {\ttfamily transposta} recebe três parâmetros\+: {\ttfamily mtx} (uma matriz de números complexos), {\ttfamily linhas} (o número de linhas da matriz) e {\ttfamily colunas} (o número de colunas da matriz).
+\item Ela declara uma variável do tipo {\ttfamily complexo$\ast$$\ast$} chamada {\ttfamily matriz}, que será usada para armazenar a matriz transposta.
+\item Em seguida, a função aloca memória para a matriz {\ttfamily matriz} usando a função {\ttfamily allocate\+Complex\+Matrix}. A matriz {\ttfamily matriz} tem o tamanho {\ttfamily colunas x linhas}, ou seja, o número de colunas da matriz de entrada se torna o número de linhas da matriz transposta, e o número de linhas da matriz de entrada se torna o número de colunas da matriz transposta.
+\item A função usa dois loops aninhados para percorrer cada elemento da matriz {\ttfamily mtx}. O loop externo itera pelas linhas e o loop interno itera pelas colunas.
+\item Dentro do loop, a função atribui o valor real do elemento da matriz de entrada {\ttfamily mtx\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.real} ao elemento correspondente da matriz {\ttfamily matriz\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.real}.
+\item A função atribui também o valor da parte imaginária do elemento da matriz de entrada {\ttfamily mtx\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.img} ao elemento correspondente da matriz {\ttfamily matriz\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.img}.
+\item Depois que todos os elementos da matriz {\ttfamily mtx} são processados, a função retorna a matriz {\ttfamily matriz}, que contém a matriz transposta resultante. 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em mtx,linhas,colunas} & \\
 \hline
 \mbox{\texttt{ out}}  & {\em mtx\+\_\+transposta} & \\
 \hline
 \end{DoxyParams}
+
+\end{DoxyItemize}

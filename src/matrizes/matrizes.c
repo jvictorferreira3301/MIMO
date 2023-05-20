@@ -358,8 +358,15 @@ void teste_todos(void)
 		printf("\n");
 	}
 }
-/**###Função Transporta: 
- * Calcula a matriz transposta de uma matriz A de n linhas e m colunas.
+/**###Função Transposta: 
+ * A função `transposta` implementa a operação de transposição de matriz. Essa operação consiste em trocar as linhas pelas colunas da matriz de entrada.
+- A função `transposta` recebe três parâmetros: `mtx` (uma matriz de números complexos), `linhas` (o número de linhas da matriz) e `colunas` (o número de colunas da matriz).
+- Ela declara uma variável do tipo `complexo**` chamada `matriz`, que será usada para armazenar a matriz transposta.
+- Em seguida, a função aloca memória para a matriz `matriz` usando a função `allocateComplexMatrix`. A matriz `matriz` tem o tamanho `colunas x linhas`, ou seja, o número de colunas da matriz de entrada se torna o número de linhas da matriz transposta, e o número de linhas da matriz de entrada se torna o número de colunas da matriz transposta.
+- A função usa dois loops aninhados para percorrer cada elemento da matriz `mtx`. O loop externo itera pelas linhas e o loop interno itera pelas colunas.
+- Dentro do loop, a função atribui o valor real do elemento da matriz de entrada `mtx[c][l].real` ao elemento correspondente da matriz `matriz[l][c].real`.
+- A função atribui também o valor da parte imaginária do elemento da matriz de entrada `mtx[c][l].img` ao elemento correspondente da matriz `matriz[l][c].img`.
+- Depois que todos os elementos da matriz `mtx` são processados, a função retorna a matriz `matriz`, que contém a matriz transposta resultante.
  * @param[in] mtx, linhas, colunas
  * @param[out] mtx_transposta
  * */

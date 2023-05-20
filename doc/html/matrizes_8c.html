@@ -183,7 +183,7 @@ Função Conjugada:</h3>
 <p>A função <code>conjugada</code> implementa a operação de matriz conjugada. Essa operação consiste em inverter o sinal da parte imaginária de cada elemento da matriz de entrada.</p><ul>
 <li>A função <code>conjugada</code> recebe três parâmetros: <code>mtx</code> (uma matriz de números complexos), <code>linhas</code> (o número de linhas da matriz) e <code>colunas</code> (o número de colunas da matriz).</li>
 <li>Ela declara uma variável do tipo <code>complexo**</code> chamada <code>matrix</code>, que será usada para armazenar a matriz conjugada.</li>
-<li>Em seguida, a função aloca memória para a matriz <code>matrix</code> usando a função <code>allocateComplexMatrix</code>, que provavelmente é uma função auxiliar definida em outro lugar no código. A matriz <code>matrix</code> tem o mesmo tamanho da matriz de entrada <code>mtx</code>.</li>
+<li>Em seguida, a função aloca memória para a matriz <code>matrix</code> usando a função <code>allocateComplexMatrix</code>. A matriz <code>matrix</code> tem o mesmo tamanho da matriz de entrada <code>mtx</code>.</li>
 <li>A função usa dois loops aninhados para percorrer cada elemento da matriz <code>mtx</code>. O loop externo itera pelas linhas e o loop interno itera pelas colunas.</li>
 <li>Dentro do loop, a função atribui o valor real do elemento da matriz de entrada <code>mtx[l][c].real</code> ao elemento correspondente da matriz <code>matrix[l][c].real</code>, preservando o mesmo valor.</li>
 <li>A função inverte o sinal da parte imaginária do elemento da matriz de entrada, multiplicando-a por -1: <code>matrix[l][c].img = -mtx[l][c].img</code>.</li>
@@ -303,13 +303,22 @@ Função Hermitiana:</h3>
 </div><div class="memdoc">
 <h3><a class="anchor" id="autotoc_md2"></a>
 Função Transporta:</h3>
-<p>Calcula a matriz transposta de uma matriz A de n linhas e m colunas. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>A função <code>transposta</code> implementa a operação de transposição de matriz. Essa operação consiste em trocar as linhas pelas colunas da matriz de entrada.</p><ul>
+<li>A função <code>transposta</code> recebe três parâmetros: <code>mtx</code> (uma matriz de números complexos), <code>linhas</code> (o número de linhas da matriz) e <code>colunas</code> (o número de colunas da matriz).</li>
+<li>Ela declara uma variável do tipo <code>complexo**</code> chamada <code>matriz</code>, que será usada para armazenar a matriz transposta.</li>
+<li>Em seguida, a função aloca memória para a matriz <code>matriz</code> usando a função <code>allocateComplexMatrix</code>. A matriz <code>matriz</code> tem o tamanho <code>colunas x linhas</code>, ou seja, o número de colunas da matriz de entrada se torna o número de linhas da matriz transposta, e o número de linhas da matriz de entrada se torna o número de colunas da matriz transposta.</li>
+<li>A função usa dois loops aninhados para percorrer cada elemento da matriz <code>mtx</code>. O loop externo itera pelas linhas e o loop interno itera pelas colunas.</li>
+<li>Dentro do loop, a função atribui o valor real do elemento da matriz de entrada <code>mtx[c][l].real</code> ao elemento correspondente da matriz <code>matriz[l][c].real</code>.</li>
+<li>A função atribui também o valor da parte imaginária do elemento da matriz de entrada <code>mtx[c][l].img</code> ao elemento correspondente da matriz <code>matriz[l][c].img</code>.</li>
+<li>Depois que todos os elementos da matriz <code>mtx</code> são processados, a função retorna a matriz <code>matriz</code>, que contém a matriz transposta resultante. <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">mtx,linhas,colunas</td><td></td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">mtx_transposta</td><td></td></tr>
   </table>
   </dd>
 </dl>
+</li>
+</ul>
 
 </div>
 </div>
