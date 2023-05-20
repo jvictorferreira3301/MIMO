@@ -14,8 +14,8 @@ Para mais informações, visite https://github.com/jvictorferreira3301/Projeto-d
 - 
 <div style="display: flex; justify-content: center;">
   <div style="display: flex; gap: 30px;">
-    <img src="/home/jv/Desktop/work/projetosII/Projeto-de-Engenharia-II/etapa_2/figures/ufpa.png" alt="Texto alternativo" title="Título opcional" style="width: 300px;">
-    <img src="/home/jv/Desktop/work/projetosII/Projeto-de-Engenharia-II/etapa_2/figures/itec.png" alt="Imagem 2" style="width: 500px;">
+    <img src="ufpa.png" alt="Texto alternativo" title="Título opcional" style="width: 300px;">
+    <img src="itec.png" alt="Imagem 2" style="width: 500px;">
   </div>
 </div>
 
