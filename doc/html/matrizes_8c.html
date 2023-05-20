@@ -180,13 +180,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>printComplex</b> (<a 
 </div><div class="memdoc">
 <h3><a class="anchor" id="autotoc_md3"></a>
 Função Conjugada:</h3>
-<p>Calcula a matriz conjugada de uma matriz A de n linhas e m colunas. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>A função <code>conjugada</code> implementa a operação de matriz conjugada. Essa operação consiste em inverter o sinal da parte imaginária de cada elemento da matriz de entrada.</p><ul>
+<li>A função <code>conjugada</code> recebe três parâmetros: <code>mtx</code> (uma matriz de números complexos), <code>linhas</code> (o número de linhas da matriz) e <code>colunas</code> (o número de colunas da matriz).</li>
+<li>Ela declara uma variável do tipo <code>complexo**</code> chamada <code>matrix</code>, que será usada para armazenar a matriz conjugada.</li>
+<li>Em seguida, a função aloca memória para a matriz <code>matrix</code> usando a função <code>allocateComplexMatrix</code>, que provavelmente é uma função auxiliar definida em outro lugar no código. A matriz <code>matrix</code> tem o mesmo tamanho da matriz de entrada <code>mtx</code>.</li>
+<li>A função usa dois loops aninhados para percorrer cada elemento da matriz <code>mtx</code>. O loop externo itera pelas linhas e o loop interno itera pelas colunas.</li>
+<li>Dentro do loop, a função atribui o valor real do elemento da matriz de entrada <code>mtx[l][c].real</code> ao elemento correspondente da matriz <code>matrix[l][c].real</code>, preservando o mesmo valor.</li>
+<li>A função inverte o sinal da parte imaginária do elemento da matriz de entrada, multiplicando-a por -1: <code>matrix[l][c].img = -mtx[l][c].img</code>.</li>
+<li>Depois que todos os elementos da matriz <code>mtx</code> são processados, a função retorna a matriz <code>matrix</code>, que contém a matriz conjugada resultante. <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">mtx,linhas,colunas</td><td></td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">mtx_conjugada</td><td></td></tr>
   </table>
   </dd>
 </dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -223,13 +232,22 @@ Função Conjugada:</h3>
 </div><div class="memdoc">
 <h3><a class="anchor" id="autotoc_md4"></a>
 Função Hermitiana:</h3>
-<p>A função hermetiana recebe três parâmetros: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz) e colunas (o número de colunas da matriz). Ela declara duas variáveis do tipo complexo**: matriz e matriz_h. Em seguida, a função aloca memória para duas matrizes usando a função allocateComplexMatrix. A primeira matriz (matriz) tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz (matriz_h), também tem o mesmo tamanho. A função chama a função conjugada passando a matriz de entrada mtx, linhas e colunas. Essa função retorna a matriz conjugada da matriz de entrada. O resultado da função conjugada é atribuído à matriz matriz. Em seguida, a função chama a função transposta passando a matriz matriz, linhas e colunas. Essa função retorna a transposta da matriz passada como argumento. O resultado da função transposta é atribuído à matriz matriz_h. Por fim, a função retorna a matriz matriz_h, que é a matriz hermitiana resultante. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>A função <code>hermetiana</code> implementa a operação de matriz hermitiana. Essa operação consiste em obter a matriz conjugada da matriz de entrada e, em seguida, calcular a transposta dessa matriz conjugada. A matriz resultante é uma matriz hermitiana.</p>
+<ul>
+<li>A função hermetiana recebe três parâmetros: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz) e colunas (o número de colunas da matriz). Ela declara duas variáveis do tipo complexo**: matriz e matriz_h.</li>
+<li>Em seguida, a função aloca memória para duas matrizes usando a função allocateComplexMatrix. A primeira matriz (matriz) tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz (matriz_h), também tem o mesmo tamanho.</li>
+<li>A função chama a função conjugada passando a matriz de entrada mtx, linhas e colunas. Essa função retorna a matriz conjugada da matriz de entrada.</li>
+<li>O resultado da função conjugada é atribuído à matriz matriz.</li>
+<li>Em seguida, a função chama a função transposta passando a matriz matriz, linhas e colunas. Essa função retorna a transposta da matriz passada como argumento. O resultado da função transposta é atribuído à matriz matriz_h.</li>
+<li>Por fim, a função retorna a matriz matriz_h, que é a matriz hermitiana resultante. <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">mtx,linhas,colunas</td><td></td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">matriz_h.</td><td></td></tr>
   </table>
   </dd>
 </dl>
+</li>
+</ul>
 
 </div>
 </div>

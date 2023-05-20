@@ -379,7 +379,14 @@ complexo **transposta(complexo** mtx,int linhas, int colunas)
     return matriz;
 }
 /**###Função Conjugada:
- * Calcula a matriz conjugada de uma matriz A de n linhas e m colunas.
+ *A função `conjugada` implementa a operação de matriz conjugada. Essa operação consiste em inverter o sinal da parte imaginária de cada elemento da matriz de entrada.
+- A função `conjugada` recebe três parâmetros: `mtx` (uma matriz de números complexos), `linhas` (o número de linhas da matriz) e `colunas` (o número de colunas da matriz).
+- Ela declara uma variável do tipo `complexo**` chamada `matrix`, que será usada para armazenar a matriz conjugada.
+- Em seguida, a função aloca memória para a matriz `matrix` usando a função `allocateComplexMatrix`. A matriz `matrix` tem o mesmo tamanho da matriz de entrada `mtx`.
+- A função usa dois loops aninhados para percorrer cada elemento da matriz `mtx`. O loop externo itera pelas linhas e o loop interno itera pelas colunas.
+- Dentro do loop, a função atribui o valor real do elemento da matriz de entrada `mtx[l][c].real` ao elemento correspondente da matriz `matrix[l][c].real`, preservando o mesmo valor.
+- A função inverte o sinal da parte imaginária do elemento da matriz de entrada, multiplicando-a por -1: `matrix[l][c].img = -mtx[l][c].img`.
+- Depois que todos os elementos da matriz `mtx` são processados, a função retorna a matriz `matrix`, que contém a matriz conjugada resultante. 
  * @param[in] mtx, linhas, colunas
  * @param[out] mtx_conjugada
  * */
@@ -401,16 +408,18 @@ complexo **conjugada(complexo **mtx, int linhas, int colunas)
     return matrix;
 }
 /**###Função Hermitiana: 
-* A função hermetiana recebe três parâmetros: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz) e colunas (o número de colunas da matriz).
+ * A função `hermetiana` implementa a operação de matriz hermitiana. Essa operação consiste em obter a matriz conjugada da matriz de entrada e, em seguida, calcular a transposta dessa matriz conjugada. A matriz resultante é uma matriz hermitiana.
+
+- A função hermetiana recebe três parâmetros: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz) e colunas (o número de colunas da matriz).
 Ela declara duas variáveis do tipo complexo**: matriz e matriz_h.
-* Em seguida, a função aloca memória para duas matrizes usando a função allocateComplexMatrix. A primeira matriz (matriz) tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz (matriz_h), também tem o mesmo tamanho.
-* A função chama a função conjugada passando a matriz de entrada mtx, linhas e colunas. Essa função retorna a matriz conjugada da matriz de entrada.
-* O resultado da função conjugada é atribuído à matriz matriz.
-* Em seguida, a função chama a função transposta passando a matriz matriz, linhas e colunas. Essa função retorna a transposta da matriz passada como argumento.
+- Em seguida, a função aloca memória para duas matrizes usando a função allocateComplexMatrix. A primeira matriz (matriz) tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz (matriz_h), também tem o mesmo tamanho.
+- A função chama a função conjugada passando a matriz de entrada mtx, linhas e colunas. Essa função retorna a matriz conjugada da matriz de entrada.
+- O resultado da função conjugada é atribuído à matriz matriz.
+- Em seguida, a função chama a função transposta passando a matriz matriz, linhas e colunas. Essa função retorna a transposta da matriz passada como argumento.
 O resultado da função transposta é atribuído à matriz matriz_h.
-* Por fim, a função retorna a matriz matriz_h, que é a matriz hermitiana resultante.
-* @param[in] mtx, linhas, colunas
-* @param[out] matriz_h.
+- Por fim, a função retorna a matriz matriz_h, que é a matriz hermitiana resultante.
+ @param[in] mtx, linhas, colunas
+ @param[out] matriz_h.
 */
 complexo **hermetiana(complexo** mtx, int linhas, int colunas)
 {
