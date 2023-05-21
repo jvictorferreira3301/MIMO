@@ -12,48 +12,37 @@ typedef struct complexo {
     float real; ///< Parte real
     float img; ///< Parte imaginária
 } complexo;
-
-complexo soma_complexo(complexo c1, complexo c2);
-
-/* Alocação de memoria para uma matriz complexa*/
-complexo** allocateComplexMatrix(int linhas, int colunas);
-
-/* Liberação de memória de uma matriz complexa*/
-void LiberarMatriz(complexo **mtx, int linhas);
-
-/* a função que faz a transposta da matriz*/
+//Função: Teste de todas as funções de álgebra matricial do código.
+void teste_todos(void);
+//Função: Transposição de uma matriz.
 complexo** transposta(complexo **mtx, int linhas, int colunas);
-
-/* Printa o complexo c */
-void printComplex(complexo c);
-
-/* Multiplica dois complexos */
-complexo multcomp(complexo c1, complexo c2);
-
-/* Soma duas matrizes complexas */
-complexo** soma(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
-
-/* Subtrai duas matrizes complexas */
-complexo** subtracao(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
-
-/* Multiplica duas matrizes */
-complexo** produto_matricial(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
-
-/* Calcula o produto interno entre dois vetores */
-complexo produto_interno(complexo **v1, complexo **v2, int linhas, int colunas);
-
+//Função: Conjugada de uma matriz complexa.
 complexo** conjugada(complexo **mtx, int linhas, int colunas);
-
-complexo** hermetiana(complexo **mtx, int linhas, int colunas);
-
+//Função: Hermitiana de uma matriz complexa.
+complexo** hermitiana(complexo **mtx, int linhas, int colunas);
+//Função: Soma entre duas matrizes complexas.
+complexo** soma(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
+//Função: Subtração entre duas matrizes complexas.
+complexo** subtracao(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
+//Função: Produto interno entre dois vetores complexos.
+complexo produto_interno(complexo **v1, complexo **v2, int linhas, int colunas);
+//Função: Produto matricial entre duas matrizes complexas.
+complexo** produto_matricial(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
+//Função: Multiplicação por um escalar k.
 complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k);
-
-void teste_conjugada(void);
+//Funções de teste.
 void teste_transposta(void);
+void teste_conjugada(void);
 void teste_hermetiana(void);
 void teste_soma(void);
 void teste_subtracao(void);
-void teste_todos(void);
 void teste_produto_interno(void);
 void teste_produto_matricial(void);
+//Manipulação de memória.
+complexo** allocateComplexMatrix(int linhas, int colunas);
+void LiberarMatriz(complexo **mtx, int linhas);
+//Manipulação de números complexos.
+void printComplex(complexo c);
+complexo soma_complexo(complexo c1, complexo c2);
+complexo multcomp(complexo c1, complexo c2);
 #endif
