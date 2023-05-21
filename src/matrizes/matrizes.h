@@ -4,8 +4,9 @@
 
 #include <stdlib.h>
 
-/** Estrutura das variáveis complexas.
- *  Define a estrutura do tipo complexo em parte real e parte imaginária.
+/** A definição do código apresenta uma estrutura chamada `complexo` que é utilizada para representar números complexos. A estrutura possui dois campos: `real` e `img`, ambos do tipo `float`. 
+*O campo `real` é responsável por armazenar a parte real do número complexo, enquanto o campo `img` é utilizado para armazenar a parte imaginária. Essa estrutura é útil para armazenar e manipular números complexos em programas escritos em linguagem C.
+ Essa definição de estrutura pode ser incluída em programas C que envolvem cálculos com números complexos, permitindo uma organização clara e acessível dos dados relacionados a números complexos.
  */
 typedef struct complexo {
     float real; ///< Parte real
