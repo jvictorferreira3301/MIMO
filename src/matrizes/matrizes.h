@@ -43,13 +43,13 @@ complexo produto_interno(complexo **v1, complexo **v2, int linhas, int colunas);
 
 complexo** conjugada(complexo **mtx, int linhas, int colunas);
 
-complexo** hermetiana(complexo **mtx, int linhas, int colunas);
+complexo** hermitiana(complexo **mtx, int linhas, int colunas);
 
 complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k);
 
 void teste_conjugada(void);
 void teste_transposta(void);
-void teste_hermetiana(void);
+void teste_hermitiana(void);
 void teste_soma(void);
 void teste_subtracao(void);
 void teste_todos(void);

@@ -91,7 +91,7 @@ void teste_todos(void)
 	}
 
 
-	printf("\n===============================Teste da operação Hermetiana===============================\n");
+	printf("\n===============================Teste da operação hermitiana===============================\n");
 
 	complexo **mtx_a, **mtx_h;
 
@@ -117,7 +117,7 @@ void teste_todos(void)
         printf("\n");
 	}
 
-    mtx_h = hermetiana(mtx_a, nlinhas, ncolunas);
+    mtx_h = hermitiana(mtx_a, nlinhas, ncolunas);
 
 	printf("\nResultado:\n");
 
@@ -401,7 +401,7 @@ complexo **conjugada(complexo **mtx, int linhas, int colunas)
     return matrix;
 }
 //Função Hermitiana.
-complexo **hermetiana(complexo** mtx, int linhas, int colunas)
+complexo **hermitiana(complexo** mtx, int linhas, int colunas)
 {
     complexo **matriz, **matriz_h;
 
@@ -686,7 +686,7 @@ void teste_conjugada(void) //Kauan (06.05.23)
 	//Finalização do teste.
 }
 //Teste da função Hermitiana.
-void teste_hermetiana(void)
+void teste_hermitiana(void)
 {
     complexo **mtx_a, **mtx_a_h, **mtx_b, **mtx_b_h, **mtx_c, **mtx_c_h;
 
@@ -698,7 +698,7 @@ void teste_hermetiana(void)
 	mtx_b = allocateComplexMatrix(nlinhas, ncolunas);
 	mtx_c = allocateComplexMatrix(nlinhas, ncolunas);
 	//Preenchimento da(s) matriz(es).
-	printf("\n======================Teste da Operação Hermetiana======================\n");
+	printf("\n======================Teste da Operação hermitiana======================\n");
     for (int l = 0; l < ncolunas; l++)
     {
         for (int c = 0; c < ncolunas; c++)
@@ -714,10 +714,10 @@ void teste_hermetiana(void)
 			mtx_c[l][c].img = 1 - l + 2*c;
         }
     }
-	//Chamada da função Hermetiana.
-    mtx_a_h = hermetiana(mtx_a, nlinhas, ncolunas);
-	mtx_b_h = hermetiana(mtx_b, nlinhas, ncolunas);
-	mtx_c_h = hermetiana(mtx_c, nlinhas, ncolunas);
+	//Chamada da função hermitiana.
+    mtx_a_h = hermitiana(mtx_a, nlinhas, ncolunas);
+	mtx_b_h = hermitiana(mtx_b, nlinhas, ncolunas);
+	mtx_c_h = hermitiana(mtx_c, nlinhas, ncolunas);
 	
 	//Impressão da(s) matriz(es).
 	printf("\nOperando A:\n");
@@ -730,7 +730,7 @@ void teste_hermetiana(void)
 		}
         printf("\n");
 	}
-	printf("\nMatriz Hermetiana de A:\n");
+	printf("\nMatriz hermitiana de A:\n");
 
     for (int l = 0 ; l < nlinhas_trans; l++)
 	{
@@ -752,7 +752,7 @@ void teste_hermetiana(void)
         printf("\n");
 	}
 	
-	printf("\nMatriz Hermetiana de B:\n");
+	printf("\nMatriz hermitiana de B:\n");
 
     for (int l = 0 ; l < nlinhas_trans; l++)
 	{
@@ -774,7 +774,7 @@ void teste_hermetiana(void)
         printf("\n");
 	}	
 
-	printf("\nMatriz Hermetiana de C:\n");
+	printf("\nMatriz hermitiana de C:\n");
 
     for (int l = 0 ; l < nlinhas_trans; l++)
 	{
@@ -784,7 +784,7 @@ void teste_hermetiana(void)
 		}
         printf("\n");
 	}
-	//Fim do teste da função Hermetiana.
+	//Fim do teste da função hermitiana.
 }
 //Teste da função Soma.
 void teste_soma(void)
