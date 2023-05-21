@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['teste_5ftodos_7',['teste_todos',['../matrizes_8c.html#a8214d171fd20751ee734ab0115eeba5f',1,'matrizes.c']]],
-  ['transposta_8',['transposta',['../matrizes_8c.html#aff0ae830addccc15068fc29baec88651',1,'matrizes.c']]]
+  ['soma_9',['soma',['../matrizes_8c.html#adf520dbe06d6f70b80d8edd3b6a5e75f',1,'matrizes.c']]],
+  ['subtracao_10',['subtracao',['../matrizes_8c.html#a16ca849f070a336d14c19d77b66104df',1,'matrizes.c']]]
 ];

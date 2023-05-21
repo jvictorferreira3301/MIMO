@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['main_40',['main',['../main_8c.html#a840291bc02cba5474a4cb46a9b9566fe',1,'main.c']]],
-  ['multcomp_41',['multcomp',['../matrizes_8c.html#a5cc63ebae3af0751c5455c9b74754fb8',1,'multcomp(complexo c, complexo c1):&#160;matrizes.c'],['../matrizes_8h.html#a5cc63ebae3af0751c5455c9b74754fb8',1,'multcomp(complexo c, complexo c1):&#160;matrizes.c']]]
+  ['teste_5ftodos_21',['teste_todos',['../matrizes_8c.html#a8214d171fd20751ee734ab0115eeba5f',1,'matrizes.c']]],
+  ['transposta_22',['transposta',['../matrizes_8c.html#aff0ae830addccc15068fc29baec88651',1,'matrizes.c']]]
 ];

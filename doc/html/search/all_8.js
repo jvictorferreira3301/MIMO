@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['real_17',['real',['../structcomplexo.html#a818f60e91b2bc5cb5706a4bae415f053',1,'complexo']]]
+  ['teste_5ftodos_11',['teste_todos',['../matrizes_8c.html#a8214d171fd20751ee734ab0115eeba5f',1,'matrizes.c']]],
+  ['transposta_12',['transposta',['../matrizes_8c.html#aff0ae830addccc15068fc29baec88651',1,'matrizes.c']]]
 ];

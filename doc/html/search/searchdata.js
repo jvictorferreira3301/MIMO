@@ -1,11 +1,11 @@
 var indexSectionsWithContent =
 {
-  0: "<chimrt",
+  0: "chimprst",
   1: "c",
   2: "m",
-  3: "cht",
+  3: "chpst",
   4: "ir",
-  5: "<"
+  5: "m"
 };
 
 var indexSectionNames =
@@ -20,11 +20,11 @@ var indexSectionNames =
 
 var indexSectionLabels =
 {
-  0: "All",
+  0: "Tudo",
   1: "Classes",
-  2: "Files",
-  3: "Functions",
-  4: "Variables",
-  5: "Pages"
+  2: "Ficheiros",
+  3: "Funções",
+  4: "Variáveis",
+  5: "Páginas"
 };
 

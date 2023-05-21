@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['complexo_1',['complexo',['../structcomplexo.html',1,'']]],
-  ['conjugada_2',['conjugada',['../matrizes_8c.html#a8114594cf98abb2ef63638954f3a4385',1,'matrizes.c']]]
+  ['hermetiana_2',['hermetiana',['../matrizes_8c.html#ab90777758af183ac2472d233031ff530',1,'matrizes.c']]]
 ];
