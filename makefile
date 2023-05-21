@@ -3,34 +3,36 @@ matrizes = ./src/matrizes
 obj = ./build
 exec = aplicacao
 
-all:$(exec)
+all:$(exec) doc
 
-#teste: ./build/main.o ./build/matrizes.o
-#	gcc ./build/main.o ./build/matrizes.o -I ./build -o teste
 $(exec):$(obj)/main.o $(obj)/matrizes.o
-	@echo -e "\nGerando o arquivo executável $@..."
-	gcc $< $(obj)/matrizes.o -I $(obj) -o $@.exe -W -Wall -pedantic
-	@echo -e "\nPara rodar o codigo 'main.c' execute o arquivo ./$@.exe ou o comando 'make teste'!!"
+	@echo -e "\n	Gerando o arquivo executável $@..."
+	gcc $< $(obj)/matrizes.o -I $(obj) -o $(obj)/$@.exe -W -Wall -pedantic
+	@echo -e "\n	Para rodar o codigo 'main.c' execute o arquivo ./$@.exe ou o comando 'make teste'!!"
 
-#./build/objeto.o: ./src/source.c
-#	gcc -c objeto.o -J ./build -o ./build/objeto.o
 $(obj)/main.o:$(src)/main.c  
-	@echo -e "\nGerando o aqruivo objeto $@..."
+	@echo -e "\n	Gerando o aqruivo objeto $@..."
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
 	
 $(obj)/matrizes.o:$(matrizes)/matrizes.c  
-	@echo -e "\nGerando o aqruivo objeto $@..."
+	@echo -e "\n	Gerando o aqruivo objeto $@..."
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
-	
-#run: teste
-#	./teste
-teste: $(exec).exe
-	./$(exec).exe
+
+.PHONY: doc
+doc: Doxyfile
+	@echo -e "\n	Gerando arquivos de documentação do projeto..."
+	doxygen Doxyfile
+#	@echo -e "\nAbrindo a página HTML da documentação..."
+#	doc/html/index.html
+
+teste: $(obj)/$(exec).exe
+	$(obj)/$(exec).exe
 
 clean:
-	@echo -e "\nRemovendo arquivos '.o'..."
+	@echo -e "\n	Removendo arquivos '.o'..."
 	rm -rf $(obj)/*.o
-	rm -rf *.o
-	@echo -e "\nRemovendo arquivos executáveis '.exe'"
-	rm -rf *.exe
-
+	@echo -e "\n	Removendo arquivos executáveis '.exe'..."
+	rm -rf $(obj)/*.exe
+	@echo -e "\nRemovendo arquivos de documentação..."
+	find doc -type f ! -path "doc/figures/*" -delete
+	find doc -type d -empty -delete
