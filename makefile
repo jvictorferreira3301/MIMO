@@ -24,9 +24,15 @@ doc: Doxyfile
 	@echo -e "\n=== Gerando arquivos de documentação do projeto... ==="
 	doxygen Doxyfile
 
+.PHONY: site
 site: $(html)/index.html
 	@echo -e "\n=== Abrindo a página de documentação do projeto... ==="
 	start ./doc/html/index.html
+
+.PHONY: cyg
+cyg: $(html)/index.html
+	@echo -e "\n=== Abrindo a página de documentação do projeto... ==="
+	cygstart doc/html/index.html
 
 teste: $(obj)/$(exec).exe
 	$(obj)/$(exec).exe
