@@ -1,16 +1,16 @@
-\hypertarget{matrizes_8c}{}\doxysection{src/matrizes/matrizes.c File Reference}
+\hypertarget{matrizes_8c}{}\doxysection{Referência ao ficheiro src/matrizes/matrizes.c}
 \label{matrizes_8c}\index{src/matrizes/matrizes.c@{src/matrizes/matrizes.c}}
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}matrizes.\+h\char`\"{}}\newline
-Include dependency graph for matrizes.\+c\+:\nopagebreak
+Diagrama de dependências de inclusão para matrizes.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=254pt]{matrizes_8c__incl}
 \end{center}
 \end{figure}
-\doxysubsection*{Functions}
+\doxysubsection*{Funções}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{matrizes_8c_a8214d171fd20751ee734ab0115eeba5f}{teste\+\_\+todos}} (void)
@@ -71,7 +71,7 @@ void {\bfseries print\+Complex} (\mbox{\hyperlink{structcomplexo}{complexo}} c)
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Function Documentation}
+\doxysubsection{Documentação das funções}
 \mbox{\Hypertarget{matrizes_8c_a8114594cf98abb2ef63638954f3a4385}\label{matrizes_8c_a8114594cf98abb2ef63638954f3a4385}} 
 \index{matrizes.c@{matrizes.c}!conjugada@{conjugada}}
 \index{conjugada@{conjugada}!matrizes.c@{matrizes.c}}
@@ -80,7 +80,7 @@ void {\bfseries print\+Complex} (\mbox{\hyperlink{structcomplexo}{complexo}} c)
 
 \hypertarget{matrizes_8h_autotoc_md3}{}\doxyparagraph{Função Conjugada\+:}\label{matrizes_8h_autotoc_md3}
 Calcula a matriz conjugada de uma matriz A de n linhas e m colunas. 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{Parâmetros}
 \mbox{\texttt{ in}}  & {\em mtx,linhas,colunas} & \\
 \hline
 \mbox{\texttt{ out}}  & {\em mtx\+\_\+conjugada} & \\
@@ -94,7 +94,7 @@ Calcula a matriz conjugada de uma matriz A de n linhas e m colunas.
 
 \hypertarget{matrizes_8h_autotoc_md4}{}\doxyparagraph{Função Hermitiana\+:}\label{matrizes_8h_autotoc_md4}
 A função hermetiana recebe três parâmetros\+: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz) e colunas (o número de colunas da matriz). Ela declara duas variáveis do tipo complexo$\ast$$\ast$\+: matriz e matriz\+\_\+h. Em seguida, a função aloca memória para duas matrizes usando a função allocate\+Complex\+Matrix. A primeira matriz (matriz) tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz (matriz\+\_\+h), também tem o mesmo tamanho. A função chama a função conjugada passando a matriz de entrada mtx, linhas e colunas. Essa função retorna a matriz conjugada da matriz de entrada. O resultado da função conjugada é atribuído à matriz matriz. Em seguida, a função chama a função transposta passando a matriz matriz, linhas e colunas. Essa função retorna a transposta da matriz passada como argumento. O resultado da função transposta é atribuído à matriz matriz\+\_\+h. Por fim, a função retorna a matriz matriz\+\_\+h, que é a matriz hermitiana resultante. 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{Parâmetros}
 \mbox{\texttt{ in}}  & {\em mtx,linhas,colunas} & \\
 \hline
 \mbox{\texttt{ out}}  & {\em matriz\+\_\+h.} & \\
@@ -117,7 +117,7 @@ Teste de todas as funções\+: Executa cada função de teste uma vez
 
 \hypertarget{matrizes_8h_autotoc_md2}{}\doxyparagraph{Função Transposta\+:}\label{matrizes_8h_autotoc_md2}
 Calcula a matriz transposta de uma matriz A de n linhas e m colunas. 
-\begin{DoxyParams}[1]{Parameters}
+\begin{DoxyParams}[1]{Parâmetros}
 \mbox{\texttt{ in}}  & {\em mtx,linhas,colunas} & \\
 \hline
 \mbox{\texttt{ out}}  & {\em mtx\+\_\+transposta} & \\

@@ -22,17 +22,35 @@
 
  @licend  The above is the entire license notice for the JavaScript code in this file
 */
-var menudata={children:[
-{text:"Página principal",url:"index.html"},
-{text:"Páginas relacionadas",url:"pages.html"},
-{text:"Classes",url:"annotated.html",children:[
-{text:"Lista de componentes",url:"annotated.html"},
-{text:"Índice dos componentes",url:"classes.html"},
-{text:"Componentes membro",url:"functions.html",children:[
-{text:"Tudo",url:"functions.html"},
-{text:"Variáveis",url:"functions_vars.html"}]}]},
-{text:"Ficheiros",url:"files.html",children:[
-{text:"Lista de ficheiros",url:"files.html"},
-{text:"Membros dos Ficheiros",url:"globals.html",children:[
-{text:"Tudo",url:"globals.html"},
-{text:"Funções",url:"globals_func.html"}]}]}]}
+var NAVTREE =
+[
+  [ "My Complex - Projeto de Engenharia II", "index.html", [
+    [ "<strong>My Complex</strong>", "index.html", [
+      [ "Integrantes", "index.html#autotoc_md1", null ]
+    ] ],
+    [ "Matrizes.C", "Matrizes_8C.html", null ],
+    [ "Classes", "annotated.html", [
+      [ "Lista de componentes", "annotated.html", "annotated_dup" ],
+      [ "Índice dos componentes", "classes.html", null ],
+      [ "Componentes membro", "functions.html", [
+        [ "Tudo", "functions.html", null ],
+        [ "Variáveis", "functions_vars.html", null ]
+      ] ]
+    ] ],
+    [ "Ficheiros", "files.html", [
+      [ "Lista de ficheiros", "files.html", "files_dup" ],
+      [ "Membros dos Ficheiros", "globals.html", [
+        [ "Tudo", "globals.html", null ],
+        [ "Funções", "globals_func.html", null ]
+      ] ]
+    ] ]
+  ] ]
+];
+
+var NAVTREEINDEX =
+[
+"Matrizes_8C.html"
+];
+
+var SYNCONMSG = 'clique para desativar a sincronização do painel';
+var SYNCOFFMSG = 'clique para ativar a sincronização do painel';
