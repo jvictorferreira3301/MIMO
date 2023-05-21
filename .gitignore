@@ -3,5 +3,6 @@
 *.o
 *.bak
 .vscode
-/doc/tex
-/doc/rtf
+/doc/html
+/doc/latex
+

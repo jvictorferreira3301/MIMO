@@ -421,6 +421,7 @@ complexo **conjugada(complexo **mtx, int linhas, int colunas)
 /**###Função Hermitiana: 
  * A função `hermitiana` implementa a operação de matriz hermitiana. Essa operação consiste em obter a matriz conjugada da matriz de entrada e, em seguida, calcular a transposta dessa matriz conjugada. A matriz resultante é uma matriz hermitiana.
 
+<<<<<<< HEAD
 - A função hermitiana recebe três parâmetros: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz) e colunas (o número de colunas da matriz).
 Ela declara duas variáveis do tipo complexo**: matriz e matriz_h.
 - Em seguida, a função aloca memória para duas matrizes usando a função allocateComplexMatrix. A primeira matriz (matriz) tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz (matriz_h), também tem o mesmo tamanho.
@@ -429,6 +430,16 @@ Ela declara duas variáveis do tipo complexo**: matriz e matriz_h.
 - Em seguida, a função chama a função transposta passando a matriz matriz, linhas e colunas. Essa função retorna a transposta da matriz passada como argumento.
 O resultado da função transposta é atribuído à matriz matriz_h.
 - Por fim, a função retorna a matriz matriz_h, que é a matriz hermitiana resultante.
+=======
+- A função `hermetiana` recebe três parâmetros: `mtx` (uma matriz de números complexos), `linhas` (o número de linhas da matriz) e `colunas` (o número de colunas da matriz).
+- Ela declara duas variáveis do tipo `complexo**`: `matriz` e `matriz_h`.
+- Em seguida, a função aloca memória para duas matrizes usando a função `allocateComplexMatrix`, que provavelmente é uma função auxiliar definida em outro lugar no código. A primeira matriz, `matriz`, tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz, `matriz_h`, também tem o mesmo tamanho.
+- A função chama a função `conjugada` passando a matriz de entrada `mtx`, `linhas` e `colunas`. Essa função provavelmente retorna a matriz conjugada da matriz de entrada.
+- O resultado da função `conjugada` é atribuído à matriz `matriz`.
+- Em seguida, a função chama a função `transposta` passando a matriz `matriz`, `linhas` e `colunas`. Essa função provavelmente retorna a transposta da matriz passada como argumento.
+- O resultado da função `transposta` é atribuído à matriz `matriz_h`.
+- Por fim, a função retorna a matriz `matriz_h`, que é a matriz hermitiana resultante.
+>>>>>>> 7dadafc416192d9db68ea79cf8d41a828aeaf1b9
  @param[in] mtx, linhas, colunas
  @param[out] matriz_h.
 */
