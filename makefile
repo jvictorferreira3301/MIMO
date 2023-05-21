@@ -63,10 +63,16 @@ doc: Doxyfile
 >>>>>>> 1fd4aab (Makefile: implementação da regra 'doc', realocação da pasta 'figures' e atualização da regra 'clean')
 =======
 
+.PHONY: site
 site: $(html)/index.html
 	@echo -e "\n=== Abrindo a página de documentação do projeto... ==="
 	start ./doc/html/index.html
 >>>>>>> 3ce9845 (Doxyfile: ajuste após realocação da pasta 'figures'| Makefile: regra 'site')
+
+.PHONY: cyg
+cyg: $(html)/index.html
+	@echo -e "\n=== Abrindo a página de documentação do projeto... ==="
+	cygstart doc/html/index.html
 
 teste: $(obj)/$(exec).exe
 	$(obj)/$(exec).exe
