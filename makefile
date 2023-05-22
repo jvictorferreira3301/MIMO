@@ -7,41 +7,42 @@ html = ./doc/html
 all:$(exec) doc
 
 $(exec):$(obj)/main.o $(obj)/matrizes.o
-	@echo -e "\n=== Gerando o arquivo executável $@... ==="
+	@echo -e "\n=== Generanting the file $@... ==="
 	gcc $< $(obj)/matrizes.o -I $(obj) -o $(obj)/$@.exe -W -Wall -pedantic
-	@echo -e "\n=== Para rodar o codigo 'main.c' execute o arquivo $(obj)/$@.exe ou o comando 'make teste' ===!!"
-
+	@echo -e "\n=== To run the code from 'main.c': run the file $(obj)/$@.exe or the rule command 'make teste'!! ==="
+	@echo -e "\n=== To run the project webpage: run the file $(html)/index.html or the rule command 'make webpage'!! ==="
 $(obj)/main.o:$(src)/main.c  
-	@echo -e "\n=== Gerando o aqruivo objeto $@... ==="
+	@echo -e "\n=== Generating the file $@... ==="
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
 	
 $(obj)/matrizes.o:$(matrizes)/matrizes.c  
-	@echo -e "\n=== Gerando o aqruivo objeto $@... ==="
+	@echo -e "\n=== Generating the file $@... ==="
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
 
 .PHONY: doc
 doc: Doxyfile
-	@echo -e "\n=== Gerando arquivos de documentação do projeto... ==="
+	@echo -e "\n=== Generating documentation files... ==="
 	doxygen Doxyfile
 
-.PHONY: site
-site: $(html)/index.html
-	@echo -e "\n=== Abrindo a página de documentação do projeto... ==="
-	start ./doc/html/index.html
+.PHONY: webpage
+webpage: $(html)/index.html
+	@echo -e "\n=== Openning the documentation web page... ==="
+	start "$(html)/index.html"
 
 .PHONY: cyg
 cyg: $(html)/index.html
-	@echo -e "\n=== Abrindo a página de documentação do projeto... ==="
-	cygstart doc/html/index.html
+	@echo -e "\n=== Openning the documentation web page... ==="
+	cygstart "$(html)/index.html"
 
 teste: $(obj)/$(exec).exe
 	$(obj)/$(exec).exe
 
 clean:
-	@echo -e "\n	Removendo arquivos '.o'..."
+	@echo -e "\n=== Starting the repository cleaning ==="
+	@echo -e "\n=== Removing files '.o' ==="
 	rm -rf $(obj)/*.o
-	@echo -e "\n	Removendo arquivos executáveis '.exe'..."
+	@echo -e "\n=== Removing files '.exe' ==="
 	rm -rf $(obj)/*.exe
-	@echo -e "\nRemovendo arquivos de documentação..."
+	@echo -e "\n=== Cleaning documentation directory ==="
 	find doc -type f ! -path "doc/figures/*" -delete
 	find doc -type d -empty -delete
