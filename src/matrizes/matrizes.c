@@ -670,23 +670,23 @@ void teste_transposta(void)
 		}
 }
 
+
+void teste_conjugada(void) //Kauan (06.05.23)
 /**
  * Teste da Função conjugada 
 */ 
-void teste_conjugada(void) //Kauan (06.05.23)
 {
 	 printf("\n======================Teste da Operação Conjugada======================\n");
-	complexo **mtx_a, **mtx_conj_a, **mtx_b, **mtx_conj_b, **mtx_c, **mtx_conj_c; /**< Matrizes que serão conjugadas */
+	complexo **mtx_a, **mtx_conj_a, **mtx_b, **mtx_conj_b, **mtx_c, **mtx_conj_c; 
+	/**< Matrizes que serão conjugadas */
 
 	int nlinhas = 3, ncolunas = 3;
 
-	//! Alocação de memória. 
 	mtx_a = allocateComplexMatrix(nlinhas, ncolunas);
 	mtx_b = allocateComplexMatrix(nlinhas, ncolunas);
 	mtx_c = allocateComplexMatrix(nlinhas, ncolunas);
-
-	//! Preenchimento da(s) matriz(es).
-	for (int l = 0; l < nlinhas; l++)
+	//! Alocação de memória. 
+		for (int l = 0; l < nlinhas; l++)
 	{
 		for (int c = 0; c < ncolunas; c++)
 		{
@@ -700,15 +700,14 @@ void teste_conjugada(void) //Kauan (06.05.23)
 			mtx_c[l][c].img = -l - 2*c;
 		}
 	}
-
-	//! Chamada da função conjugada.
+    //! Preenchimento das Matrizes
+	
 	mtx_conj_a = conjugada(mtx_a, nlinhas, ncolunas);
 	mtx_conj_b = conjugada(mtx_b, nlinhas, ncolunas);
 	mtx_conj_c = conjugada(mtx_c, nlinhas, ncolunas);
-
+	//! Chamada da função conjugada.
 	printf("\nOperando A:\n");
-	/** Impressão da matriz A */
-	for (int l = 0; l < nlinhas; l++)
+		for (int l = 0; l < nlinhas; l++)
 	{
 		for (int c = 0; c < ncolunas; c++)
 		{
@@ -716,6 +715,7 @@ void teste_conjugada(void) //Kauan (06.05.23)
 		}
 		printf("\n");
 	}
+	/** Impressão da Matriz A. */
 	printf("\nConjugada de A:\n");
 
 	for (int l = 0; l < nlinhas; l++)
@@ -727,7 +727,7 @@ void teste_conjugada(void) //Kauan (06.05.23)
 		printf("\n");
 	}
 	printf("\nOperando B:\n");
-	/** Impressão da Matriz B. */
+
 		for (int l = 0; l < nlinhas; l++)
 	{
 		for (int c = 0; c < ncolunas; c++)
@@ -736,7 +736,7 @@ void teste_conjugada(void) //Kauan (06.05.23)
 		}
 		printf("\n");
 	}
-	
+	/** Impressão da Matriz B. */	
 	printf("\nConjugada de B:\n");
 
 		for (int l = 0; l < nlinhas; l++)
@@ -749,7 +749,6 @@ void teste_conjugada(void) //Kauan (06.05.23)
 	}
 	
 	printf("\nOperando C:\n");
-	/** Impressão da Matriz C. */
 		for (int l = 0; l < nlinhas; l++)
 	{
 		for (int c = 0; c < ncolunas; c++)
@@ -758,6 +757,7 @@ void teste_conjugada(void) //Kauan (06.05.23)
 		}
 		printf("\n");
 	}
+	/** Impressão da Matriz C. */
 
 	printf("\nConjugada de C:\n");
 
