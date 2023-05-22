@@ -9,7 +9,7 @@ Para mais informações, visite https://github.com/jvictorferreira3301/Projeto-d
 ## Integrantes
 
 - [João Victor Ferreira](https://github.com/jvictorferreira3301) 
-- 
+- [Kauan Miranda Tavares](https://github.com/kkauanjjk)
 - 
 - 
 <div style="display: flex; justify-content: center;">
