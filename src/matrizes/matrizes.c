@@ -546,13 +546,15 @@ complexo **produto_matricial(complexo** mtx_a, complexo **mtx_b, int linhas, int
 		exit(1);
 	}
 	complexo** matriz;
-	matriz = allocateComplexMatrix(linhas, colunas);/**< O número de linhas da matriz B - à direita - é usado como parâmento na função. */
-	int linhas_b = colunas; /**< Início da operação. Observe que é necessário um 'acumulador' para guardar o valor da soma dos produtos Aij x Bij que geram um termo Cij. */
+	matriz = allocateComplexMatrix(linhas, colunas);
+	int linhas_b = colunas; 
+		/**< O número de linhas da matriz B - à direita - é usado como parâmento na função. */
 	for (int l = 0; l < linhas; l++)
 	{
 		for (int c = 0; c < colunas; c++)
 		{
 			complexo acumulador;
+			/**< Início da operação. Observe que é necessário um 'acumulador' para guardar o valor da soma dos produtos Aij x Bij que geram um termo Cij. */
 			acumulador.real = 0;
 			acumulador.img = 0;
 			for (int i = 0; i < linhas_b; i ++)
@@ -594,8 +596,8 @@ complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k)
 	}
 	return matriz;
 }
-/**
- * Teste da função Transposta.
+/**### Teste da função Transposta.
+ * 
  */ 
 void teste_transposta(void)
 {
