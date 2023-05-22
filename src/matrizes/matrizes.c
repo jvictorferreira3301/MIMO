@@ -677,15 +677,15 @@ void teste_conjugada(void) //Kauan (06.05.23)
 */ 
 {
 	 printf("\n======================Teste da Operação Conjugada======================\n");
-	complexo **mtx_a, **mtx_conj_a, **mtx_b, **mtx_conj_b, **mtx_c, **mtx_conj_c; 
-	/**< Matrizes que serão conjugadas */
+	complexo **mtx_a, **mtx_conj_a, **mtx_b, **mtx_conj_b, **mtx_c, **mtx_conj_c; 	/**< Matrizes que serão conjugadas */
+
 
 	int nlinhas = 3, ncolunas = 3;
 
-	mtx_a = allocateComplexMatrix(nlinhas, ncolunas);
-	mtx_b = allocateComplexMatrix(nlinhas, ncolunas);
-	mtx_c = allocateComplexMatrix(nlinhas, ncolunas);
-	//! Alocação de memória. 
+	mtx_a = allocateComplexMatrix(nlinhas, ncolunas); 	//! Alocação de memória. 	
+	mtx_b = allocateComplexMatrix(nlinhas, ncolunas);   
+	mtx_c = allocateComplexMatrix(nlinhas, ncolunas);	   		
+
 		for (int l = 0; l < nlinhas; l++)
 	{
 		for (int c = 0; c < ncolunas; c++)
