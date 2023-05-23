@@ -1332,9 +1332,18 @@ complexo **allocateComplexMatrix (int linhas, int colunas)
 
     return matrix;
 }
-/**
- * Realiza a soma de dois complexos 
-*/ 
+/**###Função Soma Complexo: 
+ A função `soma_complexo` recebe dois números complexos `c1` e `c2` como parâmetros e retorna o resultado da soma desses dois números complexos.
+- Dentro da função, uma variável chamada `soma` do tipo `complexo` é declarada para armazenar o resultado da soma.
+
+- A parte real do número resultante é calculada somando as partes reais dos números complexos `c1` e `c2`, ou seja, `soma.real = c1.real + c2.real`.
+
+- Da mesma forma, a parte imaginária do número resultante é calculada somando as partes imaginárias dos números complexos `c1` e `c2`, ou seja, `soma.img = c1.img + c2.img`.
+
+- Por fim, o número complexo `soma`, contendo a parte real e a parte imaginária calculadas, é retornado pela função como resultado da soma dos números complexos `c1` e `c2`.
+ * @param[in] c1, c2
+ * @param[out] resultado
+ * */
 complexo soma_complexo(complexo c1, complexo c2)
 {
 	complexo soma;
@@ -1342,9 +1351,18 @@ complexo soma_complexo(complexo c1, complexo c2)
 	soma.img = c1.img + c2.img;
 	return soma;
 }
-/**
- * Realiza a multiplicação de dois complexos. 
-*/ 
+/**###Função Multicomp: 
+ * A função `multcomp` recebe dois números complexos `c1` e `c2` como parâmetros e retorna o resultado da multiplicação desses dois números complexos.
+- Dentro da função, uma variável chamada `multiplicado` do tipo `complexo` é declarada para armazenar o resultado da multiplicação. 
+
+- A parte real do número resultante é calculada pela fórmula `(c1.real * c2.real) - (c1.img * c2.img)`, onde `c1.real` e `c2.real` representam as partes reais dos números complexos `c1` e `c2`, e `c1.img` e `c2.img` representam as partes imaginárias dos números complexos `c1` e `c2`. 
+
+- Da mesma forma, a parte imaginária do número resultante é calculada pela fórmula `(c1.real * c2.img) + (c1.img * c2.real)`. 
+
+- Por fim, o número complexo `multiplicado`, contendo a parte real e a parte imaginária calculadas, é retornado pela função como resultado da multiplicação dos números complexos `c1` e `c2`.
+ * @param[in] c1, c2
+ * @param[out] multiplicado
+ * */
 complexo multcomp(complexo c1, complexo c2)
 {
 	complexo multiplicado;
