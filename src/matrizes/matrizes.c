@@ -601,7 +601,7 @@ complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k)
  */ 
 void teste_transposta(void)
 {
-	complexo** c1,**c2,**c3,**c4;; /**< matriz complexa a ser transposta */
+	complexo** c1,**c2,**c3,**c4; /**< matriz complexa a ser transposta */
 	int nlinhas,ncolunas;
     nlinhas=3; /*!< número de linhas */
     ncolunas=3; /*!< número de colunas */
@@ -775,6 +775,9 @@ void teste_conjugada(void) //Kauan (06.05.23)
 }
 /** Teste da função Hermitiana. */
 void teste_hermitiana(void)
+/**
+ * Teste da Função Hermitiana 
+*/ 
 {
     complexo **mtx_a, **mtx_a_h, **mtx_b, **mtx_b_h, **mtx_c, **mtx_c_h; /**< matrizes complexas que serão hermitianas */
 
@@ -874,7 +877,9 @@ void teste_hermitiana(void)
 	}
 	//Fim do teste da função hermitiana.
 }
-//Teste da função Soma.
+/**
+ * Teste da Função Soma 
+*/ 
 void teste_soma(void)
 {	
 
@@ -965,7 +970,9 @@ void teste_soma(void)
         printf("\n");
 	}	
 }
-//Teste da função Subtração.
+/**
+ * Teste da Função Subtração 
+*/ 
 void teste_subtracao(void)
 {
 	complexo **c1,**c2,**sub1,**c3,**c4,**sub2;
@@ -1055,7 +1062,9 @@ void teste_subtracao(void)
         printf("\n");
 	}	
 }
-//Teste da função Produto Interno.
+/**
+ * Teste da Função Produto Interno 
+*/ 
 void teste_produto_interno(void)
 {
     complexo **v1, **v2,**v3,**v4;
@@ -1112,7 +1121,9 @@ void teste_produto_interno(void)
     printComplex(produto_interno(v3,v4,linhas,colunas));
 
 }
-//Teste da função Produto Matricial.
+/**
+ * Teste da Função Produto Matricial 
+*/ 
 void teste_produto_matricial(void)
 {	
 	printf("\n===============================Teste da operação Produto Matricial===========================\n");
@@ -1297,7 +1308,9 @@ void teste_produto_matricial(void)
         printf("\n");
 	}
 }
-//Função: Impressão de um número complexo.
+/**
+ * Impressao de um número complexo
+*/ 
 void printComplex(complexo c)
 {
     printf("%+.2f %+.2fj ", c.real, c.img);
@@ -1305,9 +1318,9 @@ void printComplex(complexo c)
 //Função: Alocação de memória para uma matriz complexa.
 complexo **allocateComplexMatrix (int linhas, int colunas)
 {
-    //Declaração.
+    /** Declaração do complxo */
     complexo** matrix;
-	//Alocação das linhas.
+	/** Alocação de linhas*/
     matrix = (complexo **) malloc(linhas*sizeof(complexo*));
 	
     if (matrix == NULL)
