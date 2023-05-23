@@ -147,7 +147,7 @@ void teste_todos(void)
 				c3[l][c].real = l+1;
 				c3[l][c].img = (2*l)-c;
 				c4[l][c].real = (5*l)+c;
-				c4[l][c].img = l-c;
+					c4[l][c].img = l-c;
 			}
 		}
 	printf("\nOperando A:\n");
@@ -419,8 +419,7 @@ complexo **conjugada(complexo **mtx, int linhas, int colunas)
     return matrix;
 }
 /**###Função Hermitiana: 
- * A função `hermitiana` implementa a operação de matriz hermitiana. Essa operação consiste em obter a matriz conjugada da matriz de entrada e, em seguida, calcular a transposta dessa matriz conjugada. A matriz resultante é uma matriz hermitiana.
-
+ * A função `hermitiana` implementa a operação de matriz hermitiana. Essa operação consiste em obter a matriz conjugada da matriz de entrada e, em seguida, calcular a transposta dessa matriz conjugada. A matriz resultante é uma matriz hermitiana.																																							
 - A função hermitiana recebe três parâmetros: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz) e colunas (o número de colunas da matriz).
 Ela declara duas variáveis do tipo complexo**: matriz e matriz_h.
 - Em seguida, a função aloca memória para duas matrizes usando a função allocateComplexMatrix. A primeira matriz (matriz) tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz (matriz_h), também tem o mesmo tamanho.
@@ -548,13 +547,11 @@ complexo **produto_matricial(complexo** mtx_a, complexo **mtx_b, int linhas, int
 	complexo** matriz;
 	matriz = allocateComplexMatrix(linhas, colunas);
 	int linhas_b = colunas; 
-		/**< O número de linhas da matriz B - à direita - é usado como parâmento na função. */
 	for (int l = 0; l < linhas; l++)
 	{
 		for (int c = 0; c < colunas; c++)
 		{
 			complexo acumulador;
-			/**< Início da operação. Observe que é necessário um 'acumulador' para guardar o valor da soma dos produtos Aij x Bij que geram um termo Cij. */
 			acumulador.real = 0;
 			acumulador.img = 0;
 			for (int i = 0; i < linhas_b; i ++)
@@ -601,12 +598,11 @@ complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k)
  */ 
 void teste_transposta(void)
 {
-	complexo** c1,**c2,**c3,**c4; /**< matriz complexa a ser transposta */
+	complexo** c1,**c2,**c3,**c4; 
 	int nlinhas,ncolunas;
-    nlinhas=3; /*!< número de linhas */
-    ncolunas=3; /*!< número de colunas */
+    nlinhas=3; 
+    ncolunas=3; 
     c1 = allocateComplexMatrix(nlinhas,ncolunas);
-    //! função de alocação de memória.
 	printf("\n===============================Teste da operação Transposta======================\n");
 	
         for (int l = 0; l < nlinhas; l++)
@@ -639,7 +635,7 @@ void teste_transposta(void)
 			}
         printf("\n");
 		}
-    //! Alocação de memoria para a matriz:
+   
     c3 = allocateComplexMatrix(nlinhas,ncolunas);
 	
         for (int l = 0; l < nlinhas; l++)
@@ -679,12 +675,11 @@ void teste_conjugada(void) //Kauan (06.05.23)
 */ 
 {
 	 printf("\n======================Teste da Operação Conjugada======================\n");
-	complexo **mtx_a, **mtx_conj_a, **mtx_b, **mtx_conj_b, **mtx_c, **mtx_conj_c; 	/**< Matrizes que serão conjugadas */
-
+	complexo **mtx_a, **mtx_conj_a, **mtx_b, **mtx_conj_b, **mtx_c, **mtx_conj_c; 	
 
 	int nlinhas = 3, ncolunas = 3;
 
-	mtx_a = allocateComplexMatrix(nlinhas, ncolunas); 	//! Alocação de memória. 	
+	mtx_a = allocateComplexMatrix(nlinhas, ncolunas); 	 	
 	mtx_b = allocateComplexMatrix(nlinhas, ncolunas);   
 	mtx_c = allocateComplexMatrix(nlinhas, ncolunas);	   		
 
@@ -702,12 +697,12 @@ void teste_conjugada(void) //Kauan (06.05.23)
 			mtx_c[l][c].img = -l - 2*c;
 		}
 	}
-    //! Preenchimento das Matrizes
+   
 	
 	mtx_conj_a = conjugada(mtx_a, nlinhas, ncolunas);
 	mtx_conj_b = conjugada(mtx_b, nlinhas, ncolunas);
 	mtx_conj_c = conjugada(mtx_c, nlinhas, ncolunas);
-	//! Chamada da função conjugada.
+	
 	printf("\nOperando A:\n");
 		for (int l = 0; l < nlinhas; l++)
 	{
@@ -717,7 +712,7 @@ void teste_conjugada(void) //Kauan (06.05.23)
 		}
 		printf("\n");
 	}
-	/** Impressão da Matriz A. */
+	
 	printf("\nConjugada de A:\n");
 
 	for (int l = 0; l < nlinhas; l++)
@@ -738,7 +733,7 @@ void teste_conjugada(void) //Kauan (06.05.23)
 		}
 		printf("\n");
 	}
-	/** Impressão da Matriz B. */	
+
 	printf("\nConjugada de B:\n");
 
 		for (int l = 0; l < nlinhas; l++)
@@ -759,7 +754,7 @@ void teste_conjugada(void) //Kauan (06.05.23)
 		}
 		printf("\n");
 	}
-	/** Impressão da Matriz C. */
+	
 
 	printf("\nConjugada de C:\n");
 
@@ -775,42 +770,38 @@ void teste_conjugada(void) //Kauan (06.05.23)
 }
 /** Teste da função Hermitiana. */
 void teste_hermitiana(void)
-/**
- * Teste da Função Hermitiana 
-*/ 
-{
-    complexo **mtx_a, **mtx_a_h, **mtx_b, **mtx_b_h, **mtx_c, **mtx_c_h; /**< matrizes complexas que serão hermitianas */
 
-    int nlinhas =3, ncolunas = 3; /*!< Número de linhas e colunas */
+{
+    complexo **mtx_a, **mtx_a_h, **mtx_b, **mtx_b_h, **mtx_c, **mtx_c_h; 
+
+    int nlinhas =3, ncolunas = 3; 
 	int nlinhas_trans = ncolunas;
 	int ncolunas_trans = nlinhas;
-	//! Alocação de memória.
+
     mtx_a = allocateComplexMatrix(nlinhas, ncolunas);
 	mtx_b = allocateComplexMatrix(nlinhas, ncolunas);
 	mtx_c = allocateComplexMatrix(nlinhas, ncolunas);
-	//! Preenchimento da(s) matriz(es).
 	printf("\n======================Teste da Operação hermitiana======================\n");
     for (int l = 0; l < ncolunas; l++)
     {
         for (int c = 0; c < ncolunas; c++)
         {
-			/** Matriz A. */
+
             mtx_a[l][c].real = l + c;
             mtx_a[l][c].img = l - 2*c;
-			/** Matriz B. */
+
 			mtx_b[l][c].real = 1 + l - 3*c;
 			mtx_b[l][c].img = 2*l + 4 - c;
-			/** Matriz C. */
+
 			mtx_c[l][c].real = l - 3*c;
 			mtx_c[l][c].img = 1 - l + 2*c;
         }
     }
-	//! Chamada da função hermitiana.
     mtx_a_h = hermitiana(mtx_a, nlinhas, ncolunas);
 	mtx_b_h = hermitiana(mtx_b, nlinhas, ncolunas);
 	mtx_c_h = hermitiana(mtx_c, nlinhas, ncolunas);
 	
-	//! Impressão da(s) matriz(es).
+
 	printf("\nOperando A:\n");
 
     for (int l = 0 ; l < nlinhas; l++)
@@ -1341,7 +1332,9 @@ complexo **allocateComplexMatrix (int linhas, int colunas)
 
     return matrix;
 }
-//Função: Soma de dois complexos.
+/**
+ * Realiza a soma de dois complexos 
+*/ 
 complexo soma_complexo(complexo c1, complexo c2)
 {
 	complexo soma;
@@ -1349,7 +1342,9 @@ complexo soma_complexo(complexo c1, complexo c2)
 	soma.img = c1.img + c2.img;
 	return soma;
 }
-//Função: Multiplicação de dois complexos.
+/**
+ * Realiza a multiplicação de dois complexos. 
+*/ 
 complexo multcomp(complexo c1, complexo c2)
 {
 	complexo multiplicado;
