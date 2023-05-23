@@ -8,7 +8,7 @@ Para mais informações, visite https://github.com/jvictorferreira3301/Projeto-d
 
 ## Integrantes
 
-- [João Victor Ferreira](https://github.com/jvictorferreira3301) 
+- [João Victor Santos Brito Ferreira](https://github.com/jvictorferreira3301) 
 - [Kauan Miranda Tavares](https://github.com/kkauanjjk)
 - [Marco Antonio do Espirito Santo Maues Junior](https://github.com/Mauesjr)
 - [Natalie Giovanna Pinto da Cunha](https://github.com/gioocunha)
