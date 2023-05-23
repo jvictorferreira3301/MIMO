@@ -1306,12 +1306,12 @@ void printComplex(complexo c)
 {
     printf("%+.2f %+.2fj ", c.real, c.img);
 }
-//Função: Alocação de memória para uma matriz complexa.
+/**Função: Alocação de memória para uma matriz complexa. */
 complexo **allocateComplexMatrix (int linhas, int colunas)
 {
-    /** Declaração do complxo */
+    
     complexo** matrix;
-	/** Alocação de linhas*/
+	
     matrix = (complexo **) malloc(linhas*sizeof(complexo*));
 	
     if (matrix == NULL)
