@@ -2,35 +2,50 @@ src = ./src
 matrizes = ./src/matrizes
 obj = ./build
 exec = aplicacao
+html = ./doc/html
 
-all:$(exec)
+all:$(obj) $(exec) doc
 
-#teste: ./build/main.o ./build/matrizes.o
-#	gcc ./build/main.o ./build/matrizes.o -I ./build -o teste
 $(exec):$(obj)/main.o $(obj)/matrizes.o
-	@echo -e "\nGerando o arquivo executável $@..."
-	gcc $< $(obj)/matrizes.o -I $(obj) -o $@.exe -W -Wall -pedantic
-	@echo -e "\nPara rodar o codigo 'main.c' execute o arquivo ./$@.exe ou o comando 'make teste'!!"
-
-#./build/objeto.o: ./src/source.c
-#	gcc -c objeto.o -J ./build -o ./build/objeto.o
+	@echo -e "\n=== Generanting the file $@... ==="
+	gcc $< $(obj)/matrizes.o -I $(obj) -o $(obj)/$@.exe -W -Wall -pedantic
+	@echo -e "\n=== To run the code from 'main.c': run the file $(obj)/$@.exe or the rule command 'make teste'!! ==="
+	@echo -e "\n=== To run the project webpage: run the file $(html)/index.html or the rule command 'make webpage'!! ==="
 $(obj)/main.o:$(src)/main.c  
-	@echo -e "\nGerando o aqruivo objeto $@..."
+	@echo -e "\n=== Generating the file $@... ==="
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
 	
 $(obj)/matrizes.o:$(matrizes)/matrizes.c  
-	@echo -e "\nGerando o aqruivo objeto $@..."
+	@echo -e "\n=== Generating the file $@... ==="
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
+
+$(obj):
+	mkdir $(obj)
 	
-#run: teste
-#	./teste
-teste: $(exec).exe
-	./$(exec).exe
+.PHONY: doc
+doc: Doxyfile
+	@echo -e "\n=== Generating documentation files... ==="
+	doxygen Doxyfile
+
+.PHONY: webpage
+webpage: $(html)/index.html
+	@echo -e "\n=== Openning the documentation web page... ==="
+	start "$(html)/index.html"
+
+.PHONY: cyg
+cyg: $(html)/index.html
+	@echo -e "\n=== Openning the documentation web page... ==="
+	cygstart "$(html)/index.html"
+
+teste: $(obj)/$(exec).exe
+	$(obj)/$(exec).exe
 
 clean:
-	@echo -e "\nRemovendo arquivos '.o'..."
-	rm -rf $(obj)/*.o
-	rm -rf *.o
-	@echo -e "\nRemovendo arquivos executáveis '.exe'"
-	rm -rf *.exe
-
+	@echo -e "\n=== Starting the repository cleaning ==="
+	@echo -e "\n=== Removing files '.exe' ==="
+	rm -rf $(obj)/*.exe
+	@echo -e "\n=== Removing files '.o' ==="
+	rm -rf $(obj)/
+	@echo -e "\n=== Cleaning documentation directory ==="
+	find doc -type f ! -path "doc/figures/*" ! -path "doc/tema/*" -delete
+	find doc -type d -empty -delete
