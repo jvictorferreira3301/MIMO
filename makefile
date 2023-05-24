@@ -47,5 +47,7 @@ clean:
 	@echo -e "\n=== Removing files '.exe' ==="
 	rm -rf $(obj)/*.exe
 	@echo -e "\n=== Cleaning documentation directory ==="
-	find doc -type f ! -path "doc/figures/*" -delete
-	find doc -type d -empty -delete
+#	find doc -type f ! -path "doc/figures/*" -delete
+#	find doc -type d -empty -delete
+	rm -rf doc/html
+	rm -rf doc/latex
