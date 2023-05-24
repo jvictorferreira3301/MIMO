@@ -4,7 +4,7 @@ obj = ./build
 exec = aplicacao
 html = ./doc/html
 
-all:$(exec) doc
+all:$(obj) $(exec) doc
 
 $(exec):$(obj)/main.o $(obj)/matrizes.o
 	@echo -e "\n=== Generanting the file $@... ==="
@@ -19,6 +19,9 @@ $(obj)/matrizes.o:$(matrizes)/matrizes.c
 	@echo -e "\n=== Generating the file $@... ==="
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
 
+$(obj):
+	mkdir $(obj)
+	
 .PHONY: doc
 doc: Doxyfile
 	@echo -e "\n=== Generating documentation files... ==="
@@ -40,7 +43,7 @@ teste: $(obj)/$(exec).exe
 clean:
 	@echo -e "\n=== Starting the repository cleaning ==="
 	@echo -e "\n=== Removing files '.o' ==="
-	rm -rf $(obj)/*.o
+	rm -rf $(obj)/
 	@echo -e "\n=== Removing files '.exe' ==="
 	rm -rf $(obj)/*.exe
 	@echo -e "\n=== Cleaning documentation directory ==="
