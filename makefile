@@ -5,6 +5,9 @@ exec = aplicacao
 html = ./doc/html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6b37fb6 (Arquivos)
 all:$(obj) $(exec) doc
 
 $(exec):$(obj)/main.o $(obj)/matrizes.o
@@ -80,6 +83,11 @@ teste: $(obj)/$(exec).exe
 clean:
 <<<<<<< HEAD
 	@echo -e "\n=== Starting the repository cleaning ==="
+<<<<<<< HEAD
+=======
+	@echo -e "\n=== Removing files '.o' ==="
+	rm -rf $(obj)/
+>>>>>>> 6b37fb6 (Arquivos)
 	@echo -e "\n=== Removing files '.exe' ==="
 	rm -rf $(obj)/*.exe
 	@echo -e "\n=== Removing files '.o' ==="
