@@ -41,25 +41,32 @@ cyg: $(html)/index.html
 all:$(exec) doc
 
 $(exec):$(obj)/main.o $(obj)/matrizes.o
-	@echo -e "\n	Gerando o arquivo executável $@..."
+	@echo -e "\n=== Gerando o arquivo executável $@... ==="
 	gcc $< $(obj)/matrizes.o -I $(obj) -o $(obj)/$@.exe -W -Wall -pedantic
-	@echo -e "\n	Para rodar o codigo 'main.c' execute o arquivo ./$@.exe ou o comando 'make teste'!!"
+	@echo -e "\n=== Para rodar o codigo 'main.c' execute o arquivo $(obj)/$@.exe ou o comando 'make teste' ===!!"
 
 $(obj)/main.o:$(src)/main.c  
-	@echo -e "\n	Gerando o aqruivo objeto $@..."
+	@echo -e "\n=== Gerando o aqruivo objeto $@... ==="
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
 	
 $(obj)/matrizes.o:$(matrizes)/matrizes.c  
-	@echo -e "\n	Gerando o aqruivo objeto $@..."
+	@echo -e "\n=== Gerando o aqruivo objeto $@... ==="
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
 
 .PHONY: doc
 doc: Doxyfile
-	@echo -e "\n	Gerando arquivos de documentação do projeto..."
+	@echo -e "\n=== Gerando arquivos de documentação do projeto... ==="
 	doxygen Doxyfile
+<<<<<<< HEAD
 #	@echo -e "\nAbrindo a página HTML da documentação..."
 #	doc/html/index.html
 >>>>>>> 1fd4aab (Makefile: implementação da regra 'doc', realocação da pasta 'figures' e atualização da regra 'clean')
+=======
+
+site: $(html)/index.html
+	@echo -e "\n=== Abrindo a página de documentação do projeto... ==="
+	start ./doc/html/index.html
+>>>>>>> 3ce9845 (Doxyfile: ajuste após realocação da pasta 'figures'| Makefile: regra 'site')
 
 teste: $(obj)/$(exec).exe
 	$(obj)/$(exec).exe
