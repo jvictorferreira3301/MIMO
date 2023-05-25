@@ -6,8 +6,11 @@ html = ./doc/html
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 6b37fb6 (Arquivos)
+=======
+>>>>>>> f658f04e0ad30aace32c73d6749c5e4dbde399da
 all:$(obj) $(exec) doc
 
 $(exec):$(obj)/main.o $(obj)/matrizes.o
@@ -21,6 +24,7 @@ $(obj)/main.o:$(src)/main.c
 	
 $(obj)/matrizes.o:$(matrizes)/matrizes.c  
 	@echo -e "\n=== Generating the file $@... ==="
+<<<<<<< HEAD
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
 
 $(obj):
@@ -50,8 +54,14 @@ $(exec):$(obj)/main.o $(obj)/matrizes.o
 
 $(obj)/main.o:$(src)/main.c  
 	@echo -e "\n=== Gerando o aqruivo objeto $@... ==="
+=======
+>>>>>>> f658f04e0ad30aace32c73d6749c5e4dbde399da
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
+
+$(obj):
+	mkdir $(obj)
 	
+<<<<<<< HEAD
 $(obj)/matrizes.o:$(matrizes)/matrizes.c  
 	@echo -e "\n=== Gerando o aqruivo objeto $@... ==="
 	gcc -c $< -J $(obj) -o $@ -W -Wall -pedantic
@@ -76,11 +86,28 @@ site: $(html)/index.html
 cyg: $(html)/index.html
 	@echo -e "\n=== Abrindo a página de documentação do projeto... ==="
 	cygstart doc/html/index.html
+=======
+.PHONY: doc
+doc: Doxyfile
+	@echo -e "\n=== Generating documentation files... ==="
+	doxygen Doxyfile
+
+.PHONY: webpage
+webpage: $(html)/index.html
+	@echo -e "\n=== Openning the documentation web page... ==="
+	start "$(html)/index.html"
+
+.PHONY: cyg
+cyg: $(html)/index.html
+	@echo -e "\n=== Openning the documentation web page... ==="
+	cygstart "$(html)/index.html"
+>>>>>>> f658f04e0ad30aace32c73d6749c5e4dbde399da
 
 teste: $(obj)/$(exec).exe
 	$(obj)/$(exec).exe
 
 clean:
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@echo -e "\n=== Starting the repository cleaning ==="
 <<<<<<< HEAD
@@ -88,11 +115,15 @@ clean:
 	@echo -e "\n=== Removing files '.o' ==="
 	rm -rf $(obj)/
 >>>>>>> 6b37fb6 (Arquivos)
+=======
+	@echo -e "\n=== Starting the repository cleaning ==="
+>>>>>>> f658f04e0ad30aace32c73d6749c5e4dbde399da
 	@echo -e "\n=== Removing files '.exe' ==="
 	rm -rf $(obj)/*.exe
 	@echo -e "\n=== Removing files '.o' ==="
 	rm -rf $(obj)/
 	@echo -e "\n=== Cleaning documentation directory ==="
+<<<<<<< HEAD
 <<<<<<< HEAD
 	find doc -type f ! -path "doc/figures/*" ! -path "doc/tema/*" -delete
 	find doc -type d -empty -delete
@@ -111,3 +142,7 @@ clean:
 	rm -rf doc/html
 	rm -rf doc/latex
 >>>>>>> 74f59a5 (Arquivos: cópia de arquivos de 'documentação')
+=======
+	find doc -type f ! -path "doc/figures/*" ! -path "doc/tema/*" -delete
+	find doc -type d -empty -delete
+>>>>>>> f658f04e0ad30aace32c73d6749c5e4dbde399da
