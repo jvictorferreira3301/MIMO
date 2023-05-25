@@ -93,6 +93,7 @@ clean:
 	@echo -e "\n=== Removing files '.o' ==="
 	rm -rf $(obj)/
 	@echo -e "\n=== Cleaning documentation directory ==="
+<<<<<<< HEAD
 	find doc -type f ! -path "doc/figures/*" ! -path "doc/tema/*" -delete
 	find doc -type d -empty -delete
 =======
@@ -104,3 +105,9 @@ clean:
 	find doc -type f ! -path "doc/figures/*" -delete
 	find doc -type d -empty -delete
 >>>>>>> 1fd4aab (Makefile: implementação da regra 'doc', realocação da pasta 'figures' e atualização da regra 'clean')
+=======
+#	find doc -type f ! -path "doc/figures/*" -delete
+#	find doc -type d -empty -delete
+	rm -rf doc/html
+	rm -rf doc/latex
+>>>>>>> 74f59a5 (Arquivos: cópia de arquivos de 'documentação')
