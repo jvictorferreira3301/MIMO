@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <gsl/gsl_linalg.h>
 
+
 int main(){
-    #define i 4
+    #define i 5
     #define j 4
     int l,c;
     double a_data[i][j];
@@ -13,7 +14,7 @@ int main(){
     }
 
     gsl_matrix * A = gsl_matrix_alloc(i,j); 
-    gsl_matrix * V = gsl_matrix_alloc(i,j);
+    gsl_matrix * V = gsl_matrix_alloc(j,j);
     gsl_vector * S = gsl_vector_alloc(j);
     gsl_vector * work = gsl_vector_alloc(j);
 
@@ -29,7 +30,7 @@ int main(){
     gsl_linalg_SV_decomp(A, V, S, work);
 
     printf("\n\nMatriz V\n");
-    for(l=0; l<i; l++){
+    for(l=0; l<j; l++){
         for(c=0; c<j; c++){
             printf("%f ", gsl_matrix_get(V, c, l));
         }
@@ -40,7 +41,7 @@ int main(){
     printf("\n\nMatriz U\n");
     for(l=0; l<i; l++){
         for(c=0; c<j; c++){
-            printf("%f ", gsl_matrix_get(A, c, l));
+            printf("%f ", gsl_matrix_get(A, l, c));
         }
         printf("\n");
     }
