@@ -22,16 +22,6 @@ int main()
         }
     }
 
-    printf("\nOperando MTX:\n");
-        for (int l =0 ; l < linhas; l++)
-		{
-			for (int c = 0; c < colunas; c++)
-			{
-				printComplex(mtx[l][c]);
-			}
-        printf("\n");
-    }
-
     calc_svd(mtx, linhas, colunas);
 
     return 0;

@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "matrizes.h"
+#include <gsl/gsl_linalg.h>
 
 /**
  * @brief Executa cada função de teste uma vez.
@@ -365,13 +366,13 @@ void teste_todos(void)
 	printf("\n===============================Teste Cálculo de SVD===============================\n");
 
 	complexo **mtx_13;
-	int l13 = 4, c13 = 3;
+	int l_13 = 4, c_13 = 3;
 
-	mtx_13 = allocateComplexMatrix(l13, c13);
+	mtx_13 = allocateComplexMatrix(l_13, c_13);
 
-	for (int l = 0; l < l13; l++)
+	for (int l = 0; l < l_13; l++)
 	{
-		for (int c = 0; c < c13; c++)
+		for (int c = 0; c < c_13; c++)
 		{
 			mtx_13[l][c].real = 1 + l + c;
 			mtx_13[l][c].img = 0;
@@ -380,16 +381,16 @@ void teste_todos(void)
 
 	printf("\n\nOperando MTX\n");
 
-	for (int l = 0; l < l13; l++)
+	for (int l = 0; l < l_13; l++)
 	{
-		for (int c = 0; c < c13; c++)
+		for (int c = 0; c < c_13; c++)
 		{
 			printComplex(mtx_13[l][c]);
 		}
 		printf("\n");
 	}
 
-	calc_svd (mtx_13, l13, c13); 
+	calc_svd (mtx_13, l_13, c_13); 
 }
 /**###Função Transposta: 
  * A função `transposta` implementa a operação de transposição de matriz. Essa operação consiste em trocar as linhas pelas colunas da matriz de entrada.
