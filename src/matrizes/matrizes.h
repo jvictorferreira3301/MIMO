@@ -30,6 +30,8 @@ complexo produto_interno(complexo **v1, complexo **v2, int linhas, int colunas);
 complexo** produto_matricial(complexo **mtx_a, complexo **mtx_b, int linhas, int colunas);
 //Função: Multiplicação por um escalar k.
 complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k);
+//Função: Cálculo SVD de uma matriz real
+void calc_svd(complexo** mtx, int linhas, int colunas);
 //Funções de teste.
 void teste_transposta(void);
 void teste_conjugada(void);
@@ -38,6 +40,7 @@ void teste_soma(void);
 void teste_subtracao(void);
 void teste_produto_interno(void);
 void teste_produto_matricial(void);
+void teste_calc_svd(void);
 //Manipulação de memória.
 complexo** allocateComplexMatrix(int linhas, int colunas);
 void LiberarMatriz(complexo **mtx, int linhas);

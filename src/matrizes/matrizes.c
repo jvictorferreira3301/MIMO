@@ -361,6 +361,35 @@ void teste_todos(void)
 		}
 		printf("\n");
 	}
+
+	printf("\n===============================Teste Cálculo de SVD===============================\n");
+
+	complexo **mtx_13;
+	int l13 = 4, c13 = 3;
+
+	mtx_13 = allocateComplexMatrix(l13, c13);
+
+	for (int l = 0; l < l13; l++)
+	{
+		for (int c = 0; c < c13; c++)
+		{
+			mtx_13[l][c].real = 1 + l + c;
+			mtx_13[l][c].img = 0;
+		}
+	}
+
+	printf("\n\nOperando MTX\n");
+
+	for (int l = 0; l < l13; l++)
+	{
+		for (int c = 0; c < c13; c++)
+		{
+			printComplex(mtx_13[l][c]);
+		}
+		printf("\n");
+	}
+
+	calc_svd (mtx_13, l13, c13); 
 }
 /**###Função Transposta: 
  * A função `transposta` implementa a operação de transposição de matriz. Essa operação consiste em trocar as linhas pelas colunas da matriz de entrada.
@@ -583,6 +612,65 @@ complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k)
 		}
 	}
 	return matriz;
+}
+
+void calc_svd(complexo** mtx, int linhas, int colunas)
+{
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			if (mtx[l][c].img != 0){
+				printf("Warning: complex matrix injected as parameter, fuction will use only real part from matrix");
+				break;
+			}
+		}
+	}
+
+    gsl_matrix * A = gsl_matrix_alloc(linhas, colunas);
+    gsl_matrix * V = gsl_matrix_alloc(colunas, colunas);
+    gsl_vector * S = gsl_vector_alloc(colunas);
+    gsl_vector * work = gsl_vector_alloc(colunas);
+
+    printf("\n\nMatriz A\n");
+    for(int l=0; l<linhas; l++)
+	{
+        for(int c=0; c<colunas; c++)
+		{
+            printf("%f ", mtx[l][c].real);
+            gsl_matrix_set(A, l, c, mtx[l][c].real);
+        }
+        printf("\n");
+    }
+
+    gsl_linalg_SV_decomp(A, V, S, work);
+
+    printf("\n\nMatriz U\n");
+    for(int l=0; l<linhas; l++)
+	{
+        for(int c=0; c<colunas; c++)
+		{
+            printf("%f ", gsl_matrix_get(A, l, c));
+        }
+        printf("\n");
+    }
+
+    printf("\n\nVetor S\n");
+    for(int c=0;c<colunas;c++)
+	{
+        printf("%f", gsl_vector_get(S,c));
+        printf("\n");
+    }
+
+    printf("\n\nMatriz V\n");
+    for(int l=0; l<colunas; l++)
+	{
+        for(int c=0; c<colunas; c++)
+		{
+            printf("%f ", gsl_matrix_get(V, l, c));
+        }
+        printf("\n");
+    }
 }
 //Teste da função Transposta.
 void teste_transposta(void)
@@ -1279,6 +1367,62 @@ void teste_produto_matricial(void)
 		}
         printf("\n");
 	}
+}
+
+void teste_calc_svd(void)
+{
+	complexo **mtx_a, **mtx_b, **mtx_c, **mtx_d;
+
+	int la = 3, ca = 2;
+	int lb = 4, cb = 4;
+	int lc = 6, cc = 5;
+	int ld = 5, cd = 6;
+	
+	mtx_a = allocateComplexMatrix(la, ca);
+	mtx_b = allocateComplexMatrix(lb, cb);
+	mtx_c = allocateComplexMatrix(lc, cc);
+ 	mtx_d = allocateComplexMatrix(ld, cd);
+
+	for (int l = 0; l < la; l++)
+	{
+		for (int c = 0; c < ca; c++)
+		{
+			mtx_a[l][c].real = l + c;
+			mtx_a[l][c].img = 0;
+		}
+	}
+
+	for (int l = 0; l < lb; l++)
+	{
+		for (int c = 0; c < cb; c++)
+		{
+			mtx_a[l][c].real = l*c + l;
+			mtx_a[l][c].img = 0;
+		}
+	}
+
+	for (int l = 0; l < lc; l++)
+	{
+		for (int c = 0; c < cc; c++)
+		{
+			mtx_a[l][c].real = 1 + l - 2*c;
+			mtx_a[l][c].img = 0;
+		}
+	}
+
+	for (int l = 0; l < ld; l++)
+	{
+		for (int c = 0; c < cd; c++)
+		{
+			mtx_a[l][c].real = 1 + l - c;
+			mtx_a[l][c].img = l - 1 + 3*c;
+		}
+	}
+
+	calc_svd (mtx_a, la, ca);
+	calc_svd (mtx_b, lb, cb);
+	calc_svd (mtx_c, lc, cc);
+	calc_svd (mtx_d, ld, cd);
 }
 //Função: Impressão de um número complexo.
 void printComplex(complexo c)
