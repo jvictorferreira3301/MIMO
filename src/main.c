@@ -9,6 +9,5 @@ int main(void)
 	printf("Kauan Miranda Tavares\n");
 	printf("João Victor Santos Brito Ferreira\n");
 	printf("Natalie Giovanna Pinto da Cunha\n");
-	//teste_todos();
-	teste_calc_svd();
+	teste_todos();
 }
