@@ -615,6 +615,16 @@ complexo** produto_por_escalar(complexo **mtx, int linhas, int colunas, int k)
 	return matriz;
 }
 
+/**###Função Calculo do SVD: 
+ * A função `Calculo SVD` implementa o operador SVD.
+- A função `Calculo SVD` recebe três parâmetros: `mtx` (uma matriz de números complexos),`linhas` (número de linhas da matriz), `colunas` (o número de colunas da matriz).
+- O SVD foi implementado somente para matrizes reais, portanto, antes de iniciar o calculo do SVD, a função testa se há parte imaginaria, caso houver um aviso aparece na tela informando que não há suporte para matrizes complexas.
+- Não há retorno na função, ela imprime na tela o valor do SVD da matriz `mtx`.
+ * @param[in] mtx, linhas, colunas
+ * @param[out] void
+ * */
+
+
 void calc_svd(complexo** mtx, int linhas, int colunas)
 {
 	for (int l = 0; l < linhas; l++)
