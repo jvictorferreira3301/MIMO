@@ -622,7 +622,7 @@ void calc_svd(complexo** mtx, int linhas, int colunas)
 		for (int c = 0; c < colunas; c++)
 		{
 			if (mtx[l][c].img != 0){
-				printf("Warning: complex matrix injected as parameter, fuction will use only real part from matrix");
+				printf("Warning: complex matrix injected as parameter, fuction will use only real part from matrix\n");
 				break;
 			}
 		}
@@ -1373,7 +1373,7 @@ void teste_produto_matricial(void)
 void teste_calc_svd(void)
 {
 	complexo **mtx_a, **mtx_b, **mtx_c, **mtx_d;
-
+	
 	int la = 3, ca = 2;
 	int lb = 4, cb = 4;
 	int lc = 6, cc = 5;
@@ -1397,8 +1397,8 @@ void teste_calc_svd(void)
 	{
 		for (int c = 0; c < cb; c++)
 		{
-			mtx_a[l][c].real = l*c + l;
-			mtx_a[l][c].img = 0;
+			mtx_b[l][c].real = l*c + l;
+			mtx_b[l][c].img = 0;
 		}
 	}
 
@@ -1406,8 +1406,8 @@ void teste_calc_svd(void)
 	{
 		for (int c = 0; c < cc; c++)
 		{
-			mtx_a[l][c].real = 1 + l - 2*c;
-			mtx_a[l][c].img = 0;
+			mtx_c[l][c].real = 1 + l - 2*c;
+			mtx_c[l][c].img = 0;
 		}
 	}
 
@@ -1415,8 +1415,8 @@ void teste_calc_svd(void)
 	{
 		for (int c = 0; c < cd; c++)
 		{
-			mtx_a[l][c].real = 1 + l - c;
-			mtx_a[l][c].img = l - 1 + 3*c;
+			mtx_d[l][c].real = 1 + l - c;
+			mtx_d[l][c].img = l - 1 + 3*c;
 		}
 	}
 
