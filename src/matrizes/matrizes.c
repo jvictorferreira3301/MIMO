@@ -221,6 +221,35 @@ void teste_todos(void)
 				printComplex(sub1[l][c]);
 			}
         printf("\n");
+		
+	printf("\n===============================Teste Cálculo de SVD===============================\n");
+
+	complexo **mtx_13;
+	int l_13 = 4, c_13 = 3;
+
+	mtx_13 = allocateComplexMatrix(l_13, c_13);
+
+	for (int l = 0; l < l_13; l++)
+	{
+		for (int c = 0; c < c_13; c++)
+		{
+			mtx_13[l][c].real = 1 + l + c;
+			mtx_13[l][c].img = 0;
+		}
+	}
+
+	printf("\n\nOperando MTX\n");
+
+	for (int l = 0; l < l_13; l++)
+	{
+		for (int c = 0; c < c_13; c++)
+		{
+			printComplex(mtx_13[l][c]);
+		}
+		printf("\n");
+	}
+
+	calc_svd (mtx_13, l_13, c_13); 
 	}
 	
 	printf("\n======================Teste do Produto Interno======================\n");
