@@ -667,6 +667,74 @@ void teste_transposta(void)
 		}
 }
 
+/**###Função Calculo do SVD: 
+ * A função `Calculo SVD` implementa o operador SVD.
+- A função `Calculo SVD` recebe três parâmetros: `mtx` (uma matriz de números complexos),`linhas` (número de linhas da matriz), `colunas` (o número de colunas da matriz).
+- O SVD foi implementado somente para matrizes reais, portanto, antes de iniciar o calculo do SVD, a função testa se há parte imaginaria, caso houver um aviso aparece na tela informando que não há suporte para matrizes complexas.
+- Não há retorno na função, ela imprime na tela o valor do SVD da matriz `mtx`.
+ * @param[in] mtx, linhas, colunas
+ * @param[out] void
+ * */
+
+
+void calc_svd(complexo** mtx, int linhas, int colunas)
+{
+	for (int l = 0; l < linhas; l++)
+	{
+		for (int c = 0; c < colunas; c++)
+		{
+			if (mtx[l][c].img != 0){
+				printf("Warning: complex matrix injected as parameter, fuction will use only real part from matrix\n");
+				break;
+			}
+		}
+	}
+
+    gsl_matrix * A = gsl_matrix_alloc(linhas, colunas);
+    gsl_matrix * V = gsl_matrix_alloc(colunas, colunas);
+    gsl_vector * S = gsl_vector_alloc(colunas);
+    gsl_vector * work = gsl_vector_alloc(colunas);
+
+    printf("\n\nMatriz A\n");
+    for(int l=0; l<linhas; l++)
+	{
+        for(int c=0; c<colunas; c++)
+		{
+            printf("%f ", mtx[l][c].real);
+            gsl_matrix_set(A, l, c, mtx[l][c].real);
+        }
+        printf("\n");
+    }
+
+    gsl_linalg_SV_decomp(A, V, S, work);
+
+    printf("\n\nMatriz U\n");
+    for(int l=0; l<linhas; l++)
+	{
+        for(int c=0; c<colunas; c++)
+		{
+            printf("%f ", gsl_matrix_get(A, l, c));
+        }
+        printf("\n");
+    }
+
+    printf("\n\nVetor S\n");
+    for(int c=0;c<colunas;c++)
+	{
+        printf("%f", gsl_vector_get(S,c));
+        printf("\n");
+    }
+
+    printf("\n\nMatriz V\n");
+    for(int l=0; l<colunas; l++)
+	{
+        for(int c=0; c<colunas; c++)
+		{
+            printf("%f ", gsl_matrix_get(V, l, c));
+        }
+        printf("\n");
+    }
+}
 
 void teste_conjugada(void) //Kauan (06.05.23)
 /**
