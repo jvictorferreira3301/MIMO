@@ -1418,6 +1418,64 @@ complexo soma_complexo(complexo c1, complexo c2)
 	soma.img = c1.img + c2.img;
 	return soma;
 }
+
+
+void teste_calc_svd(void)
+{
+	complexo **mtx_a, **mtx_b, **mtx_c, **mtx_d;
+	
+	int la = 3, ca = 2;
+	int lb = 4, cb = 4;
+	int lc = 6, cc = 5;
+	int ld = 5, cd = 6;
+	
+	mtx_a = allocateComplexMatrix(la, ca);
+	mtx_b = allocateComplexMatrix(lb, cb);
+	mtx_c = allocateComplexMatrix(lc, cc);
+ 	mtx_d = allocateComplexMatrix(ld, cd);
+
+	for (int l = 0; l < la; l++)
+	{
+		for (int c = 0; c < ca; c++)
+		{
+			mtx_a[l][c].real = l + c;
+			mtx_a[l][c].img = 0;
+		}
+	}
+
+	for (int l = 0; l < lb; l++)
+	{
+		for (int c = 0; c < cb; c++)
+		{
+			mtx_b[l][c].real = l*c + l;
+			mtx_b[l][c].img = 0;
+		}
+	}
+
+	for (int l = 0; l < lc; l++)
+	{
+		for (int c = 0; c < cc; c++)
+		{
+			mtx_c[l][c].real = 1 + l - 2*c;
+			mtx_c[l][c].img = 0;
+		}
+	}
+
+	for (int l = 0; l < ld; l++)
+	{
+		for (int c = 0; c < cd; c++)
+		{
+			mtx_d[l][c].real = 1 + l - c;
+			mtx_d[l][c].img = l - 1 + 3*c;
+		}
+	}
+
+	calc_svd (mtx_a, la, ca);
+	calc_svd (mtx_b, lb, cb);
+	calc_svd (mtx_c, lc, cc);
+	calc_svd (mtx_d, ld, cd);
+}
+
 /**###Função Multicomp: 
  * A função `multcomp` recebe dois números complexos `c1` e `c2` como parâmetros e retorna o resultado da multiplicação desses dois números complexos.
 - Dentro da função, uma variável chamada `multiplicado` do tipo `complexo` é declarada para armazenar o resultado da multiplicação. 
