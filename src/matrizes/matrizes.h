@@ -45,4 +45,5 @@ void LiberarMatriz(complexo **mtx, int linhas);
 void printComplex(complexo c);
 complexo soma_complexo(complexo c1, complexo c2);
 complexo multcomp(complexo c1, complexo c2);
+void calc_svd(complexo** mtx, int linhas, int colunas);
 #endif
