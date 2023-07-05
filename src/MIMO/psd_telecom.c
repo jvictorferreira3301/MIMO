@@ -126,7 +126,7 @@ float ** channel_gen(int Nr, int Nt){
 
 
 int main() {
-      FILE* fp = fopen("teste", "w");
+    FILE* fp = fopen("teste", "w");
 
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo\n");
