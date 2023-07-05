@@ -27,8 +27,8 @@ int * tx_data_read(FILE *fp, long int numBytes){
 }
 
 
-void rx_data_write(int *s, long int numBytes) {
-    FILE *out = fopen("saida", "wb");
+void rx_data_write(int *s, long int numBytes, char nome_arquivo) {
+    FILE *out = fopen(nome_arquivo, "wb");
     if (out == NULL) {
         printf("Erro ao abrir o arquivo para escrita.\n");
         return;
@@ -174,17 +174,31 @@ int main() {
     long int numBytes = ftell(fp);
     fseek(fp, 0, SEEK_SET);
     
-    int num_teste;
-    printf("Insira quantos testes gostaria de fazer:"); scanf("%d",&num_teste);
+    int Nr; // Número de antenas recpetoras
+    int Nt; // Número de antenas transmissoras
+    int num_teste = 16; // Numero de testes necessarios
+    
     for(int teste = 1; teste<=num_teste; teste++){
         
-        printf("\n=====================Teste Numero %d===================\n\n", teste);
-        printf("Insira o valor de Antenas receptoras (Nr) e transmissoras (Nt):\n");
-        int Nr; // Número de antenas recpetoras
-        int Nt; // Número de antenas transmissoras
+        printf("\n=====================Teste %d===================\n\n", teste);
         
-        printf("Nr:");scanf("%d",&Nr);
-        printf("Nt:");scanf("%d",&Nt);
+        if(teste<=4){
+            Nr = 2;
+            Nt = 4;
+        }
+        else if (teste>4 && teste>=8){
+            Nr = 8;
+            Nt = 8;
+        }
+        else if (teste>8 && teste<=12){
+            Nr = 8;
+            Nt = 32;
+        }
+        else{
+            Nr = 16;
+            Nt = 32;
+        }
+
         int Nstream = Nr;
         // Leitura do arquivo
         printf("Realizando leitura do Arquivo...\n");
@@ -217,7 +231,7 @@ int main() {
         int *d=rx_qam_demapper(map,numBytes);
 
         // Leitura Final dos Dados
-        printf("Salvando arquivo com a mensagem enviada...\n");
+        printf("Salvando arquivo com a mensagem enviada no arquivo test_Nr%d_Nt%d\n",Nr,Nt);
         rx_data_write(d,numBytes);
     }
 
