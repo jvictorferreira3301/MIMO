@@ -124,6 +124,11 @@ float ** channel_gen(int Nr, int Nt){
     return H;
 }
 
+/// @brief 
+/// @param v 
+/// @param Nstream 
+/// @param numBytes 
+/// @return Matriz complexa 
 complexo ** tx_layer_mapper(complexo *v, int Nstream, long int numBytes){
     complexo **mtx_stream;
     mtx_stream = (complexo**) malloc(Nstream*numBytes*sizeof(complexo*));
@@ -177,9 +182,10 @@ int main() {
         printf("Insira o valor de Antenas receptoras (Nr) e transmissoras (Nt):\n");
         int Nr; // Número de antenas recpetoras
         int Nt; // Número de antenas transmissoras
+        
         printf("Nr:");scanf("%d",&Nr);
         printf("Nt:");scanf("%d",&Nt);
-
+        int Nstream = Nr;
         // Leitura do arquivo
         printf("Realizando leitura do Arquivo...\n");
         int *s=tx_data_read(fp,numBytes);
@@ -197,7 +203,15 @@ int main() {
             }
             printf("\n");
         }
-
+        //Transformando o vetor complexo do mapaeamento para uma matriz complexa
+        complexo **mtx= tx_layer_mapper(map, Nstream, numBytes);
+        
+        for(int l=0;l<Nstream;l++){
+            for(int c=0; c<numBytes*2;c++){
+                printf("%+f %+f",mtx[l][c].real,mtx[l][c].img);
+            }
+            printf("\n");
+        }
         // Desmapeamento dos bits do arquivo
         printf("Realizando Desmapeamento dos Bits do Arquivo...\n");
         int *d=rx_qam_demapper(map,numBytes);
