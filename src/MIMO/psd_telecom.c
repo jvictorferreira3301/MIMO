@@ -124,6 +124,18 @@ float ** channel_gen(int Nr, int Nt){
     return H;
 }
 
+complexo ** tx_layer_mapper(complexo *v, int Nstream, long int numBytes){
+    complexo **mtx_stream;
+    mtx_stream = (complexo**) malloc(Nstream*numBytes*sizeof(complexo*));
+
+    for(int i = 0; i < Nstream; i++){
+        mtx_stream[i] = (complexo *) malloc(numBytes*Nstream*sizeof(complexo));
+    }
+    for (int i = 0; i < numBytes*4; i++){
+        mtx_stream[i%Nstream][i/Nstream] = v[i];
+    }
+    return mtx_stream;
+}
 
 int main() {
     FILE* fp = fopen("teste", "w");
