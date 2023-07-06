@@ -1,9 +1,26 @@
+/// @file psd_telecom.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "../matrizes/matrizes.h"
 #include <gsl/gsl_linalg.h>
 #include <time.h>
 
+/**
+ * @brief Lê os dados de um arquivo e os converte em um array de inteiros.
+ *
+ * Esta função lê os dados binários de um arquivo e os converte em um array de inteiros,
+ * em que cada inteiro representa 2 bits de dados. A função aloca memória dinamicamente
+ * para o array de inteiros e retorna um ponteiro para o início do array.
+ *
+ * @param fp Ponteiro para o arquivo a ser lido.
+ * @param numBytes O número de bytes a serem lidos do arquivo.
+ * @return Um ponteiro para o array de inteiros que contém os dados convertidos, ou NULL
+ *         em caso de erro na alocação de memória.
+ *
+ * @note O chamador é responsável por liberar a memória alocada para o array de inteiros
+ *       quando não precisar mais dele, usando a função free().
+ */
 int * tx_data_read(FILE *fp, long int numBytes){
 
     int *s = (int *)malloc(numBytes * 4 * sizeof(int));
@@ -25,7 +42,7 @@ int * tx_data_read(FILE *fp, long int numBytes){
     }
     return s;
 }
-int * tx_data_pedding(int*s,long int numBytes, int Nstream){
+int * tx_data_pedding(int*s,long int numBytes, int Nstream){ //é padding marcão
     if(numBytes%Nstream==0){
         return s;
     }
