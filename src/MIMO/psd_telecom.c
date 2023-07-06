@@ -74,8 +74,21 @@ int * tx_data_pedding(int*s,long int numBytes, int Nstream){ //é padding marcã
     }     
 }
 
+/**
+ * @brief Mapeia os dados binários em uma sequência de símbolos QAM.
+ *
+ * Esta função mapeia os dados binários em uma sequência de símbolos QAM (Quadrature
+ * Amplitude Modulation) representados por números complexos. A função aloca memória
+ * dinamicamente para o vetor de complexos e retorna um ponteiro para o vetor.
+ *
+ * @param s Ponteiro para o array de inteiros contendo os dados binários.
+ * @param numBytes O número de bytes contidos no array de inteiros.
+ * @return Um ponteiro para o vetor de complexos que contém os símbolos QAM mapeados, ou NULL
+ *         em caso de erro na alocação de memória.
+ */
 
 complexo* tx_qam_mapper(int *s, long int numBytes){
+    // Aloca memória para o vetor de complexos
     complexo *c1 = (complexo *)malloc(numBytes * 4 * sizeof(complexo));   
     for(int i= 0; i<numBytes*4;i++){
         if(s[i]==0){
