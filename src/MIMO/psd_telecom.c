@@ -60,15 +60,15 @@ int * tx_data_read(FILE *fp, long int numBytes){
  */
 int * tx_data_pedding(int*s,long int numBytes, int Nstream){ //é padding marcão
     // Verifica se o número de bytes é um múltiplo do número de streams
-    if(numBytes%Nstream==0){
+    if((4*numBytes)%Nstream==0){
         return s;
     }
     else{
         // Realoca memória para o array de inteiros com o espaço adicional necessário
-        int *resized_s = (int*)realloc(s,((numBytes*4)+(numBytes%Nstream))*sizeof(int));
+        int *resized_s = (int*)malloc(((numBytes*4)+((4*numBytes)%Nstream))*sizeof(int));
         // Preenche o espaço adicional com zeros
-        for(long int i = numBytes*4; i<(numBytes*4)+(numBytes%Nstream); i++){
-            resized_s[i]=0;
+        for(long int i = numBytes*4; i<=(numBytes*4)+((4*numBytes)%Nstream); i++){
+            resized_s[i]=4;
         }
         return s;
     }     
@@ -103,9 +103,13 @@ complexo* tx_qam_mapper(int *s, long int numBytes){
             c1[i].real = 1;
             c1[i].img = 1;
         }
-        else {
+        else if(s[i]==3){
             c1[i].real = 1;
             c1[i].img = -1;
+        }
+        else{
+            c1[i].real = 0;
+            c1[i].img = 0;
         }
     }
     return c1;
@@ -177,6 +181,24 @@ int* rx_qam_demapper(complexo * map, long int numBytes){
     }
     return vetor;
 }
+int *rx_data_depadding(int *s, long int numBytes, int Nstream) {
+    // Verifica se o número de bytes é um múltiplo do número de streams
+    if ((4*numBytes) % Nstream == 0) {
+        return s;
+    } 
+    else {
+        // Cria um novo array para armazenar os valores originais
+        int *resized_s = (int *)malloc(4*numBytes*sizeof(int));
+
+        // Copia os valores originais de volta para o array redimensionado
+        for (long int i = 0; i < 4*numBytes; i++) {
+            resized_s[i] = s[i];
+        }
+        return resized_s;
+    }
+}
+
+
 void rx_data_write(int* s, long int numBytes, char* fileName) {
     FILE* out = fopen(fileName, "wb");
     if (out == NULL) {
@@ -231,26 +253,13 @@ float ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
 
 
 int main() {
-    FILE* fp = fopen("teste", "w");
-
-    if (fp == NULL) {
-        printf("Erro ao abrir o arquivo\n");
-        return 1;
-    }
-
-    // Solicitar ao usuário que escreva a mensagem
-    printf("Digite a mensagem que quer enviar:\n");
-    char mensagem[1000];
-    fgets(mensagem, sizeof(mensagem), stdin);
-
-    // Escrever a mensagem no arquivo
-    fprintf(fp, "%s", mensagem);
-
-    // Fechar o arquivo
-    fclose(fp);
-
-    // Abrir o arquivo para leitura em binario
-    fp = fopen("teste", "rb");
+    FILE *fp;
+    int num_teste = 1; // Numero de testes necessarios
+    
+    for(int teste = 1; teste<=num_teste; teste++){
+        
+    printf("\n=====================Teste %d===================\n\n", teste);
+    fp = fopen("teste2", "rb");
 
     if (fp == NULL) {
         printf("Impossivel abrir o arquivo\n");
@@ -264,14 +273,8 @@ int main() {
     
     int Nr; // Número de antenas recpetoras
     int Nt; // Número de antenas transmissoras
-    int num_teste = 16; // Numero de testes necessarios
-    
-    for(int teste = 1; teste<=num_teste; teste++){
-        
-        printf("\n=====================Teste %d===================\n\n", teste);
-        
         if(teste<=4){
-            Nr = 2;
+            Nr = 3;
             Nt = 4;
             
         }
@@ -293,33 +296,38 @@ int main() {
         // Leitura do arquivo
         printf("Realizando leitura do Arquivo...\n");
         int *s=tx_data_read(fp,numBytes);
-        
+        for(int i = 0; i<numBytes*4; i++){
+            printf("%d\n",s[i]);
+        }
         //Preenchimento por meio do data_pedding
         printf("Data pedding...\n");
         int *d=tx_data_pedding(s,numBytes,Nstream);
-
+        for(int i = 0; i<=numBytes*4+((4*numBytes)%Nstream); i++){
+            printf("%d\n",s[i]);
+        }
         // Mapeamento dos bits do arquivo
-        printf("Realizando Mapeamento dos Bits do Arquivo...\n");
+        //printf("Realizando Mapeamento dos Bits do Arquivo...\n");
         complexo *map = tx_qam_mapper(d,numBytes);
 
         // Criação do Canal H com range entre -1 e 1
-        printf("Criação do Canal de transferencia de Dados...\n");
+        // printf("Criação do Canal de transferencia de Dados...\n");
         float ** H = channel_gen(Nr,Nt,-1,1);
         int ruido;
+        float **Rd;
         if(teste == 1 || teste == 5 || teste == 9 || teste == 13){
-            float **Rd=channel_gen(Nr,Nt,-1,1);
+            Rd=channel_gen(Nr,Nt,-1,1);
             ruido = 1;
         }
         else if(teste == 2 || teste == 6 || teste == 10 || teste == 14){
-            float **Rd=channel_gen(Nr,Nt,-0.5,0.5);
+            Rd=channel_gen(Nr,Nt,-0.5,0.5);
             ruido = 2;
         }
         else if(teste == 3 || teste == 7 || teste == 11 || teste == 15){
-            float **Rd=channel_gen(Nr,Nt,-0.1,0.1);
+            Rd=channel_gen(Nr,Nt,-0.1,0.1);
             ruido = 3;
         }
         else if(teste == 4 || teste == 8 || teste == 12 || teste == 16){
-            float **Rd=channel_gen(Nr,Nt,-0.01,0.01);
+            Rd=channel_gen(Nr,Nt,-0.01,0.01);
             ruido = 4;
         }
 
@@ -329,15 +337,20 @@ int main() {
         complexo *v=rx_layer_demapper(mtx,Nstream,numBytes);
 
         // Desmapeamento dos bits do arquivo
-        printf("Realizando Desmapeamento dos Bits do Arquivo...\n");
+        //printf("Realizando Desmapeamento dos Bits do Arquivo...\n");
         int *a=rx_qam_demapper(v,numBytes);
-
+        printf("Data repedding...\n");
+        int *s_rest = rx_data_depadding(d,numBytes,Nstream);
+        for(int i = 0; i<numBytes*4; i++){
+            printf("%d\n",s_rest[i]);
+        }
         // Leitura Final dos Dados
         printf("Salvando arquivo com a mensagem enviada no arquivo test_Nr%d_Nt%d_Rd%d\n",Nr,Nt,ruido);
         
         char fileName[100];
         sprintf(fileName, "Teste_Nr%d_Nt%d_Rd%d", Nr,Nt,ruido); // Formata o nome do arquivo com base no valor de i
-        rx_data_write(s, numBytes, fileName);
+        rx_data_write(s_rest, numBytes, fileName);
+        free(s_rest);
     }
 
     fclose(fp);
