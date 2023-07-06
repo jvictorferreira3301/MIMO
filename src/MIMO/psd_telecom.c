@@ -98,18 +98,29 @@ complexo* tx_qam_mapper(int *s, long int numBytes){
     return c1;
 }
 
-/// @brief 
-/// @param v 
-/// @param Nstream 
-/// @param numBytes 
-/// @return Matriz complexa 
+/**
+ * @brief Mapeia os dados de um vetor para uma matriz de complexos.
+ *
+ * Esta função mapeia os dados de um vetor de complexos em uma matriz de complexos,
+ * onde cada posição da matriz representa um stream de transmissão. A função aloca
+ * memória dinamicamente para a matriz de complexos e retorna um ponteiro para a matriz.
+ *
+ * @param v Ponteiro para o vetor de complexos contendo os dados a serem mapeados.
+ * @param Nstream O número de streams de transmissão.
+ * @param numBytes O número de bytes contidos no vetor de complexos.
+ * @return Um ponteiro para a matriz de complexos que contém os dados mapeados, ou NULL
+ *         em caso de erro na alocação de memória.
+ */
+
 complexo ** tx_layer_mapper(complexo *v, int Nstream, long int numBytes){
+    // Aloca memória para a matriz de complexos
     complexo **mtx_stream;
     mtx_stream = (complexo**) malloc(Nstream*numBytes*sizeof(complexo*));
 
     for(int i = 0; i < Nstream; i++){
         mtx_stream[i] = (complexo *) malloc(numBytes*Nstream*sizeof(complexo));
     }
+    // Mapeia os dados do vetor para a matriz de complexos
     for (int i = 0; i < numBytes*4; i++){
         mtx_stream[i%Nstream][i/Nstream] = v[i];
     }
