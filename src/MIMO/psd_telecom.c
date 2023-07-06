@@ -25,28 +25,20 @@ int * tx_data_read(FILE *fp, long int numBytes){
     }
     return s;
 }
-
-
-void rx_data_write(int *s, long int numBytes, char nome_arquivo) {
-    FILE *out = fopen(nome_arquivo, "wb");
-    if (out == NULL) {
-        printf("Erro ao abrir o arquivo para escrita.\n");
-        return;
+int * tx_data_pedding(int*s,long int numBytes, int Nstream){
+    if(numBytes%Nstream==0){
+        return s;
     }
-    else
-        printf("Arquivo com a mensagem recebida criada com sucesso\n");
+    else{
+        int *resized_s = (int*)realloc(s,((numBytes*4)+(numBytes%Nstream))*sizeof(int));
 
-    for (int i = 0; i < numBytes; i++) {
-        unsigned char byte = 0;
-        for (int j = 0; j < 4; j++) {
-            unsigned int bit = s[(i * 4) + j];
-            byte |= (bit << (2 * j));
+        for(long int i = numBytes*4; i<(numBytes*4)+(numBytes%Nstream); i++){
+            resized_s[i]=0;
         }
-        fwrite(&byte, sizeof(byte), 1, out);
-    }
-
-    fclose(out);
+        return s;
+    }     
 }
+
 
 complexo* tx_qam_mapper(int *s, long int numBytes){
     complexo *c1 = (complexo *)malloc(numBytes * 4 * sizeof(complexo));   
@@ -71,6 +63,25 @@ complexo* tx_qam_mapper(int *s, long int numBytes){
     return c1;
 }
 
+/// @brief 
+/// @param v 
+/// @param Nstream 
+/// @param numBytes 
+/// @return Matriz complexa 
+complexo ** tx_layer_mapper(complexo *v, int Nstream, long int numBytes){
+    complexo **mtx_stream;
+    mtx_stream = (complexo**) malloc(Nstream*numBytes*sizeof(complexo*));
+
+    for(int i = 0; i < Nstream; i++){
+        mtx_stream[i] = (complexo *) malloc(numBytes*Nstream*sizeof(complexo));
+    }
+    for (int i = 0; i < numBytes*4; i++){
+        mtx_stream[i%Nstream][i/Nstream] = v[i];
+    }
+    return mtx_stream;
+}
+
+
 int* rx_qam_demapper(complexo * map, long int numBytes){
 
     int *vetor = (int *)malloc(numBytes * 4 * sizeof(int));
@@ -94,8 +105,28 @@ int* rx_qam_demapper(complexo * map, long int numBytes){
     }
     return vetor;
 }
+void rx_data_write(int *s, long int numBytes) {
+    FILE *out = fopen("saida", "wb");
+    if (out == NULL) {
+        printf("Erro ao abrir o arquivo para escrita.\n");
+        return;
+    }
+    else
+        printf("Arquivo com a mensagem recebida criada com sucesso\n");
 
-float ** channel_gen(int Nr, int Nt){
+    for (int i = 0; i < numBytes; i++) {
+        unsigned char byte = 0;
+        for (int j = 0; j < 4; j++) {
+            unsigned int bit = s[(i * 4) + j];
+            byte |= (bit << (2 * j));
+        }
+        fwrite(&byte, sizeof(byte), 1, out);
+    }
+
+    fclose(out);
+}
+
+float ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
     float** H;
 	
     H = (float **) malloc(Nr*sizeof(float*));
@@ -118,29 +149,13 @@ float ** channel_gen(int Nr, int Nt){
     srand(time(NULL));
     for (int i = 0; i < Nr; i++) {
         for (int j = 0; j < Nt; j++) {
-            H[i][j] = -1 + 2 * ((float)rand() / RAND_MAX);
+            H[i][j] = ((float)rand() / RAND_MAX) * (maxValue - minValue) + minValue;
         }
     }
     return H;
 }
 
-/// @brief 
-/// @param v 
-/// @param Nstream 
-/// @param numBytes 
-/// @return Matriz complexa 
-complexo ** tx_layer_mapper(complexo *v, int Nstream, long int numBytes){
-    complexo **mtx_stream;
-    mtx_stream = (complexo**) malloc(Nstream*numBytes*sizeof(complexo*));
 
-    for(int i = 0; i < Nstream; i++){
-        mtx_stream[i] = (complexo *) malloc(numBytes*Nstream*sizeof(complexo));
-    }
-    for (int i = 0; i < numBytes*4; i++){
-        mtx_stream[i%Nstream][i/Nstream] = v[i];
-    }
-    return mtx_stream;
-}
 
 int main() {
     FILE* fp = fopen("teste", "w");
@@ -176,7 +191,7 @@ int main() {
     
     int Nr; // Número de antenas recpetoras
     int Nt; // Número de antenas transmissoras
-    int num_teste = 16; // Numero de testes necessarios
+    int num_teste = 1; // Numero de testes necessarios
     
     for(int teste = 1; teste<=num_teste; teste++){
         
@@ -185,6 +200,7 @@ int main() {
         if(teste<=4){
             Nr = 2;
             Nt = 4;
+            
         }
         else if (teste>4 && teste>=8){
             Nr = 8;
@@ -198,37 +214,43 @@ int main() {
             Nr = 16;
             Nt = 32;
         }
-
+        printf("Numero de antenas recpetoras: %d // Numero de antenas Transmissoras: %d\n",Nr,Nt);
         int Nstream = Nr;
         // Leitura do arquivo
         printf("Realizando leitura do Arquivo...\n");
         int *s=tx_data_read(fp,numBytes);
         
+        //Preenchimento por meio do data_pedding
+        printf("Data pedding...\n");
+        int *d=tx_data_pedding(s,numBytes,Nstream);
+
         // Mapeamento dos bits do arquivo
         printf("Realizando Mapeamento dos Bits do Arquivo...\n");
-        complexo *map = tx_qam_mapper(s,numBytes);
+        complexo *map = tx_qam_mapper(d,numBytes);
 
         // Criação do Canal H com range entre -1 e 1
         printf("Criação do Canal de transferencia de Dados:\n");
-        float ** H = channel_gen(Nr,Nt);
+        /*float ** H = channel_gen(Nr,Nt,-1,1);
         for(int l = 0; l<Nr;l++){
             for(int c = 0; c<Nt;c++){
                 printf("%f ",H[l][c]);
             }
             printf("\n");
-        }
+        }*/
+
         //Transformando o vetor complexo do mapaeamento para uma matriz complexa
         complexo **mtx= tx_layer_mapper(map, Nstream, numBytes);
         
-        for(int l=0;l<Nstream;l++){
+        /*for(int l=0;l<Nstream;l++){
             for(int c=0; c<numBytes*2;c++){
                 printf("%+f %+f",mtx[l][c].real,mtx[l][c].img);
             }
             printf("\n");
-        }
+        }*/
+
         // Desmapeamento dos bits do arquivo
         printf("Realizando Desmapeamento dos Bits do Arquivo...\n");
-        int *d=rx_qam_demapper(map,numBytes);
+        int *a=rx_qam_demapper(map,numBytes);
 
         // Leitura Final dos Dados
         printf("Salvando arquivo com a mensagem enviada no arquivo test_Nr%d_Nt%d\n",Nr,Nt);
