@@ -22,14 +22,14 @@
  *       quando não precisar mais dele, usando a função free().
  */
 int * tx_data_read(FILE *fp, long int numBytes){
-
+    // Aloca memória para o array de inteiros
     int *s = (int *)malloc(numBytes * 4 * sizeof(int));
     if (s == NULL) {
         printf("Erro na alocação de memória\n");
         fclose(fp);
         return (int *)1;
     }
-    
+    // Lê os bytes do arquivo e converte em inteiros de 2 bits
     for (int i = 0; i < numBytes; i++) {
         char byte;
         fread(&byte, sizeof(byte), 1, fp);
@@ -42,13 +42,31 @@ int * tx_data_read(FILE *fp, long int numBytes){
     }
     return s;
 }
+
+/**
+ * @brief Realiza o preenchimento (padding) dos dados com zeros.
+ *
+ * Esta função realiza o preenchimento (padding) dos dados com zeros para garantir
+ * que o tamanho do array de inteiros seja um múltiplo inteiro do número de streams (Nstream).
+ * Se o número de bytes (numBytes) for um múltiplo exato do número de streams, a função
+ * retorna o array de inteiros original sem alterações. Caso contrário, a função realoca
+ * memória para o array de inteiros e preenche o espaço adicional com zeros.
+ *
+ * @param s Ponteiro para o array de inteiros contendo os dados.
+ * @param numBytes O número de bytes original antes do preenchimento.
+ * @param Nstream O número de streams para o qual o tamanho do array deve ser um múltiplo.
+ * @return Um ponteiro para o array de inteiros com o preenchimento realizado, ou NULL
+ *         em caso de erro na alocação de memória.
+ */
 int * tx_data_pedding(int*s,long int numBytes, int Nstream){ //é padding marcão
+    // Verifica se o número de bytes é um múltiplo do número de streams
     if(numBytes%Nstream==0){
         return s;
     }
     else{
+        // Realoca memória para o array de inteiros com o espaço adicional necessário
         int *resized_s = (int*)realloc(s,((numBytes*4)+(numBytes%Nstream))*sizeof(int));
-
+        // Preenche o espaço adicional com zeros
         for(long int i = numBytes*4; i<(numBytes*4)+(numBytes%Nstream); i++){
             resized_s[i]=0;
         }
