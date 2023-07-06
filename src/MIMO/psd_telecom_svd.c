@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../matrizes/matrizes.h"
+#include "matrizes.h"
 #include <gsl/gsl_linalg.h>
 #include <time.h>
 
@@ -30,15 +30,28 @@ int * tx_data_pedding(int*s,long int numBytes, int Nstream){
         return s;
     }
     else{
-        int *resized_s = (int*)realloc(s,((numBytes*4)+(numBytes%Nstream))*sizeof(int));
+        int *resized_s = (int*) realloc(s,((numBytes*4)+(numBytes%Nstream))*sizeof(int));
 
         for(long int i = numBytes*4; i<(numBytes*4)+(numBytes%Nstream); i++){
-            resized_s[i]=0;
+            resized_s[i]=4;
         }
         return s;
     }     
 }
 
+int* tx_data_padding(int *s, long int numBytes, int Nstream){
+    long int newSymbol = numBytes*4;
+    if (numBytes*4%Nstream == 0){
+        return s;
+    }
+    while(newSymbol%Nstream != 0)
+        newSymbol++;
+        int *resized_s = (int*) realloc(s,newBytes*sizeof(int));
+        for (long int i = numBytes*4; i < newBytes*4; i++)
+            resized_s[i] = 4;
+        return resized_s;
+    
+}
 
 complexo* tx_qam_mapper(int *s, long int numBytes){
     complexo *c1 = (complexo *)malloc(numBytes * 4 * sizeof(complexo));   
@@ -55,9 +68,12 @@ complexo* tx_qam_mapper(int *s, long int numBytes){
             c1[i].real = 1;
             c1[i].img = 1;
         }
-        else {
+        else if (s[i] == 3){
             c1[i].real = 1;
             c1[i].img = -1;
+        }else {
+            c1[i].real = 0;
+            c1[i].img = 0;
         }
     }
     return c1;
@@ -80,7 +96,6 @@ complexo ** tx_layer_mapper(complexo *v, int Nstream, long int numBytes){
     }
     return mtx_stream;
 }
-
 
 int* rx_qam_demapper(complexo * map, long int numBytes){
 
@@ -105,6 +120,7 @@ int* rx_qam_demapper(complexo * map, long int numBytes){
     }
     return vetor;
 }
+
 void rx_data_write(int *s, long int numBytes) {
     FILE *out = fopen("saida", "wb");
     if (out == NULL) {
@@ -126,7 +142,7 @@ void rx_data_write(int *s, long int numBytes) {
     fclose(out);
 }
 
-float ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
+float** channel_gen(int Nr, int Nt, float minValue, float maxValue){
     float** H;
 	
     H = (float **) malloc(Nr*sizeof(float*));
@@ -155,37 +171,40 @@ float ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
     return H;
 }
 
-void channel_svd(float** H, float** U, float** S, float** V, int Nr, int Nt){
+void channel_svd(complexo** H, complexo** W, complexo* T, complexo** F, int linhas, int colunas){
 
-    gsl_matrix * X = gsl_matrix_alloc(Nr, Nt); // U, onde U é sobreposto
-    gsl_vector * Y = gsl_vector_alloc(Nt); // S
-    gsl_matrix * Z = gsl_matrix_alloc(Nt, Nt); // V
-    gsl_vector * work = gsl_vector_alloc(Nt);
+    gsl_matrix * A = gsl_matrix_alloc(linhas, colunas);// U, onde U é sobreposto
+    gsl_vector * S = gsl_vector_alloc(colunas); // S
+    gsl_matrix * V = gsl_matrix_alloc(colunas, colunas); // V
+    gsl_vector * work = gsl_vector_alloc(colunas);
 
-    for(int l=0; l<Nr; l++){
-        for(int c=0; c<Nt; c++){
-            gsl_matrix_set(U, l, c, H[l][c]);
+    printf("\n\nMatriz H\n");
+    for(int l = 0; l < linhas; l++){
+        for(int c = 0; c < colunas; c++){
+            printf("%f ", H[l][c].real);
+            gsl_matrix_set(A, l, c, H[l][c].real);
         }
-    }
-    gsl_linalg_SV_decomp(X, Y, Z, work);
-
-    if(U == NULL || V == NULL || S == NULL){
-        printf("\nSVD Error!\n");
+        printf("\n");
     }
 
-    for(int l=0; l<Nr; l++){
-        for(int c=0; c<Nt; c++){
-            U[l][c] = gsl_matrix_get(X,l,c);
+    gsl_linalg_SV_decomp(A, V, S, work);
+
+    for(int l=0; l<linhas; l++){
+        for(int c=0; c<colunas; c++){
+            W[l][c].real = gsl_matrix_get(A,l,c);
+            W[l][c].img = 0;
         }
     }
 
-    for(int l=0; l<Nt; l++){
-            S[l] = gsl_vector_get(Y,l);
+    for(int l=0; l<colunas; l++){
+            T[l].real = gsl_vector_get(S,l);
+            T[l].img = 0;
         }
 
-    for(int l=0; l<Nt; l++){
-        for(int c=0; c<Nt; c++){
-            V[l][c] = gsl_matrix_get(Z,l,c);
+    for(int l=0; l<colunas; l++){
+        for(int c=0; c<colunas; c++){
+            F[l][c].real = gsl_matrix_get(V,l,c);
+            F[l][c].img = 0;
         }
     }
 }
@@ -235,7 +254,7 @@ int main() {
         printf("\n=====================Teste %d===================\n\n", teste);
         
         if(teste<=4){
-            Nr = 2;
+            Nr = 3;
             Nt = 4;
             
         }
@@ -259,32 +278,59 @@ int main() {
         
         //Preenchimento por meio do data_pedding
         printf("Data pedding...\n");
-        int *d=tx_data_pedding(s,numBytes,Nstream);
-
+        int *d=tx_data_padding(s,numBytes,numBytes,Nstream);
+        int newBytes = sizeof(d);
+        for (int i = 0; i < newBytes*4; i++){
+            printf("%d, ", d[i]);
+        }
+        printf("\ndeus me ajude po favor\n");
         // Mapeamento dos bits do arquivo
         printf("Realizando Mapeamento dos Bits do Arquivo...\n");
         complexo *map = tx_qam_mapper(d,numBytes);
 
         // Criação do Canal H com range entre -1 e 1
         printf("Criação do Canal de transferencia de Dados:\n");
-        /*float ** H = channel_gen(Nr,Nt,-1,1);
+        float ** h = channel_gen(Nr,Nt,-1,1); // Criação de h em float
+        complexo ** H = allocateComplexMatrix(Nr, Nt); // Allocação de H em complexo
+        // Preenchendo a parte real de H com os elementos reais de h
+        for(int l = 0; l < Nr; l++){
+            for(int c = 0; c < Nt; c++){
+                H[l][c].real = h[l][c];
+                H[l][c].img = 0;
+            }
+        }
+        // Imprimindo H
         for(int l = 0; l<Nr;l++){
             for(int c = 0; c<Nt;c++){
-                printf("%f ",H[l][c]);
+                printf("%+f ", H[l][c].real);
+            }
+            printf("\n");
+        }
+        // Chamada do cálculo SVD de H
+        //printf("\nIniciando SVD(H)");
+        complexo** U = allocateComplexMatrix(Nr,Nt);
+        complexo* S = (complexo *) malloc(Nt*sizeof(complexo));
+        complexo** V = allocateComplexMatrix(Nt,Nt);
+
+        //channel_svd(H, U, S, V, Nr, Nt);
+
+        /*for (int l = 0; l < Nr; l++){
+            for (int c = 0; c < Nt; c++){
+                printComplex(U[l][c]);
             }
             printf("\n");
         }*/
-
         //Transformando o vetor complexo do mapaeamento para uma matriz complexa
         complexo **mtx= tx_layer_mapper(map, Nstream, numBytes);
-        
-        /*for(int l=0;l<Nstream;l++){
+        printf("Matriz stream\n");
+        for(int l=0;l<Nstream;l++){
+            printf("[");
             for(int c=0; c<numBytes*2;c++){
-                printf("%+f %+f",mtx[l][c].real,mtx[l][c].img);
+                printf("%+.2f %+.2f, ",mtx[l][c].real,mtx[l][c].img);
             }
-            printf("\n");
-        }*/
-
+            printf("]\n");
+        }
+        printf("\n");
         // Desmapeamento dos bits do arquivo
         printf("Realizando Desmapeamento dos Bits do Arquivo...\n");
         int *a=rx_qam_demapper(map,numBytes);
