@@ -162,8 +162,8 @@ void channel_svd(float** H, float** U, float** S, float** V, int Nr, int Nt){
     gsl_matrix * Z = gsl_matrix_alloc(Nt, Nt); // V
     gsl_vector * work = gsl_vector_alloc(Nt);
 
-    for(int l=0; l<linhas; l++){
-        for(int c=0; c<colunas; c++){
+    for(int l=0; l<Nr; l++){
+        for(int c=0; c<Nt; c++){
             gsl_matrix_set(U, l, c, H[l][c]);
         }
     }
@@ -173,18 +173,18 @@ void channel_svd(float** H, float** U, float** S, float** V, int Nr, int Nt){
         printf("\nSVD Error!\n");
     }
 
-    for(int l=0; l<linhas; l++){
-        for(int c=0; c<colunas; c++){
+    for(int l=0; l<Nr; l++){
+        for(int c=0; c<Nt; c++){
             U[l][c] = gsl_matrix_get(X,l,c);
         }
     }
 
-    for(int l=0; l<linhas; l++){
-            S[l][c] = gsl_vector_get(Y,l);
+    for(int l=0; l<Nt; l++){
+            S[l] = gsl_vector_get(Y,l);
         }
 
-    for(int l=0; l<linhas; l++){
-        for(int c=0; c<colunas; c++){
+    for(int l=0; l<Nt; l++){
+        for(int c=0; c<Nt; c++){
             V[l][c] = gsl_matrix_get(Z,l,c);
         }
     }
