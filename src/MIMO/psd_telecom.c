@@ -27,8 +27,8 @@ int * tx_data_read(FILE *fp, long int numBytes){
 }
 
 
-void rx_data_write(int *s, long int numBytes) {
-    FILE *out = fopen("saida", "wb");
+void rx_data_write(int *s, long int numBytes, char nome_arquivo) {
+    FILE *out = fopen(nome_arquivo, "wb");
     if (out == NULL) {
         printf("Erro ao abrir o arquivo para escrita.\n");
         return;
@@ -124,6 +124,48 @@ float ** channel_gen(int Nr, int Nt){
     return H;
 }
 
+complexo ** tx_layer_mapper(complexo *v, int Nstream, long int numBytes){
+    complexo **mtx_stream;
+    mtx_stream = (complexo**) malloc(Nstream*numBytes*sizeof(complexo*));
+
+    for(int i = 0; i < Nstream; i++){
+        mtx_stream[i] = (complexo *) malloc(numBytes*Nstream*sizeof(complexo));
+    }
+    for (int i = 0; i < numBytes*4; i++){
+        mtx_stream[i%Nstream][i/Nstream] = v[i];
+    }
+    return mtx_stream;
+}
+
+int channel_svd(float** H, float** U, float** S, float** V, int Nr, int Nt){
+
+    gsl_matrix * A = gsl_matrix_alloc(Nr, Nt);
+    gsl_vector * S = gsl_vector_alloc(Nt);
+    gsl_matrix * V = gsl_matrix_alloc(Nt, Nt);
+    gsl_vector * work = gsl_vector_alloc(Nt);
+
+    for(int l=0; l<linhas; l++){
+        for(int c=0; c<colunas; c++){
+            printf("%f ", H[l][c]);
+            gsl_matrix_set(U, l, c, H[l][c]);
+        }
+        printf("\n");
+    }
+    gsl_linalg_SV_decomp(U, V, S, work);
+
+    if(U == NULL || V == NULL || S == NULL){
+        printf("\nSVD Error!\n");
+        return 1;
+    }
+
+    return 0;
+}
+
+complexo* tx_precoder(complexo* x, float** F, int Nr, int Nt){
+    complexo* s;
+    s = (complexo *) malloc(numBytes)
+    return s;
+}
 
 int main() {
     FILE* fp = fopen("teste", "w");
@@ -157,17 +199,32 @@ int main() {
     long int numBytes = ftell(fp);
     fseek(fp, 0, SEEK_SET);
     
-    int num_teste;
-    printf("Insira quantos testes gostaria de fazer:"); scanf("%d",&num_teste);
+    int Nr; // Número de antenas recpetoras
+    int Nt; // Número de antenas transmissoras
+    int num_teste = 16; // Numero de testes necessarios
+    scanf("%d", num_teste);
     for(int teste = 1; teste<=num_teste; teste++){
         
-        printf("\n=====================Teste Numero %d===================\n\n", teste);
-        printf("Insira o valor de Antenas receptoras (Nr) e transmissoras (Nt):\n");
-        int Nr; // Número de antenas recpetoras
-        int Nt; // Número de antenas transmissoras
-        printf("Nr:");scanf("%d",&Nr);
-        printf("Nt:");scanf("%d",&Nt);
+        printf("\n=====================Teste %d===================\n\n", teste);
+        
+        // if(teste<=4){
+        //     Nr = 2;
+        //     Nt = 4;
+        // }
+        // else if (teste>4 && teste>=8){
+        //     Nr = 8;
+        //     Nt = 8;
+        // }
+        // else if (teste>8 && teste<=12){
+        //     Nr = 8;
+        //     Nt = 32;
+        // }
+        // else{
+        //     Nr = 16;
+        //     Nt = 32;
+        // }
 
+        int Nstream = Nr;
         // Leitura do arquivo
         printf("Realizando leitura do Arquivo...\n");
         int *s=tx_data_read(fp,numBytes);
@@ -177,7 +234,7 @@ int main() {
         complexo *map = tx_qam_mapper(s,numBytes);
 
         // Criação do Canal H com range entre -1 e 1
-        printf("Criação do Canal de transferencia de Dados:\n");
+        printf("\nCriação do Canal de transferencia de Dados:\n");
         float ** H = channel_gen(Nr,Nt);
         for(int l = 0; l<Nr;l++){
             for(int c = 0; c<Nt;c++){
@@ -185,16 +242,23 @@ int main() {
             }
             printf("\n");
         }
-
+        //Transformando o vetor complexo do mapaeamento para uma matriz complexa
+        complexo **mtx= tx_layer_mapper(map, Nstream, numBytes);
+        printf("\nMatriz de streams de fluxo de dados: \n");
+        for(int l=0;l<Nstream;l++){
+            for(int c=0; c<numBytes*2;c++){
+                printf("%+f %+f",mtx[l][c].real,mtx[l][c].img);
+            }
+            printf("\n");
+        }
         // Desmapeamento dos bits do arquivo
         printf("Realizando Desmapeamento dos Bits do Arquivo...\n");
         int *d=rx_qam_demapper(map,numBytes);
 
         // Leitura Final dos Dados
-        printf("Salvando arquivo com a mensagem enviada...\n");
+        printf("Salvando arquivo com a mensagem enviada no arquivo test_Nr%d_Nt%d\n",Nr,Nt);
         rx_data_write(d,numBytes);
     }
-
     
     fclose(fp);
     return 0;
