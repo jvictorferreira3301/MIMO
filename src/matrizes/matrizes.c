@@ -412,8 +412,8 @@ complexo **transposta(complexo** mtx,int linhas, int colunas)
 		{
 			for (int c = 0; c < colunas; c++)
 			{
-				matriz[l][c].real = mtx[c][l].real;
-                matriz[l][c].img = mtx[c][l].img;
+				matriz[c][l].real = mtx[l][c].real;
+                matriz[c][l].img = mtx[l][c].img;
 			}
 		}
     return matriz;
@@ -629,7 +629,7 @@ void teste_transposta(void)
 {
 	complexo** c1,**c2,**c3,**c4; 
 	int nlinhas,ncolunas;
-    nlinhas=3; 
+    nlinhas=2; 
     ncolunas=3; 
     c1 = allocateComplexMatrix(nlinhas,ncolunas);
 	printf("\n===============================Teste da operação Transposta======================\n");

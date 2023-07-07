@@ -6,4 +6,5 @@
 /doc/html
 /doc/latex
 src/MIMO/output
+build/
 
