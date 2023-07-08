@@ -593,6 +593,39 @@ complexo **produto_matricial(complexo** mtx_a, complexo **mtx_b, int linhas, int
 	}
 	return matriz;
 }
+
+/*complexo** produto_matricial_plus(complexo** mtx_a, complexo** mtx_b, int linhas_a, int colunas_a, int linhas_b, int colunas_b)
+{
+    // Validação da operação de multiplicação (colunas_a == linhas_b).
+    if (colunas_a != linhas_b)
+    {
+        printf("\nErro: O produto não pode ser realizado (incompatibilidade entre matrizes)\n");
+        exit(1);
+    }
+    
+    complexo** matriz;
+    matriz = allocateComplexMatrix(linhas_a, colunas_b);
+    
+    for (int l = 0; l < linhas_a; l++)
+    {
+        for (int c = 0; c < colunas_b; c++)
+        {
+            complexo acumulador;
+            acumulador.real = 0;
+            acumulador.img = 0;
+            
+            for (int i = 0; i < colunas_a; i++)
+            {
+                acumulador = soma_complexo(acumulador, multcomp(mtx_a[l][i], mtx_b[i][c]));
+            }
+            
+            matriz[l][c].real = acumulador.real;
+            matriz[l][c].img = acumulador.img;
+        }
+    }
+    
+    return matriz;
+}*/
 /**###Função Produto por Escalar: 
  * A função `produto por escalar` implementa a operação de matriz por um escalar qualquer. 
 - A função produto por escalar recebe quatro parâmetros: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz), colunas (o número de colunas da matriz) e k(número inteiro escalar).
@@ -1401,7 +1434,7 @@ void teste_produto_matricial(void)
 */ 
 void printComplex(complexo c)
 {
-    printf("%+.2f %+.2fj ", c.real, c.img);
+    printf("%+.6lf %+.6lfj ", c.real, c.img);
 }
 /**Função: Alocação de memória para uma matriz complexa. */
 complexo **allocateComplexMatrix (int linhas, int colunas)

@@ -9,8 +9,8 @@
  Essa definição de estrutura pode ser incluída em programas C que envolvem cálculos com números complexos, permitindo uma organização clara e acessível dos dados relacionados a números complexos.
  */
 typedef struct complexo {
-    float real; ///< Parte real
-    float img; ///< Parte imaginária
+    double real; ///< Parte real
+    double img; ///< Parte imaginária
 } complexo;
 //Função: Teste de todas as funções de álgebra matricial do código.
 void teste_todos(void);

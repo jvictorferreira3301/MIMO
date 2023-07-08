@@ -221,10 +221,10 @@ void rx_data_write(int* s, long int numBytes, char* fileName) {
     fclose(out);
 }
 
-float ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
-    float** H;
+complexo ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
+    complexo** H;
 	
-    H = (float **) malloc(Nr*sizeof(float*));
+    H = (complexo **) malloc(Nr*sizeof(complexo*));
 	
     if (H == NULL)
     {
@@ -234,7 +234,7 @@ float ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
     //Alocação de memória para cada linha da matriz
     for (int i = 0; i < Nr; i++)
     {
-        H[i] = (float *) malloc(Nt*sizeof(float));
+        H[i] = (complexo *) malloc(Nt*sizeof(complexo));
         if (H[i] == NULL)
         {
             printf("Memory allocation failed\n");
@@ -244,7 +244,7 @@ float ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
     srand(time(NULL));
     for (int i = 0; i < Nr; i++) {
         for (int j = 0; j < Nt; j++) {
-            H[i][j] = ((float)rand() / RAND_MAX) * (maxValue - minValue) + minValue;
+            H[i][j].real = ((float)rand() / RAND_MAX) * (maxValue - minValue) + minValue;
         }
     }
     return H;
@@ -291,7 +291,12 @@ int main() {
             Nt = 32;
         }
 
-        int Nstream = Nr;
+        int Nstream;
+        if (Nr <= Nt){
+            Nstream = Nr;
+        }else{
+            Nstream = Nt;
+        }
         printf("Numero de antenas recpetoras Nr: %d || Numero de antenas transmissoras Nx: %d || Numero de fluxos Nstream: %d\n", Nr, Nt, Nstream);
         // Leitura do arquivo
         printf("Realizando leitura do Arquivo...\n");
@@ -321,26 +326,31 @@ int main() {
         }
         // Criação do Canal H com range entre -1 e 1
         // printf("Criação do Canal de transferencia de Dados...\n");
-        float ** H = channel_gen(Nr,Nt,-1,1);
+        complexo ** H = channel_gen(Nr,Nt,-1,1);
         int ruido;
-        float **Rd;
+        complexo **Rd;
         // Gerando ruído
         if(teste == 1 || teste == 5 || teste == 9 || teste == 13){
-            Rd=channel_gen(Nr,Nt,-1,1);
+            Rd=channel_gen(Nr,1,-1,1);
             ruido = 1;
         }
         else if(teste == 2 || teste == 6 || teste == 10 || teste == 14){
-            Rd=channel_gen(Nr,Nt,-0.5,0.5);
+            Rd=channel_gen(Nr,1,-0.5,0.5);
             ruido = 2;
         }
         else if(teste == 3 || teste == 7 || teste == 11 || teste == 15){
-            Rd=channel_gen(Nr,Nt,-0.1,0.1);
+            Rd=channel_gen(Nr,1,-0.1,0.1);
             ruido = 3;
         }
         else if(teste == 4 || teste == 8 || teste == 12 || teste == 16){
-            Rd=channel_gen(Nr,Nt,-0.01,0.01);
+            Rd=channel_gen(Nr,1,-0.01,0.01);
             ruido = 4;
         }
+        printf("\nVetor Ruído\n");
+        for (int l = 0 ; l < Nr; l++){
+		    printComplex(Rd[l][0]);
+            printf("\n");
+	    }
         printf("\nMapeando a matriz stream primária Nstream x (Nsymbols/Nstream)\n");
         //Transformando o vetor complexo do mapaeamento para uma matriz complexa Nstream linhas
         complexo **mtx= tx_layer_mapper(map, Nstream, numBytes*4 + Npadding);
