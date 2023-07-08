@@ -183,7 +183,6 @@ int* rx_qam_demapper(complexo * map, long int numBytes){
     }
     return vetor;
 }
-<<<<<<< HEAD
 int *rx_data_depadding(int *s, long int numBytes, int Nstream) {
     // Verifica se o número de bytes é um múltiplo do número de streams
     if ((4*numBytes) % Nstream == 0) {
@@ -201,8 +200,6 @@ int *rx_data_depadding(int *s, long int numBytes, int Nstream) {
     }
 }
 
-=======
->>>>>>> origin/kauan
 void rx_data_write(int* s, long int numBytes, char* fileName) {
     FILE* out = fopen(fileName, "wb");
     if (out == NULL) {
@@ -224,14 +221,8 @@ void rx_data_write(int* s, long int numBytes, char* fileName) {
     fclose(out);
 }
 
-<<<<<<< HEAD
 complexo ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
     complexo** H;
-=======
-
-float ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
-    float** H;
->>>>>>> origin/kauan
 	
     H = (complexo **) malloc(Nr*sizeof(complexo*));
 	
@@ -259,52 +250,12 @@ float ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
     return H;
 }
 
-<<<<<<< HEAD
 complexo** expandMatrix(complexo** matriz, int linhas, int colunas, int linhasExtras, int padding);
 void tx_mtx_stream_padding(complexo** mtx, int linhas, int colunas, int Nstream);
 
 int main() {
     FILE *fp;
     int num_teste = 1; // Numero de testes necessarios
-=======
-
-
-int main() {
-    FILE* fp = fopen("teste", "w");
-
-    if (fp == NULL) {
-        printf("Erro ao abrir o arquivo\n");
-        return 1;
-    }
-
-    // Solicitar ao usuário que escreva a mensagem
-    printf("Digite a mensagem que quer enviar:\n");
-    char mensagem[1000];
-    fgets(mensagem, sizeof(mensagem), stdin);
-
-    // Escrever a mensagem no arquivo
-    fprintf(fp, "%s", mensagem);
-
-    // Fechar o arquivo
-    fclose(fp);
-
-    // Abrir o arquivo para leitura em binario
-    fp = fopen("teste", "rb");
-
-    if (fp == NULL) {
-        printf("Impossivel abrir o arquivo\n");
-        return 1; // Encerra o programa se a abertura do arquivo falhar
-    }
-
-    printf("Arquivo criado com sucesso\n");
-    fseek(fp, 0, SEEK_END);
-    long int numBytes = ftell(fp);
-    fseek(fp, 0, SEEK_SET);
-    
-    int Nr; // Número de antenas recpetoras
-    int Nt; // Número de antenas transmissoras
-    int num_teste = 16; // Numero de testes necessarios
->>>>>>> origin/kauan
     
     for(int teste = 1; teste<=num_teste; teste++){
         
@@ -315,7 +266,6 @@ int main() {
             printf("Impossivel abrir o arquivo\n");
             return 1; // Encerra o programa se a abertura do arquivo falhar
         }
-<<<<<<< HEAD
 
         printf("Arquivo criado com sucesso\n");
         fseek(fp, 0, SEEK_END);
@@ -328,8 +278,6 @@ int main() {
             Nr = 3;
             Nt = 4;
         }
-=======
->>>>>>> origin/kauan
         else if (teste>4 && teste<=8){
             Nr = 8;
             Nt = 8;
@@ -343,7 +291,6 @@ int main() {
             Nt = 32;
         }
 
-<<<<<<< HEAD
         int Nstream;
         if (Nr <= Nt){
             Nstream = Nr;
@@ -351,10 +298,6 @@ int main() {
             Nstream = Nt;
         }
         printf("Numero de antenas recpetoras Nr: %d || Numero de antenas transmissoras Nx: %d || Numero de fluxos Nstream: %d\n", Nr, Nt, Nstream);
-=======
-        int Nstream = Nr;
-        printf("Numero de antenas recpetoras: %d // Numero de antenas Transmissoras: %d // Numero de fluxos: %d\n",Nr,Nt,Nstream);
->>>>>>> origin/kauan
         // Leitura do arquivo
         printf("Realizando leitura do Arquivo...\n");
         int *s=tx_data_read(fp,numBytes);
@@ -382,7 +325,6 @@ int main() {
             printf("%+.1f %+.1fj, ", map[i].real, map[i].img);
         }
         // Criação do Canal H com range entre -1 e 1
-<<<<<<< HEAD
         // printf("Criação do Canal de transferencia de Dados...\n");
         complexo ** H = channel_gen(Nr,Nt,-1,1);
         int ruido;
@@ -443,43 +385,6 @@ int main() {
         sprintf(fileName, "Teste_Nr%d_Nt%d_Rd%d", Nr,Nt,ruido); // Formata o nome do arquivo com base no valor de i
         rx_data_write(s_rest, numBytes, fileName);
         free(s_rest);
-=======
-        printf("Criação do Canal de transferencia de Dados...\n");
-        float ** H = channel_gen(Nr,Nt,-1,1);
-        int ruido;
-        if(teste == 1 || teste == 5 || teste == 9 || teste == 13){
-            float **Rd=channel_gen(Nr,Nt,-1,1);
-            ruido = 1;
-        }
-        else if(teste == 2 || teste == 6 || teste == 10 || teste == 14){
-            float **Rd=channel_gen(Nr,Nt,-0.5,0.5);
-            ruido = 2;
-        }
-        else if(teste == 3 || teste == 7 || teste == 11 || teste == 15){
-            float **Rd=channel_gen(Nr,Nt,-0.1,0.1);
-            ruido = 3;
-        }
-        else if(teste == 4 || teste == 8 || teste == 12 || teste == 16){
-            float **Rd=channel_gen(Nr,Nt,-0.01,0.01);
-            ruido = 4;
-        }
-
-        //Transformando o vetor complexo do mapaeamento para uma matriz complexa
-        complexo **mtx= tx_layer_mapper(map, Nstream, numBytes);
-
-        complexo *v=rx_layer_demapper(mtx,Nstream,numBytes);
-
-        // Desmapeamento dos bits do arquivo
-        printf("Realizando Desmapeamento dos Bits do Arquivo...\n");
-        int *a=rx_qam_demapper(v,numBytes);
-
-        // Leitura Final dos Dados
-        printf("Salvando arquivo com a mensagem enviada no arquivo test_Nr%d_Nt%d_Rd%d\n",Nr,Nt,ruido);
-        
-        char fileName[100];
-        sprintf(fileName, "Teste_Nr%d_Nt%d_Rd%d", Nr,Nt,ruido); // Formata o nome do arquivo com base no valor de i
-        rx_data_write(s, numBytes, fileName);
->>>>>>> origin/kauan
     }
 
     fclose(fp);
