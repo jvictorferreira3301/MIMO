@@ -103,7 +103,6 @@ void channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo **Vh, int 
         printf("\n");
     }
 
-
     printf("\nVetor S\n");
     for(int c=0;c<Tcolunas;c++)
 	{
@@ -137,6 +136,84 @@ void channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo **Vh, int 
     printf("\nMatriz diagonal S\n");
     for(int l=0; l<Tcolunas; l++){
         for(int c=0; c<Tcolunas; c++)
+		{
+            printComplex(Sh[l][c]);
+        }
+        printf("\n");
+    }
+}
+
+void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, int linhas, int colunas){
+    for (int l = 0; l < linhas; l++){
+		for (int c = 0; c < colunas; c++){
+			if (H[l][c].img != 0){
+				printf("Warning: complex matrix injected as parameter, fuction will use only real part from matrix\n");
+				break;
+			}
+		}
+	}
+    gsl_matrix * U = gsl_matrix_alloc(linhas, colunas); // Matriz U lxc
+    gsl_matrix * V = gsl_matrix_alloc(linhas, colunas); // Matriz V cxc
+    gsl_vector * S = gsl_vector_alloc(colunas); // Vetor S cx1
+    gsl_vector * work = gsl_vector_alloc(colunas);
+    
+    for(int l=0; l<linhas; l++)
+	{
+        for(int c=0; c<colunas; c++)
+		{
+            printf("%+.1f ", H[l][c].real);
+            gsl_matrix_set(U, l, c, H[l][c].real);
+        }
+        printf("\n");
+    }
+
+    gsl_linalg_SV_decomp(U, V, S, work);
+
+    printf("\nMatriz U\n");
+    for(int l = 0; l < linhas; l++)
+	{
+        for(int c=0; c < colunas; c++)
+		{
+            Uh[l][c].real = gsl_matrix_get(U, l, c);
+            Uh[l][c].img = 0;
+            printf("%f ", gsl_matrix_get(U, l, c));
+        }
+        printf("\n");
+    }
+
+    printf("\nVetor S\n");
+    for(int c=0;c<colunas;c++)
+	{
+        printf("%f", gsl_vector_get(S,c));
+        printf("\n");
+    }
+
+    printf("\nMatriz V\n");
+    for(int l=0; l<linhas; l++)
+	{
+        for(int c=0; c<colunas; c++)
+		{
+            Vh[l][c].real = gsl_matrix_get(V, l, c);
+            Vh[l][c].img = 0;
+            printf("%f ", gsl_matrix_get(V, l, c));
+        }
+        printf("\n");
+    }
+
+    printf("\nMatriz diagonal S\n");
+    for (int l = 0; l < linhas; l++){
+        for (int c = 0; c < colunas; c++){
+            if (l == c){
+                Sh[l][c].real = gsl_vector_get(S,c);
+                Sh[l][c].img = 0;
+            }else{
+                Sh[l][c].real = 0;
+                Sh[l][c].img = 0;
+            }
+        }
+    }
+    for(int l=0; l<linhas; l++){
+        for(int c=0; c<colunas; c++)
 		{
             printComplex(Sh[l][c]);
         }
@@ -247,6 +324,8 @@ int main(){
     x[0][0].img = 1;
     x[1][0].real = -1; 
     x[1][0].img = -1;
+    //x[2][0].real = 1;
+    //x[2][0].img = -1;
     printf("\nPrecoder...\n");
     complexo **xp = product_mtx(V, x, colunas, linhas, linhas, 1);
     for (int l = 0 ; l < colunas; l++){
@@ -309,5 +388,71 @@ int main(){
         printf("\n");
 	}
     printf("\n");
+    printf("\n Iniciando teste de transmissão utilizando matriz e canal H quadrada...\n");
+    complexo** Q = allocateComplexMatrix(colunas, colunas);
+    n = 1;
+    for (int l = 0; l < colunas; l++){
+        for (int c = 0; c < colunas; c++){
+            Q[l][c].real = n;
+            Q[l][c].img = 0;
+            n++;
+        }
+    }
+    printf("\nCanalH:\n");
+	for (int l = 0; l < colunas; l++){
+		for (int c = 0; c < colunas; c++){
+			printComplex(Q[l][c]);
+		}
+		printf("\n");
+	}
+    printf("\nAlocando USV para Q...\n");
+    complexo** Uq = allocateComplexMatrix(colunas, colunas);
+    complexo** Sq = allocateComplexMatrix(colunas, colunas);
+    complexo** Vq = allocateComplexMatrix(colunas, colunas);
+    complexo** vector_Sq = allocateComplexMatrix(colunas, 1);
+    printf("\nIniciando SVD de Q...\n");
+    square_channel_svd(Q, Uq, Sq, Vq, colunas, colunas);
+    printf("\nImprimindo as matrizes Uq, Sq e Vq");
+    printf("\nMatriz Uq\n");
+    for (int l =0 ; l < colunas; l++){
+		for (int c = 0; c < colunas; c++){
+			printComplex(Uq[l][c]);
+		}
+        printf("\n");
+	}
+    printf("\nMatriz S diagonal\n");
+    for (int l =0 ; l < colunas; l++){
+		for (int c = 0; c < colunas; c++){
+			printComplex(Sq[l][c]);
+		}
+        printf("\n");
+	}
+    for (int l =0 ; l < colunas; l++){
+		for (int c = 0; c < colunas; c++){
+			if(l == c){
+                vector_Sq[l][0].real = Sq[l][c].real;
+                vector_Sq[l][0].img = Sq[l][c].img;
+            }
+		}
+	}
+    printf("\nMatriz Vq\n");
+    for (int l =0 ; l < colunas; l++){
+		for (int c = 0; c < colunas; c++){
+			printComplex(Vq[l][c]);
+		}
+        printf("\n");
+	}
+    printf("\nIniciando teste de vida ou morte 2... (°-°)\n");
+    complexo ** usq = product_mtx(Uq, Sq, colunas, colunas, colunas, colunas);
+    complexo ** vqt = transposta(Vq, colunas, colunas);
+    complexo ** usvtq = product_mtx(usq, vqt, colunas, colunas, colunas, colunas);
+    printf("\nSuposta matriz Canal Q vindo do SVD...\n");
+    for (int l =0 ; l < colunas; l++){
+		for (int c = 0; c < colunas; c++){
+			printComplex(usvtq[l][c]);
+		}
+        printf("\n");
+	}
+
     return 0;
 }

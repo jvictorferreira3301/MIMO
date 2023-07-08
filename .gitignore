@@ -7,4 +7,5 @@
 /doc/latex
 src/MIMO/output
 build/
+*.out
 
