@@ -15,10 +15,8 @@ complexo** produto_matricial_geral(complexo** mtx_a, complexo** mtx_b, int linha
     complexo** matriz;
     matriz = allocateComplexMatrix(linhas_a, colunas_b);
     
-    for (int l = 0; l < linhas_a; l++)
-    {
-        for (int c = 0; c < colunas_b; c++)
-        {
+    for (int l = 0; l < linhas_a; l++){
+        for (int c = 0; c < colunas_b; c++){
             complexo acumulador;
             acumulador.real = 0;
             acumulador.img = 0;
@@ -32,7 +30,6 @@ complexo** produto_matricial_geral(complexo** mtx_a, complexo** mtx_b, int linha
             matriz[l][c].img = acumulador.img;
         }
     }
-    
     return matriz;
 }
 

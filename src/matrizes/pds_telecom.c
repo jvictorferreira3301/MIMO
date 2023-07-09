@@ -5,6 +5,7 @@
 #include "../matrizes/matrizes.h"
 #include <gsl/gsl_linalg.h>
 #include <time.h>
+#include <math.h>
 
 /**
  * @brief Lê os dados de um arquivo e os converte em um array de inteiros.
@@ -147,13 +148,13 @@ complexo ** tx_layer_mapper(complexo *v, int Nstream, long int Nsymbol){
 }
 
 complexo* rx_layer_demapper(complexo** mtx_stream, int Nstream, long int numBytes) {
-    complexo* v = (complexo*) malloc(numBytes * 4 * sizeof(complexo));
+    complexo* v = (complexo*) malloc(numBytes*sizeof(complexo));
     if (v == NULL) {
         printf("Erro na alocação de memória.\n");
         return NULL;
     }
 
-    for (int i = 0; i < numBytes * 4; i++) {
+    for (int i = 0; i < numBytes; i++) {
         v[i] = mtx_stream[i % Nstream][i / Nstream];
     }
 
@@ -166,34 +167,58 @@ int* rx_qam_demapper(complexo * vmap, long int numQAM){
     if (vetor == NULL) {
         printf("Erro na alocação de memória\n");
         return (int *)1;
-    }   
+    }
     printf("\nFILHOS DA PUTA\n");
+    for(int i = 0; i < numQAM; i++){
+            printf("%+.3lf %+.3lfj, ", vmap[i].real, vmap[i].img);
+        }
+    printf("\n");
+    /*for(int i= 0; i < numQAM; i++){
+        switch ((int) vmap[i].real){
+                case -1:
+                    switch((int)vmap[i].img){
+                        case 1:
+                            vetor[i] = 0;
+                            break;
+                        case -1:
+                            vetor[i] = 1;
+                            break;
+                        default:
+                            vetor[i] = 4;
+                    }
+                    break;
+                case (int) 1:
+                    switch((int)vmap[i].img){
+                        case 1:
+                            vetor[i] = 2;
+                            break;
+                        case -1:
+                            vetor[i] = 3;
+                            break;
+                        default:
+                            vetor[i] = 4;
+                    }
+                    break;
+                default:
+                    vetor[i] = 4;
+        }*/
+    /*printf("\nFILHOS DA PUTA\n");
     for(int i = 0; i < numQAM; i++){
             printf("%+.1f %+.1fj, ", vmap[i].real, vmap[i].img);
         }
-    printf("\n");
+    printf("\n");*/
     for(int i= 0; i < numQAM; i++){
         //vetor[i] = i;
-        if (vmap[i].real == -1 && vmap[i].img == 1){
+        if (vmap[i].real == -1.0 && vmap[i].img == 1.0){
             vetor[i] = 0;
-            printf("LEGAL!");
-            printf("vmap.real[%d] = %.6lf %.6lf => vetor[%d] = %d\n", i, vmap[i].real, vmap[i].img, i, vetor[i]);
-        }else if (vmap[i].real== -1 && vmap[i].img == -1){
+        }else if (vmap[i].real== -1.0 && vmap[i].img == -1.0){
             vetor[i] = 1;
-            printf("LEGAL!");
-            printf("vmap.real[%d] = %+.6lf %.6lf => vetor[%d] = %d\n", i, vmap[i].real, vmap[i].img, i, vetor[i]);
-        }else if (vmap[i].real== 1 && vmap[i].img == 1){
+        }else if (vmap[i].real== 1.0 && vmap[i].img == 1.0){
             vetor[i] = 2;
-            printf("LEGAL!");
-            printf("vmap.real[%d] = %.6lf %.6lf => vetor[%d] = %d\n", i, vmap[i].real, vmap[i].img, i, vetor[i]);
-        }else if (vmap[i].real == 1 && vmap[i].img == -1){
+        }else if (vmap[i].real == 1.0 && vmap[i].img == -1.0){
             vetor[i] = 3;
-            printf("LEGAL!");
-            printf("vmap.real[%d] = %.6lf %.6lf => vetor[%d] = %d\n", i, vmap[i].real, vmap[i].img, i, vetor[i]);
         }else{
             vetor[i] = 4;
-            printf("FUDEU! ");
-            printf("vmap.real[%d] = %.6lf %.6lf => vetor[%d] = %d\n", i, vmap[i].real, vmap[i].img, i, vetor[i]);
         }
         /*if (map[i].real > -2 && map[i].real <= -1){
             if (map[i].img >= 1 && map[i].img < 2){
@@ -545,7 +570,12 @@ int main() {
     // Fechar o arquivo
     fclose(fp);
 
-    int num_teste = 1; // Numero de testes necessarios //scanf("%d",&num_teste)
+    int num_teste = 16; // Numero de testes necessarios //scanf("%d",&num_teste)
+    if(num_teste > 16){
+        printf("\nNumero de testes inviavel. saindo...");
+        system("pause");
+        exit(1);
+    }
     for(int teste = 1; teste <= num_teste; teste++){
         
         printf("\n===================== Teste %d ===================\n\n", teste);
@@ -630,13 +660,13 @@ int main() {
             r = 0;
         }
         else if(teste == 2 || teste == 6 || teste == 10 || teste == 14){
-            r = 0;
+            r = 1;
         }
         else if(teste == 3 || teste == 7 || teste == 11 || teste == 15){
-            r = 0;
+            r = 2;
         }
         else if(teste == 4 || teste == 8 || teste == 12 || teste == 16){
-            r = 0;
+            r = 3;
         }
         //Inciando transmissão pelo canal de Nsymbol/Nstream tempos de transmissão
         printf("\nIniciando segmentação de transmissão...\n");
@@ -704,23 +734,31 @@ int main() {
             }
             printf("\n");
         }
-        printf("\nMatrix rx_mtx\n");
+        printf("\nMatrix rx_mtx...\n");
         for (int l = 0; l < Nstream; l++){
             for (int c = 0; c < Nsymbol/Nstream; c++){
-                printf("%+.1f %+.1fj ", rx_mtx[l][c].real, rx_mtx[l][c].img);
+                printf("%+.1lf %+.1lfj ", rx_mtx[l][c].real, rx_mtx[l][c].img);
             }
             printf("\n");
         }
-        printf("\nVetor de complexos em rx..\n");
-        complexo *rx_map = rx_layer_demapper(rx_mtx, Nstream, numBytes*4 + Npadding);
-        for(int i = 0; i < (numBytes*4 + Npadding); i++){
-            printf("%+.1lf %+.1lfj, ", rx_map[i].real, rx_map[i].img);
+        printf("\nVetor de complexos map..\n");
+        for(int i = 0; i < Nsymbol; i++){
+            printf("%+.1f %+.1fj, ", map[i].real, map[i].img);
+        }
+        printf("\nVetor de complexos rx_map..\n");
+        complexo *rx_map = rx_layer_demapper(rx_mtx, Nstream, Nsymbol);
+        for(int i = 0; i < Nsymbol; i++){
+            rx_map[i].real = round(rx_map[i].real);
+            rx_map[i].img = round(rx_map[i].img);
+        }
+        for(int i = 0; i < Nsymbol; i++){
+            printf("%+.30lf %+.30lfj, ", rx_map[i].real, rx_map[i].img);
         }
         // Desmapeamento dos bits do arquivo
         printf("\nRealizando Desmapeamento dos Bits do Arquivo...\n");
-        int *a = rx_qam_demapper(rx_map, numBytes*4 + Npadding);
+        int *a = rx_qam_demapper(rx_map, Nsymbol);
         printf("\nVetor retornando de rx_qam_demapper...\n");
-        for(int i = 0; i < (numBytes*4 + Npadding); i++){
+        for(int i = 0; i < Nsymbol; i++){
             printf("%d, ",a[i]);
         }
         /*long int cu;
@@ -732,11 +770,7 @@ int main() {
         for(int i = 0; i < (numBytes*4 + Npadding); i++){
             printf("%d, ", pad[i]);
         }
-        printf("\n Vetor map..\n");
-        for(int i = 0; i < (numBytes*4 + Npadding); i++){
-            printf("%+.1f %+.1fj, ", map[i].real, map[i].img);
-        }
-        printf("\nData depadding...\n");
+        printf("\nData rx_depadding...\n");
         int *s_rest = rx_data_depadding(a, numBytes, Nstream);
         for(int i = 0; i<numBytes*4; i++){
             printf("%d, ",s_rest[i]);
