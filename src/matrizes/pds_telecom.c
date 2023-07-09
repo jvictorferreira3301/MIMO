@@ -160,29 +160,42 @@ complexo* rx_layer_demapper(complexo** mtx_stream, int Nstream, long int numByte
     return v;
 }
 
-int* rx_qam_demapper(complexo * map, long int numBytes){
+int* rx_qam_demapper(complexo * vmap, long int numQAM){
 
-    int *vetor = (int *)malloc(numBytes * 4 * sizeof(int));
+    int *vetor = (int *)malloc(numQAM*sizeof(int));
     if (vetor == NULL) {
         printf("Erro na alocação de memória\n");
         return (int *)1;
     }   
-    for(int i= 0; i < numBytes*4; i++){
-        /*if((int ) map[i].real== -1 && (int) map[i].img == 1){
+    printf("\nFILHOS DA PUTA\n");
+    for(int i = 0; i < numQAM; i++){
+            printf("%+.1f %+.1fj, ", vmap[i].real, vmap[i].img);
+        }
+    printf("\n");
+    for(int i= 0; i < numQAM; i++){
+        //vetor[i] = i;
+        if (vmap[i].real == -1 && vmap[i].img == 1){
             vetor[i] = 0;
-        }
-        else if ((int ) map[i].real== -1 && (int) map[i].img == -1){
+            printf("LEGAL!");
+            printf("vmap.real[%d] = %.6lf %.6lf => vetor[%d] = %d\n", i, vmap[i].real, vmap[i].img, i, vetor[i]);
+        }else if (vmap[i].real== -1 && vmap[i].img == -1){
             vetor[i] = 1;
-        }
-        else if ((int) map[i].real== 1 && (int) map[i].img == 1){
+            printf("LEGAL!");
+            printf("vmap.real[%d] = %+.6lf %.6lf => vetor[%d] = %d\n", i, vmap[i].real, vmap[i].img, i, vetor[i]);
+        }else if (vmap[i].real== 1 && vmap[i].img == 1){
             vetor[i] = 2;
-        }
-        else if ((int) map[i].real== 1 && (int) map[i].img == -1){
+            printf("LEGAL!");
+            printf("vmap.real[%d] = %.6lf %.6lf => vetor[%d] = %d\n", i, vmap[i].real, vmap[i].img, i, vetor[i]);
+        }else if (vmap[i].real == 1 && vmap[i].img == -1){
             vetor[i] = 3;
+            printf("LEGAL!");
+            printf("vmap.real[%d] = %.6lf %.6lf => vetor[%d] = %d\n", i, vmap[i].real, vmap[i].img, i, vetor[i]);
         }else{
             vetor[i] = 4;
-        }*/
-        if (map[i].real > -2 && map[i].real <= -1){
+            printf("FUDEU! ");
+            printf("vmap.real[%d] = %.6lf %.6lf => vetor[%d] = %d\n", i, vmap[i].real, vmap[i].img, i, vetor[i]);
+        }
+        /*if (map[i].real > -2 && map[i].real <= -1){
             if (map[i].img >= 1 && map[i].img < 2){
                 vetor[i] = 0;
             }else if(map[i].real > -2 && map[i].img <= -1){
@@ -200,7 +213,7 @@ int* rx_qam_demapper(complexo * map, long int numBytes){
             }
         }else{
             vetor[i] = 4;
-        }
+        }*/
     }
     return vetor;
 }
@@ -532,7 +545,7 @@ int main() {
     // Fechar o arquivo
     fclose(fp);
 
-    int num_teste = 16; // Numero de testes necessarios //scanf("%d",&num_teste)
+    int num_teste = 1; // Numero de testes necessarios //scanf("%d",&num_teste)
     for(int teste = 1; teste <= num_teste; teste++){
         
         printf("\n===================== Teste %d ===================\n\n", teste);
@@ -698,17 +711,32 @@ int main() {
             }
             printf("\n");
         }
-        complexo *v = rx_layer_demapper(rx_mtx, Nstream, numBytes);
-        for(int i = 0; i<numBytes*4; i++){
-            printf("%+.4f %+.4fj, ", v[i].real, v[i].img);
+        printf("\nVetor de complexos em rx..\n");
+        complexo *rx_map = rx_layer_demapper(rx_mtx, Nstream, numBytes*4 + Npadding);
+        for(int i = 0; i < (numBytes*4 + Npadding); i++){
+            printf("%+.1lf %+.1lfj, ", rx_map[i].real, rx_map[i].img);
         }
         // Desmapeamento dos bits do arquivo
         printf("\nRealizando Desmapeamento dos Bits do Arquivo...\n");
-        int *a=rx_qam_demapper(v, numBytes);
-        for(int i = 0; i<numBytes*4; i++){
+        int *a = rx_qam_demapper(rx_map, numBytes*4 + Npadding);
+        printf("\nVetor retornando de rx_qam_demapper...\n");
+        for(int i = 0; i < (numBytes*4 + Npadding); i++){
             printf("%d, ",a[i]);
         }
-        printf("\nData repedding...\n");
+        /*long int cu;
+        cu = sizeof(map);
+        printf("\n%lu\n", cu);
+        cu = sizeof(rx_map);
+        printf("%lu\n", cu);*/
+        printf("\n Vetor de padding..\n");
+        for(int i = 0; i < (numBytes*4 + Npadding); i++){
+            printf("%d, ", pad[i]);
+        }
+        printf("\n Vetor map..\n");
+        for(int i = 0; i < (numBytes*4 + Npadding); i++){
+            printf("%+.1f %+.1fj, ", map[i].real, map[i].img);
+        }
+        printf("\nData depadding...\n");
         int *s_rest = rx_data_depadding(a, numBytes, Nstream);
         for(int i = 0; i<numBytes*4; i++){
             printf("%d, ",s_rest[i]);
