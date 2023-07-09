@@ -36,6 +36,35 @@ complexo** product_mtx(complexo** mtx_a, complexo** mtx_b, int linhas_a, int col
     return matriz;
 }
 
+complexo ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
+    complexo** H;
+	
+    H = (complexo **) malloc(Nr*sizeof(complexo*));
+	
+    if (H == NULL)
+    {
+        printf("Memory alocation failed.");
+        exit(1);
+    }
+    //Alocação de memória para cada linha da matriz
+    for (int i = 0; i < Nr; i++)
+    {
+        H[i] = (complexo *) malloc(Nt*sizeof(complexo));
+        if (H[i] == NULL)
+        {
+            printf("Memory allocation failed\n");
+            exit(1);
+        }
+    }
+    srand(time(NULL));
+    for (int i = 0; i < Nr; i++) {
+        for (int j = 0; j < Nt; j++) {
+            H[i][j].real = ((double)rand() / RAND_MAX) * (maxValue - minValue) + minValue;
+        }
+    }
+    return H;
+}
+
 complexo ** channel_rd_gen(int Nr, int Nt, float minValue, float maxValue){
     complexo** H;
 	
@@ -66,7 +95,7 @@ complexo ** channel_rd_gen(int Nr, int Nt, float minValue, float maxValue){
     return H;
 }
 
-void channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo **Vh, int Tlinhas, int Tcolunas){
+void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo **Vh, int Tlinhas, int Tcolunas){
     for (int l = 0; l < Tlinhas; l++){
 		for (int c = 0; c < Tcolunas; c++){
 			if (H[l][c].img != 0){
@@ -153,7 +182,7 @@ void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, 
 		}
 	}
     gsl_matrix * U = gsl_matrix_alloc(linhas, colunas); // Matriz U lxc
-    gsl_matrix * V = gsl_matrix_alloc(linhas, colunas); // Matriz V cxc
+    gsl_matrix * V = gsl_matrix_alloc(colunas, colunas); // Matriz V cxc
     gsl_vector * S = gsl_vector_alloc(colunas); // Vetor S cx1
     gsl_vector * work = gsl_vector_alloc(colunas);
     
@@ -189,7 +218,7 @@ void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, 
     }
 
     printf("\nMatriz V\n");
-    for(int l=0; l<linhas; l++)
+    for(int l=0; l<colunas; l++)
 	{
         for(int c=0; c<colunas; c++)
 		{
@@ -201,7 +230,7 @@ void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, 
     }
 
     printf("\nMatriz diagonal S\n");
-    for (int l = 0; l < linhas; l++){
+    for (int l = 0; l < colunas; l++){
         for (int c = 0; c < colunas; c++){
             if (l == c){
                 Sh[l][c].real = gsl_vector_get(S,c);
@@ -212,7 +241,7 @@ void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, 
             }
         }
     }
-    for(int l=0; l<linhas; l++){
+    for(int l=0; l<colunas; l++){
         for(int c=0; c<colunas; c++)
 		{
             printComplex(Sh[l][c]);
@@ -222,11 +251,11 @@ void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, 
 }
 
 int main(){
-    complexo** H;
     int linhas = 2;
-    int colunas = 3;
+    int colunas = 4;
     printf("linhas : %d\ncolunas: %d\n", linhas, colunas);
-    H = allocateComplexMatrix(linhas, colunas);
+    complexo** H = channel_gen(linhas, colunas, -1, 1);
+    /*H = allocateComplexMatrix(linhas, colunas);
     int n = 1;
     for (int l = 0; l < linhas; l++){
         for (int c = 0; c < colunas; c++){
@@ -234,7 +263,7 @@ int main(){
             H[l][c].img = 0;
             n++;
         }
-    }
+    }*/
     printf("\nCanalH:\n");
 	for (int l = 0; l < linhas; l++){
 		for (int c = 0; c < colunas; c++){
@@ -259,10 +288,9 @@ int main(){
         printf("\n");
 	}
     printf("Transposição concluida!\n");
-    complexo** p = product_mtx(H, T, linhas, colunas, Tlinhas, Tcolunas);
     printf("\nIniciando cálculo SVD de T..\n");
     printf("Passando dimensão: %d x %d\n", Tlinhas, Tcolunas);
-    channel_svd(T, V, S, U, Tlinhas, Tcolunas);
+    transposed_channel_svd(T, V, S, U, Tlinhas, Tcolunas);
     printf("\nVoltando ao programa principal...\n");
     printf("\nMatriz U\n");
     for (int l =0 ; l < linhas; l++){
@@ -324,8 +352,6 @@ int main(){
     x[0][0].img = 1;
     x[1][0].real = -1; 
     x[1][0].img = -1;
-    //x[2][0].real = 1;
-    //x[2][0].img = -1;
     printf("\nPrecoder...\n");
     complexo **xp = product_mtx(V, x, colunas, linhas, linhas, 1);
     for (int l = 0 ; l < colunas; l++){
@@ -341,16 +367,16 @@ int main(){
         printf("\n");
 	}
     complexo **Rd;
-    Rd=channel_rd_gen(linhas,1,-1,1);
-    printf("Vetor Ruído\n");
-        for (int l = 0 ; l < linhas; l++){
-		    printComplex(Rd[l][0]);
-            printf("\n");
-	    }
+    Rd=channel_rd_gen(linhas,1,-0,0);
     printf("\nMultiplicação pelo canal H..\n");
     complexo **xh = product_mtx(H, xp, linhas, colunas, colunas, 1);
     for (int l = 0 ; l < linhas; l++){
 		printComplex(xh[l][0]);
+        printf("\n");
+	}
+    printf("Vetor Ruído\n");
+    for (int l = 0 ; l < linhas; l++){
+		printComplex(Rd[l][0]);
         printf("\n");
 	}
     printf("\nSoma com o ruído Rd...\n");
@@ -388,17 +414,17 @@ int main(){
         printf("\n");
 	}
     printf("\n");
-    printf("\n Iniciando teste de transmissão utilizando matriz e canal H quadrada...\n");
-    complexo** Q = allocateComplexMatrix(colunas, colunas);
-    n = 1;
+    printf("\n Iniciando teste de transmissão utilizando matriz e canal Q quadrada...\n");
+    complexo** Q = channel_gen(colunas, colunas, -1, 1);
+    /*n = 1;
     for (int l = 0; l < colunas; l++){
         for (int c = 0; c < colunas; c++){
             Q[l][c].real = n;
             Q[l][c].img = 0;
             n++;
         }
-    }
-    printf("\nCanalH:\n");
+    }*/
+    printf("\nCanal Q:\n");
 	for (int l = 0; l < colunas; l++){
 		for (int c = 0; c < colunas; c++){
 			printComplex(Q[l][c]);
@@ -420,7 +446,7 @@ int main(){
 		}
         printf("\n");
 	}
-    printf("\nMatriz S diagonal\n");
+    printf("\nMatriz Sq diagonal\n");
     for (int l =0 ; l < colunas; l++){
 		for (int c = 0; c < colunas; c++){
 			printComplex(Sq[l][c]);
@@ -453,6 +479,216 @@ int main(){
 		}
         printf("\n");
 	}
-
+    printf("\nIniciando transmissão de y pelo canal Q...\n");
+    complexo ** y = allocateComplexMatrix(colunas, 1);
+    y[0][0].real = 1; 
+    y[0][0].img = 1;
+    y[1][0].real = -1; 
+    y[1][0].img = -1;
+    y[2][0].real = 1;
+    y[2][0].img = -1;
+    printf("\nVetor y\n");
+    for (int l = 0 ; l < colunas; l++){
+		printComplex(y[l][0]);
+        printf("\n");
+	}
+    printf("\nPrecoder...\n");
+    complexo **yp = product_mtx(Vq, y, colunas, colunas, colunas, 1);
+    for (int l = 0 ; l < colunas; l++){
+		printComplex(yp[l][0]);
+        printf("\n");
+	}
+    printf("\nChannel transmission by Q...\n");
+    printf("Matriz Q...\n");
+    for (int l =0 ; l < colunas; l++){
+		for (int c = 0; c < colunas; c++){
+			printComplex(usvtq[l][c]);
+		}
+        printf("\n");
+	}
+    complexo **Rdq;
+    Rdq=channel_rd_gen(colunas,1,-0.5,0.5);
+    printf("\nMultiplicação pelo canal H..\n");
+    complexo **yh = product_mtx(Q, yp, colunas, colunas, colunas, 1);
+    for (int l = 0 ; l < colunas; l++){
+		printComplex(yh[l][0]);
+        printf("\n");
+	}
+    printf("\nVetor Ruído em Q\n");
+        for (int l = 0 ; l < colunas; l++){
+		    printComplex(Rdq[l][0]);
+            printf("\n");
+	    }
+    printf("\nSoma com o ruído Rdq...\n");
+    complexo ** yc = soma(yh, Rdq, colunas, 1);
+    for (int l = 0 ; l < colunas; l++){
+		printComplex(yc[l][0]);
+        printf("\n");
+	}
+    printf("\nSaindo do canal..");
+    printf("\nCombiner...\n");
+    complexo **ycomb = product_mtx(transposta(Uq, colunas, colunas), yc, colunas, colunas, colunas, 1);
+    for (int l = 0 ; l < colunas; l++){
+		printComplex(ycomb[l][0]);
+        printf("\n");
+	}
+    printf("\nEqualização de canal...");
+    printf("\nVetor Sq\n");
+    for (int l = 0 ; l < colunas; l++){
+		printComplex(vector_Sq[l][0]);
+        printf("\n");
+	}
+    complexo ** yf = allocateComplexMatrix(colunas, 1);
+    for (int l = 0; l < colunas; l++){
+        yf[l][0].real = ycomb[l][0].real/vector_Sq[l][0].real;
+        yf[l][0].img = ycomb[l][0].img/vector_Sq[l][0].real; 
+    }
+    printf("\nVetor transmitido\n");
+    for (int l = 0 ; l < colunas; l++){
+		printComplex(y[l][0]);
+        printf("\n");
+	}
+    printf("\nVetor recebido\n");
+    for (int l = 0 ; l < colunas; l++){
+		printComplex(yf[l][0]);
+        printf("\n");
+	}
+    printf("\nIniciando teste de compatibilidade de square_channel_svd para matrizes onde linhas > colunas");
+    complexo ** L = channel_gen(colunas, linhas, -1, 1);
+    /*n = 1;
+    for (int l = 0; l < colunas; l++){
+        for (int c = 0; c < linhas; c++){
+            L[l][c].real = n;
+            L[l][c].img = 0;
+            n++;
+        }
+    }*/
+    printf("\nCanal L:\n");
+	for (int l = 0; l < colunas; l++){
+		for (int c = 0; c < linhas; c++){
+			printComplex(L[l][c]);
+		}
+		printf("\n");
+	}
+    printf("\nAlocando USV para L...\n");
+    complexo** Ul = allocateComplexMatrix(colunas, linhas);
+    complexo** Sl = allocateComplexMatrix(linhas, linhas);
+    complexo** Vl = allocateComplexMatrix(linhas, linhas);
+    complexo** vector_Sl = allocateComplexMatrix(linhas, 1);
+    printf("\nIniciando SVD de L...\n");
+    square_channel_svd(L, Ul, Sl, Vl, colunas, linhas);
+    printf("\nImprimindo as matrizes Ul, Sl e Vl");
+    printf("\nMatriz Ul\n");
+    for (int l =0 ; l < colunas; l++){
+		for (int c = 0; c < linhas; c++){
+			printComplex(Ul[l][c]);
+		}
+        printf("\n");
+	}
+    printf("\nMatriz Sl diagonal\n");
+    for (int l =0 ; l < linhas; l++){
+		for (int c = 0; c < linhas; c++){
+			printComplex(Sl[l][c]);
+		}
+        printf("\n");
+	}
+    for (int l =0 ; l < linhas; l++){
+		for (int c = 0; c < linhas; c++){
+			if(l == c){
+                vector_Sl[l][0].real = Sl[l][c].real;
+                vector_Sl[l][0].img = Sl[l][c].img;
+            }
+		}
+	}
+    printf("\nMatriz Vl\n");
+    for (int l =0 ; l < linhas; l++){
+		for (int c = 0; c < linhas; c++){
+			printComplex(Vl[l][c]);
+		}
+        printf("\n");
+	}
+    printf("\nIniciando teste de vida ou morte 3... (°-°)\n");
+    complexo ** usl = product_mtx(Ul, Sl, colunas, linhas, linhas, linhas);
+    complexo ** vlt = transposta(Vl, linhas, linhas);
+    complexo ** usvtl = product_mtx(usl, vlt, colunas, linhas, linhas, linhas);
+    printf("\nSuposta matriz Canal L vindo do SVD...\n");
+    for (int l =0 ; l < colunas; l++){
+		for (int c = 0; c < linhas; c++){
+			printComplex(usvtl[l][c]);
+		}
+        printf("\n");
+	}
+    printf("\nIniciando transmissão de y pelo canal L...\n");
+    complexo ** z = allocateComplexMatrix(linhas, 1);
+    z[0][0].real = 1; 
+    z[0][0].img = 1;
+    z[1][0].real = -1; 
+    z[1][0].img = -1;
+    printf("\nVetor z\n");
+    for (int l = 0 ; l < linhas; l++){
+		printComplex(z[l][0]);
+        printf("\n");
+	}
+    printf("\nPrecoder...\n");
+    complexo **zp = product_mtx(Vl, z, linhas, linhas, linhas, 1);
+    for (int l = 0 ; l < linhas; l++){
+		printComplex(zp[l][0]);
+        printf("\n");
+	}
+    printf("\nChannel transmission by L...\n");
+    printf("Matriz L...\n");
+    for (int l =0 ; l < colunas; l++){
+		for (int c = 0; c < linhas; c++){
+			printComplex(usvtl[l][c]);
+		}
+        printf("\n");
+	}
+    complexo **Rdl;
+    Rdl=channel_rd_gen(colunas,1,-0.5,0.5);
+    printf("\nMultiplicação pelo canal L..\n");
+    complexo **zh = product_mtx(L, zp, colunas, linhas, linhas, 1);
+    for (int l = 0 ; l < colunas; l++){
+		printComplex(zh[l][0]);
+        printf("\n");
+	}
+    printf("\nVetor Ruído em L\n");
+        for (int l = 0 ; l < colunas; l++){
+		    printComplex(Rdl[l][0]);
+            printf("\n");
+	    }
+    printf("\nSoma com o ruído Rdl...\n");
+    complexo ** zc = soma(zh, Rdq, colunas, 1);
+    for (int l = 0 ; l < colunas; l++){
+		printComplex(zc[l][0]);
+        printf("\n");
+	}
+    printf("\nSaindo do canal..");
+    printf("\nCombiner...\n");
+    complexo **zcomb = product_mtx(transposta(Ul, colunas, linhas), zc, linhas, colunas, colunas, 1);
+    for (int l = 0 ; l < linhas; l++){
+		printComplex(zcomb[l][0]);
+        printf("\n");
+	}
+    printf("\nEqualização de canal...");
+    printf("\nVetor Sl\n");
+    for (int l = 0 ; l < linhas; l++){
+		printComplex(vector_Sl[l][0]);
+        printf("\n");
+	}
+    complexo ** zf = allocateComplexMatrix(colunas, 1);
+    for (int l = 0; l < linhas; l++){
+        zf[l][0].real = zcomb[l][0].real/vector_Sl[l][0].real;
+        zf[l][0].img = zcomb[l][0].img/vector_Sl[l][0].real; 
+    }
+    printf("\nVetor transmitido\n");
+    for (int l = 0 ; l < linhas; l++){
+		printComplex(z[l][0]);
+        printf("\n");
+	}
+    printf("\nVetor recebido\n");
+    for (int l = 0 ; l < linhas; l++){
+		printComplex(zf[l][0]);
+        printf("\n");
+	}
     return 0;
 }
