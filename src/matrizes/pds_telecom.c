@@ -652,6 +652,7 @@ int main() {
         }
         complexo **rx_mtx= allocateComplexMatrix(Nstream, Nsymbol/Nstream);
         // Criação do Canal H com range entre -1 e 1
+        printf("\033[33m;\033[33m");
         printf("\nCriação do Canal de transferencia de Dados...\n");
         complexo ** H = channel_gen(Nr, Nt, -1, 1);
         int r;
