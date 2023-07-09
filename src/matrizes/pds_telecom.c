@@ -163,22 +163,43 @@ complexo* rx_layer_demapper(complexo** mtx_stream, int Nstream, long int numByte
 int* rx_qam_demapper(complexo * map, long int numBytes){
 
     int *vetor = (int *)malloc(numBytes * 4 * sizeof(int));
-      if (vetor == NULL) {
+    if (vetor == NULL) {
         printf("Erro na alocação de memória\n");
         return (int *)1;
     }   
     for(int i= 0; i < numBytes*4; i++){
-        if(map[i].real== -1 && map[i].img == 1){
-            vetor[i]=0;
+        /*if((int ) map[i].real== -1 && (int) map[i].img == 1){
+            vetor[i] = 0;
         }
-        else if (map[i].real== -1 && map[i].img == -1){
-            vetor[i]=1;
+        else if ((int ) map[i].real== -1 && (int) map[i].img == -1){
+            vetor[i] = 1;
         }
-        else if (map[i].real== 1 && map[i].img == 1){
-            vetor[i]=2;
+        else if ((int) map[i].real== 1 && (int) map[i].img == 1){
+            vetor[i] = 2;
         }
-        else {
-            vetor[i]=3;
+        else if ((int) map[i].real== 1 && (int) map[i].img == -1){
+            vetor[i] = 3;
+        }else{
+            vetor[i] = 4;
+        }*/
+        if (map[i].real > -2 && map[i].real <= -1){
+            if (map[i].img >= 1 && map[i].img < 2){
+                vetor[i] = 0;
+            }else if(map[i].real > -2 && map[i].img <= -1){
+                vetor[i] = 1;
+            }else{
+                vetor[i] = 4;
+            }
+        }else if (map[i].real >= 1 && map[i].real < 2){
+            if (map[i].img >= 1 && map[i].img < 2){
+                vetor[i] = 2;
+            }else if(map[i].real > -2 && map[i].img <= -1){
+                vetor[i] = 3;
+            }else{
+                vetor[i] = 4;
+            }
+        }else{
+            vetor[i] = 4;
         }
     }
     return vetor;
@@ -596,13 +617,13 @@ int main() {
             r = 0;
         }
         else if(teste == 2 || teste == 6 || teste == 10 || teste == 14){
-            r = 1;
+            r = 0;
         }
         else if(teste == 3 || teste == 7 || teste == 11 || teste == 15){
-            r = 2;
+            r = 0;
         }
         else if(teste == 4 || teste == 8 || teste == 12 || teste == 16){
-            r = 3;
+            r = 0;
         }
         //Inciando transmissão pelo canal de Nsymbol/Nstream tempos de transmissão
         printf("\nIniciando segmentação de transmissão...\n");
@@ -663,9 +684,23 @@ int main() {
                 }
             }
         }
+        printf("\nMatriz mtx...\n");
+        for (int l = 0; l < Nstream; l++){
+            for (int c = 0; c < Nsymbol/Nstream; c++){
+                printf("%+.1f %+.1fj ", mtx[l][c].real, mtx[l][c].img);
+            }
+            printf("\n");
+        }
+        printf("\nMatrix rx_mtx\n");
+        for (int l = 0; l < Nstream; l++){
+            for (int c = 0; c < Nsymbol/Nstream; c++){
+                printf("%+.1f %+.1fj ", rx_mtx[l][c].real, rx_mtx[l][c].img);
+            }
+            printf("\n");
+        }
         complexo *v = rx_layer_demapper(rx_mtx, Nstream, numBytes);
         for(int i = 0; i<numBytes*4; i++){
-            printf("%+.1f %+.1fj, ", v[i].real, v[i].img);
+            printf("%+.4f %+.4fj, ", v[i].real, v[i].img);
         }
         // Desmapeamento dos bits do arquivo
         printf("\nRealizando Desmapeamento dos Bits do Arquivo...\n");
@@ -674,15 +709,15 @@ int main() {
             printf("%d, ",a[i]);
         }
         printf("\nData repedding...\n");
-        int *s_rest = rx_data_depadding(pad, numBytes, Nstream);
+        int *s_rest = rx_data_depadding(a, numBytes, Nstream);
         for(int i = 0; i<numBytes*4; i++){
             printf("%d, ",s_rest[i]);
         }
         // Leitura Final dos Dados
-        printf("\nSalvando arquivo com a mensagem enviada no arquivo Teste_%d_Nr%d_Nt%d_Rd%d\n",num_teste, Nr,Nt,r);
+        printf("\nSalvando arquivo com a mensagem enviada no arquivo Teste_%d_Nr%d_Nt%d_Rd%d\n", teste, Nr, Nt, r);
         
         char fileName[100];
-        sprintf(fileName, "Teste_%d_Nr%d_Nt%d_Rd%d",num_teste,Nr,Nt,r); // Formata o nome do arquivo com base no valor de i
+        sprintf(fileName, "Teste_%d_Nr%d_Nt%d_Rd%d", teste, Nr, Nt, r); // Formata o nome do arquivo com base no valor de i
         rx_data_write(s_rest, numBytes, fileName);
         free(s_rest);
         free(map);
