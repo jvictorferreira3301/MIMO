@@ -522,11 +522,11 @@ complexo ** channel_transmission(complexo ** H, complexo ** xp, int Hlinhas, int
         Rd = channel_rd_gen(Hlinhas, xpColunas, -0.1, 0.1);
     }
     complexo ** xt = soma(xh, Rd, Hlinhas, xpColunas);
-    printf("\nVetor Ruído\n");
+    /*printf("\nVetor Ruído\n");
     for (int l = 0 ; l < Hlinhas; l++){
 		printComplex(Rd[l][0]);
         printf("\n");
-	}
+	}*/
     return xt;
 }
 
