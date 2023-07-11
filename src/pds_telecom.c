@@ -676,7 +676,7 @@ int main() {
         printf("\nIniciando segmentação de transmissão...");
         for (int Nx = 0; Nx < Nsymbol/Nstream; Nx++){
             complexo ** x = allocateComplexMatrix(Nstream, 1);
-            printf("Vetor x%d a ser transmitido..", Nx);
+            //printf("Vetor x%d a ser transmitido..", Nx);
             for(int l = 0; l < Nstream; l++){
                 x[l][0].real = mtx[l][Nx].real;
                 x[l][0].img = mtx[l][Nx].img;
