@@ -343,7 +343,7 @@ complexo ** channel_rd_gen(int Nr, int Nt, float minValue, float maxValue){
  *       A função imprime um aviso se elementos complexos forem detectados na matriz H, mas ignora
  *       a parte imaginária para o cálculo.
  *
- * @remark A função `transposed_channel_svd` é similar à função `square_channel_svd`, porém há uma diferença crucial
+ * @remark A função `transposed_channel_svd` é similar a função `square_channel_svd`, porém há uma diferença crucial
  *         entre elas. A função `square_channel_svd` recebe uma matriz quadrada como parâmetro, enquanto a função
  *         `transposed_channel_svd` recebe a matriz transposta como parâmetro. A matriz transposta é obtida trocando
  *         as linhas pelas colunas da matriz original. Portanto, enquanto a função `square_channel_svd` realiza a
