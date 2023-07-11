@@ -171,39 +171,8 @@ int* rx_qam_demapper(complexo * vmap, long int numQAM){
         printf("Erro na alocação de memória\n");
         return (int *)1;
     }
-    //Atribuição por switch case
-    /*for(int i= 0; i < numQAM; i++){
-        switch ((int) vmap[i].real){
-                case -1:
-                    switch((int)vmap[i].img){
-                        case 1:
-                            vetor[i] = 0;
-                            break;
-                        case -1:
-                            vetor[i] = 1;
-                            break;
-                        default:
-                            vetor[i] = 4;
-                    }
-                    break;
-                case (int) 1:
-                    switch((int)vmap[i].img){
-                        case 1:
-                            vetor[i] = 2;
-                            break;
-                        case -1:
-                            vetor[i] = 3;
-                            break;
-                        default:
-                            vetor[i] = 4;
-                    }
-                    break;
-                default:
-                    vetor[i] = 4;
-        }*/
     //Atribuição por exatidão
     for(int i= 0; i < numQAM; i++){
-        //vetor[i] = i;
         if (vmap[i].real == -1.0 && vmap[i].img == 1.0){
             vetor[i] = 0;
         }else if (vmap[i].real== -1.0 && vmap[i].img == -1.0){
@@ -215,26 +184,6 @@ int* rx_qam_demapper(complexo * vmap, long int numQAM){
         }else{
             vetor[i] = 4;
         }
-        //Atribuição por faixa aproximada
-        /*if (map[i].real > -2 && map[i].real <= -1){
-            if (map[i].img >= 1 && map[i].img < 2){
-                vetor[i] = 0;
-            }else if(map[i].real > -2 && map[i].img <= -1){
-                vetor[i] = 1;
-            }else{
-                vetor[i] = 4;
-            }
-        }else if (map[i].real >= 1 && map[i].real < 2){
-            if (map[i].img >= 1 && map[i].img < 2){
-                vetor[i] = 2;
-            }else if(map[i].real > -2 && map[i].img <= -1){
-                vetor[i] = 3;
-            }else{
-                vetor[i] = 4;
-            }
-        }else{
-            vetor[i] = 4;
-        }*/
     }
     return vetor;
 }
@@ -392,7 +341,6 @@ void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo
     }
 
     gsl_linalg_SV_decomp(U, V, S, work);
-    //printf("\nTransmitindo Matriz U para V de H...");
     for(int l=0; l<Tlinhas; l++){
         for(int c=0; c<Tcolunas; c++){
             Uh[l][c].real = gsl_matrix_get(U, l, c);
@@ -401,13 +349,6 @@ void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo
         }
        // printf("\n");
     }
-    /*printf("\nVetor S...\n");
-    for(int c=0;c<Tcolunas;c++)
-	{
-        printf("%f", gsl_vector_get(S,c));
-        printf("\n");
-    }*/
-    //printf("\nTransmitindo matriz V que para U de H...");
     for(int l=0; l<Tcolunas; l++){
         for(int c=0; c<Tcolunas; c++){
             Vh[l][c].real = gsl_matrix_get(V, l, c);
@@ -416,8 +357,6 @@ void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo
         }
         //printf("\n");
     }
-    //Matriz diagonal S de H a partir do vetor S.
-    //printf("\nTransmitindo matriz diagonsal S de H pelo vetor S...\n");
     for (int l = 0; l < Tcolunas; l++){
         for (int c = 0; c < Tcolunas; c++){
             if (l == c){
@@ -429,14 +368,6 @@ void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo
             }
         }
     }
-    /*printf("\nMatriz diagonal S\n");
-    for(int l=0; l<Tcolunas; l++){
-        for(int c=0; c<Tcolunas; c++)
-		{
-            printComplex(Sh[l][c]);
-        }
-        printf("\n");
-    }*/
 }
 
 void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, int linhas, int colunas){
