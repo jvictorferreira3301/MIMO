@@ -293,6 +293,22 @@ complexo ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
     return H;
 }
 
+/**
+ * @brief Gera uma matriz de complexos representando o ruído do canal de comunicação.
+ *
+ * Esta função gera uma matriz de complexos representando o ruído do canal de comunicação.
+ * A matriz resultante possui dimensões Nr x Nt, onde Nr é o número de antenas receptoras
+ * e Nt é o número de antenas transmissoras. Os valores dos elementos da matriz são gerados
+ * aleatoriamente dentro do intervalo definido por minValue e maxValue.
+ *
+ * @param Nr Número de antenas receptoras.
+ * @param Nt Número de antenas transmissoras.
+ * @param minValue Valor mínimo para os elementos da matriz.
+ * @param maxValue Valor máximo para os elementos da matriz.
+ *
+ * @return A matriz de complexos representando o ruído do canal de comunicação.
+ */
+
 complexo ** channel_rd_gen(int Nr, int Nt, float minValue, float maxValue){
     complexo** H;
 	
