@@ -462,8 +462,6 @@ void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, 
     }
 
     gsl_linalg_SV_decomp(U, V, S, work);
-
-    printf("\nTransmitindo matriz U para H...\n");
     for(int l = 0; l < linhas; l++){
         for(int c=0; c < colunas; c++){
             Uh[l][c].real = gsl_matrix_get(U, l, c);
@@ -472,13 +470,6 @@ void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, 
         }
         //printf("\n");
     }
-    /*printf("\nVetor S\n");
-    for(int c=0;c<colunas;c++)
-	{
-        printf("%f", gsl_vector_get(S,c));
-        printf("\n");
-    }*/
-    printf("\nTransmitind matriz V para H\n");
     for(int l=0; l<colunas; l++){
         for(int c=0; c<colunas; c++){
             Vh[l][c].real = gsl_matrix_get(V, l, c);
@@ -487,7 +478,6 @@ void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, 
         }
         //printf("\n");
     }
-    printf("\nTransmitindo matriz diagonal S para H...\n");
     for (int l = 0; l < colunas; l++){
         for (int c = 0; c < colunas; c++){
             if (l == c){
@@ -499,13 +489,6 @@ void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, 
             }
         }
     }
-    /*for(int l=0; l<colunas; l++){
-        for(int c=0; c<colunas; c++)
-		{
-            printComplex(Sh[l][c]);
-        }
-        printf("\n");
-    }*/
 }
 
 complexo ** tx_precoder(complexo ** V, complexo **x, int Vlinhas, int Vcolunas, int xlinhas, int xcolunas){
