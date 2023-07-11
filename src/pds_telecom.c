@@ -389,7 +389,7 @@ void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo
     }
 
     gsl_linalg_SV_decomp(U, V, S, work);
-    printf("\nTransmitindo Matriz U para V de H...");
+    //printf("\nTransmitindo Matriz U para V de H...");
     for(int l=0; l<Tlinhas; l++){
         for(int c=0; c<Tcolunas; c++){
             Uh[l][c].real = gsl_matrix_get(U, l, c);
@@ -404,7 +404,7 @@ void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo
         printf("%f", gsl_vector_get(S,c));
         printf("\n");
     }*/
-    printf("\nTransmitindo matriz V que para U de H...");
+    //printf("\nTransmitindo matriz V que para U de H...");
     for(int l=0; l<Tcolunas; l++){
         for(int c=0; c<Tcolunas; c++){
             Vh[l][c].real = gsl_matrix_get(V, l, c);
@@ -414,7 +414,7 @@ void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo
         //printf("\n");
     }
     //Matriz diagonal S de H a partir do vetor S.
-    printf("\nTransmitindo matriz diagonsal S de H pelo vetor S...\n");
+    //printf("\nTransmitindo matriz diagonsal S de H pelo vetor S...\n");
     for (int l = 0; l < Tcolunas; l++){
         for (int c = 0; c < Tcolunas; c++){
             if (l == c){
@@ -616,9 +616,9 @@ int main() {
         }else{
             Nstream = Nt;
         }
-        printf("Numero de antenas recpetoras Nr: %d\nNumero de antenas transmissoras Nt: %d\nNumero de fluxos Nstream: %d\n", Nr, Nt, Nstream);
+        printf("\nNumero de antenas recpetoras Nr: %d\nNumero de antenas transmissoras Nt: %d\nNumero de fluxos Nstream: %d", Nr, Nt, Nstream);
         // Leitura do arquivo
-        printf("Realizando leitura do Arquivo...\n");
+        printf("\nRealizando leitura do Arquivo...");
         int * s= tx_data_read(fp, numBytes);
         /*for(int i = 0; i < numBytes*4; i++){
             printf("%d, ", s[i]);
@@ -632,7 +632,7 @@ int main() {
         }
         printf("\nQuantidade de simbolos de preenchimento: %d", Npadding);
         //Preenchimento por meio do data_padding
-        printf("\nPreenchimento em tx_data_padding...\n");
+        //printf("\nPreenchimento em tx_data_padding...");
         int *pad = tx_data_padding(s, numBytes, Npadding);
         /*for(int i = 0; i < (numBytes*4 + Npadding); i++){
             printf("%d, ", pad[i]);
@@ -640,13 +640,13 @@ int main() {
         // Calculando número de símbolos
         long int Nsymbol = (numBytes*4 + Npadding);
         // Mapeamento dos bits do arquivo
-        printf("\nRealizando mapeamento dos bits para constelação em tx_qam_mapper...\n");
-        complexo *map = tx_qam_mapper(pad, numBytes*4 + Npadding);
+        //printf("\nRealizando mapeamento dos bits para constelação em tx_qam_mapper...");
+        complexo *map = tx_qam_mapper(pad, Nsymbol);
         /*for(int i = 0; i < (numBytes*4 + Npadding); i++){
             printf("%+.1f %+.1fj, ", map[i].real, map[i].img);
         }*/
         //Transformando o vetor complexo do mapaeamento para uma matriz complexa Nstream linhas
-        printf("\nMapeando a matriz stream Nstream x (Nsymbols/Nstream)...\n");
+        //printf("\nMapeando a matriz stream Nstream x (Nsymbols/Nstream)...");
         complexo **mtx= tx_layer_mapper(map, Nstream, Nsymbol);
         complexo **rx_mtx= allocateComplexMatrix(Nstream, Nsymbol/Nstream); // matriz receptora
         /*for (int l = 0; l < Nstream; l++){
@@ -656,7 +656,7 @@ int main() {
             printf("\n");
         }*/
         // Criação do Canal H com range entre -1 e 1
-        printf("\nCriando canal de transferencia de dados...\n");
+        printf("\nCriando canal de transferencia de dados...");
         complexo ** H = channel_gen(Nr, Nt, -1, 1);
         int r;
         //Escolhendo intervalo de ruído : 0 para [0,0], 1 para [-1,1], 2 para [-0.5,0.5], 3 para [-0.1,0.1]
@@ -673,10 +673,10 @@ int main() {
             r = 3;
         }
         //Inciando transmissão pelo canal de Nsymbol/Nstream tempos de transmissão
-        printf("\nIniciando segmentação de transmissão...\n");
+        printf("\nIniciando segmentação de transmissão...");
         for (int Nx = 0; Nx < Nsymbol/Nstream; Nx++){
             complexo ** x = allocateComplexMatrix(Nstream, 1);
-            printf("Vetor x%d a ser transmitido..\n", Nx);
+            printf("Vetor x%d a ser transmitido..", Nx);
             for(int l = 0; l < Nstream; l++){
                 x[l][0].real = mtx[l][Nx].real;
                 x[l][0].img = mtx[l][Nx].img;
@@ -686,14 +686,14 @@ int main() {
                 printf("\n");
 	        }*/
             if (Nr < Nt){
-                printf("\nTransmissão do vetor %d da matriz stream...\n", Nx);
-                printf("\nTranposdo o canal..\n");
+                printf("\nTransmissão do vetor %d da matriz stream...", Nx);
+                //printf("\nTranposdo o canal..\n");
                 complexo ** T = transposta(H, Nr, Nt);
-                printf("\nAlocando USV...");
+                //printf("\nAlocando USV...");
                 complexo ** U = allocateComplexMatrix(Nr, Nr);
                 complexo ** S = allocateComplexMatrix(Nr, Nr);
                 complexo ** V = allocateComplexMatrix(Nt, Nr);
-                printf("\nCalculando SVD de T...\n");
+                //printf("\nCalculando SVD de T...");
                 transposed_channel_svd(T, V, S, U, Nt, Nr);
                 complexo ** xp = tx_precoder (V, x, Nt, Nr, Nstream, 1);
                 complexo ** xt = channel_transmission(H, xp, Nr, Nt, Nt, 1, r);
@@ -703,9 +703,10 @@ int main() {
                     rx_mtx[l][Nx].real = xf[l][0].real;
                     rx_mtx[l][Nx].img = xf[l][0].img;
                 }
+                free(x); free(xp); free(xt); free(xc); free(xf);
             }else if (Nr >= Nt){
                 complexo ** x = allocateComplexMatrix(Nstream, 1);
-                printf("Vetor x%d a ser transmitido..\n", Nx);
+                //printf("Vetor x%d a ser transmitido..", Nx);
                 for(int l = 0; l < Nstream; l++){
                     x[l][0].real = mtx[l][Nx].real;
                     x[l][0].img = mtx[l][Nx].img;
@@ -714,12 +715,12 @@ int main() {
 		            printComplex(x[l][0]);
                     printf("\n");
 	            }*/
-                printf("\nTransmissão do vetor %d da matriz stream...\n", Nx);
-                printf("\nAlocando USV");
+                printf("\nTransmissão do vetor %d da matriz stream...", Nx);
+                //printf("\nAlocando USV");
                 complexo ** U = allocateComplexMatrix(Nr, Nt);
                 complexo ** S = allocateComplexMatrix(Nt, Nt);
                 complexo ** V = allocateComplexMatrix(Nt, Nt);
-                printf("\nCalculando SVD de L\n");
+                //printf("\nCalculando SVD de L");
                 square_channel_svd(H, U, S, V, Nr, Nt);
                 complexo ** xp = tx_precoder (V, x, Nt, Nt, Nstream, 1);
                 complexo ** xt = channel_transmission(H, xp, Nr, Nt, Nt, 1, r);
@@ -729,6 +730,7 @@ int main() {
                     rx_mtx[l][Nx].real = xf[l][0].real;
                     rx_mtx[l][Nx].img = xf[l][0].img;
                 }
+                free(x); free(xp); free(xt); free(xc); free(xf);
             }
         }
         /*printf("\nMatriz mtx...\n");
@@ -749,7 +751,7 @@ int main() {
         for(int i = 0; i < Nsymbol; i++){
             printf("%+.1f %+.1fj, ", map[i].real, map[i].img);
         }*/
-        printf("\nCompondo o vetor de complexos rx_map..\n");
+        printf("\nCompondo o vetor de complexos rx_map..");
         complexo *rx_map = rx_layer_demapper(rx_mtx, Nstream, Nsymbol);
         for(int i = 0; i < Nsymbol; i++){
             rx_map[i].real = round(rx_map[i].real);
@@ -759,9 +761,9 @@ int main() {
             printf("%+.30lf %+.30lfj, ", rx_map[i].real, rx_map[i].img);
         }*/
         // Desmapeamento dos bits do arquivo
-        printf("\nRealizando desmapeamento dos bits do arquivo em rx_qam_mapper...\n");
+        printf("\nRealizando desmapeamento dos bits do arquivo em rx_qam_mapper...");
         int *a = rx_qam_demapper(rx_map, Nsymbol);
-        printf("\nVetor retornando de rx_qam_demapper...\n");
+        //printf("\nVetor retornando de rx_qam_demapper...");
         /*for(int i = 0; i < Nsymbol; i++){
             printf("%d, ",a[i]);
         }*/
@@ -769,7 +771,7 @@ int main() {
         for(int i = 0; i < (numBytes*4 + Npadding); i++){
             printf("%d, ", pad[i]);
         }*/
-        printf("\nRemovendo simbolos nulos em rx_depadding...\n");
+        printf("\nRemovendo simbolos nulos em rx_depadding...");
         int *s_rest = rx_data_depadding(a, numBytes, Nstream);
         /*for(int i = 0; i<numBytes*4; i++){
             printf("%d, ",s_rest[i]);
@@ -780,10 +782,8 @@ int main() {
         char fileName[100];
         sprintf(fileName, "./build/testes/Teste_%d_Nr%d_Nt%d_Rd%d", teste, Nr, Nt, r); // Formata o nome do arquivo com base no valor de i
         rx_data_write(s_rest, numBytes, fileName);
-        free(s_rest);
-        free(map);
+        printf("================== Fim do teste %d================\n", teste);
     }
-
     fclose(fp);
     return 0;
 }
