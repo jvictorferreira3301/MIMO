@@ -479,6 +479,26 @@ complexo ** tx_precoder(complexo ** V, complexo **x, int Vlinhas, int Vcolunas, 
     return xp;
 }
 
+/**
+ * @brief Realiza a transmissão do sinal através do canal de comunicação.
+ *
+ * Esta função realiza a transmissão do sinal de entrada xp através do canal de comunicação
+ * representado pela matriz H. O resultado da transmissão é calculado multiplicando a matriz H
+ * pelo vetor xp. Além disso, um ruído Rd é adicionado ao sinal transmitido para simular as
+ * características do canal de comunicação.
+ *
+ * @param H Matriz representando o canal de comunicação.
+ * @param xp Vetor de entrada a ser transmitido pelo canal.
+ * @param Hlinhas O número de linhas da matriz H.
+ * @param Hcolunas O número de colunas da matriz H.
+ * @param xpLinhas O número de linhas do vetor xp.
+ * @param xpColunas O número de colunas do vetor xp.
+ * @param r O valor que define o intervalo do ruído a ser adicionado: 0 para [-0.001, 0.001],
+ *          1 para [-0.01, 0.01], 2 para [-0.5, 0.5], 3 para [-1, 1].
+ *
+ * @return A matriz resultante da transmissão do sinal pelo canal, acrescido do ruído.
+ */
+
 complexo ** channel_transmission(complexo ** H, complexo ** xp, int Hlinhas, int Hcolunas, int xpLinhas, int xpColunas, int r){
     complexo **xh = produto_matricial_geral(H, xp, Hlinhas, Hcolunas, xpLinhas, xpColunas);
     complexo ** Rd;
