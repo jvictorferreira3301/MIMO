@@ -552,9 +552,27 @@ complexo ** rx_feq(complexo ** S, complexo ** xc, int Slinhas, int Scolunas, int
     return xf;
 }
 
+void gera_estatistica(int *s, int *finals, long int numBytes){
+    int cont_acertos=0;
+    int cont_erros=0;
+    printf("\nNúmeros de simbolos QAM Transmitidos: %ld\n",numBytes*4);
+    for(int i =0; i<numBytes*4; i++){
+        if(s[i]==finals[i]){
+            cont_acertos = cont_acertos + 1;
+        }
+        else{
+            cont_erros = cont_erros + 1;
+        }
+    }
+    float porcentagem_erro = (cont_erros*100)/(4*numBytes);
+    printf("Número de símbolos QAM recebidos com erro: %d\n",cont_erros);
+    printf("Porcentagem de símbolos QAM recebidos com erro: %0.2f\n\n",porcentagem_erro);
+}
+
 complexo** expandMatrix(complexo** matriz, int linhas, int colunas, int linhasExtras, int padding);
 
 int main() {
+    system("clear");
     char current_dir[1024];
     if (getcwd(current_dir, sizeof(current_dir)) == NULL) {
         perror("getcwd failed");
@@ -878,6 +896,7 @@ int main() {
         char fileName[100];
         sprintf(fileName, "./build/testes/Teste_%d_Nr%d_Nt%d_Rd%d", teste, Nr, Nt, r); // Formata o nome do arquivo com base no valor de i
         rx_data_write(s_rest, numBytes, fileName);
+        gera_estatistica(s,s_rest,numBytes);
         printf("================== Fim do teste %d================\n", teste);
     }
     fclose(fp);
