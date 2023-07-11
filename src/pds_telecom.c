@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../matrizes/matrizes.h"
+#include "./matrizes/matrizes.h"
 #include <gsl/gsl_linalg.h>
 #include <time.h>
 #include <math.h>
@@ -552,7 +552,7 @@ complexo** expandMatrix(complexo** matriz, int linhas, int colunas, int linhasEx
 
 int main() {
     FILE *fp;
-    fp = fopen("tx_msg", "w");
+    fp = fopen("tx_msg", "w+");
     // Solicitar ao usuário que escreva a mensagem
     printf("Digite a mensagem que quer enviar:\n");
     char mensagem[1000];
