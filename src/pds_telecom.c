@@ -7,6 +7,8 @@
 #include <time.h>
 #include <math.h>
 #include <unistd.h>
+#include <string.h>
+#include <libgen.h>
 
 /**
  * @brief Lê os dados de um arquivo e os converte em um array de inteiros.
@@ -331,6 +333,7 @@ complexo ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
     for (int i = 0; i < Nr; i++) {
         for (int j = 0; j < Nt; j++) {
             H[i][j].real = ((double)rand() / RAND_MAX) * (maxValue - minValue) + minValue;
+            H[i][j].img = 0;
         }
     }
     return H;
@@ -514,13 +517,13 @@ complexo ** channel_transmission(complexo ** H, complexo ** xp, int Hlinhas, int
     complexo **xh = produto_matricial_geral(H, xp, Hlinhas, Hcolunas, xpLinhas, xpColunas);
     complexo ** Rd;
     if (r == 0){
-        Rd = channel_rd_gen(Hlinhas, xpColunas, 0, 0);
+        Rd = channel_rd_gen(Hlinhas, xpColunas, -0.001, 0.001);
     }else if (r == 1){
-        Rd = channel_rd_gen(Hlinhas, xpColunas, -1, 1);
+        Rd = channel_rd_gen(Hlinhas, xpColunas, -0.01, 0.01);
     }else if (r == 2){
         Rd = channel_rd_gen(Hlinhas, xpColunas, -0.5, 0.5);
     }else if (r == 3){
-        Rd = channel_rd_gen(Hlinhas, xpColunas, -0.1, 0.1);
+        Rd = channel_rd_gen(Hlinhas, xpColunas, -1, 1);
     }
     complexo ** xt = soma(xh, Rd, Hlinhas, xpColunas);
     /*printf("\nVetor Ruído\n");
@@ -552,12 +555,98 @@ complexo ** rx_feq(complexo ** S, complexo ** xc, int Slinhas, int Scolunas, int
 complexo** expandMatrix(complexo** matriz, int linhas, int colunas, int linhasExtras, int padding);
 
 int main() {
-    const char* destino = "./build/testes";
+    char current_dir[1024];
+    if (getcwd(current_dir, sizeof(current_dir)) == NULL) {
+        perror("getcwd failed");
+        return EXIT_FAILURE;
+    } else {
+        printf("Diretório atual          : %s\n", current_dir);
+    }
+
+    char exec_dir[1024];
+    ssize_t count = readlink("/proc/self/exe", exec_dir, sizeof(exec_dir) - 1);
+    if (count != -1) {
+        exec_dir[count] = '\0';
+        printf("Localização do executável: %s\n", exec_dir);
+    } else {
+        printf("Erro ao obter a localização do executável.\n");
+    }
+
+    char *current_abs_path = realpath(current_dir, NULL);
+    char *exec_abs_path = realpath(exec_dir, NULL);
+
+    if (current_abs_path == NULL || exec_abs_path == NULL) {
+        perror("realpath failed");
+        return EXIT_FAILURE;
+    }
+
+    size_t current_len = strlen(current_abs_path);
+    size_t exec_len = strlen(exec_abs_path);
+
+    size_t i;
+
+    for (i = 0; i < current_len && i < exec_len; i++) {
+        if (current_abs_path[i] != exec_abs_path[i]) {
+            break;
+        }
+    }
+    char relative_path[1024];
+    size_t relative_len = 0;
+    if(current_len < exec_len){
+        if (i < exec_len) {
+            strcpy(relative_path, exec_abs_path + i);
+            relative_len = strlen(relative_path);
+        }
+    } else if (current_len > exec_len){
+        if (i < current_len) {
+            strcpy(relative_path, current_abs_path + i);
+            relative_len = strlen(relative_path);
+        }
+    }
+    char* dir = dirname(relative_path);
+
+    printf("Caminho relativo: %s\n", dir);
+
+    free(current_abs_path);
+    free(exec_abs_path);
+    /*char exec_path[1024];
+    char current_dir[1024];
+    char target_path[1024];
+    ssize_t count = readlink("/proc/self/exe", exec_path, sizeof(exec_path) - 1);
+    if (count != -1) {
+        exec_path[count] = '\0';
+        printf("Localização do executável: %s\n", exec_path);
+    } else {
+        printf("Erro ao obter a localização do executável.\n");
+    }
+    if (getcwd(current_dir, sizeof(current_dir)) != NULL) {
+        printf("Diretório atual: %s\n", current_dir);
+    } else {
+        printf("Erro ao obter o diretório atual.\n");
+    }
+    if (strcmp(current_dir, exec_path) == 0) {
+        printf("O programa está sendo executado no mesmo diretório do executável.\n");
+    } else {
+        printf("O programa não está sendo executado no mesmo diretório do executável.\n");
+    }
+    // Construir o caminho alvo
+    snprintf(target_path, sizeof(target_path), "%s/build/", current_dir);
+
+    // Resolver o caminho absoluto
+    char *resolved_path = realpath(target_path, NULL);
+    if (resolved_path) {
+        printf("Caminho absoluto: %s\n", resolved_path);
+        free(resolved_path);
+    } else {
+        printf("Erro ao resolver o caminho absoluto.\n");
+    }*/
+    char destino[1024];
+    snprintf(destino, sizeof(destino), ".%s/testes", dir);
     if (access(destino, F_OK) == 0) {
         printf("A pasta testes existe! Pronto para iniciar!\n");
     } else {
         // Cria a pasta testes
-        char comando[100];
+        char comando[256];
         sprintf(comando, "mkdir %s", destino);
         system(comando);
         printf("Pasta testes criada! Pronto para inciar!\n");
@@ -659,7 +748,7 @@ int main() {
         printf("\nCriando canal de transferencia de dados...");
         complexo ** H = channel_gen(Nr, Nt, -1, 1);
         int r;
-        //Escolhendo intervalo de ruído : 0 para [0,0], 1 para [-1,1], 2 para [-0.5,0.5], 3 para [-0.1,0.1]
+        //Escolhendo intervalo de ruído : 0 para [-0.01,0.01], 1 para [-0.1,0.1], 2 para [-0.5,0.5], 3 para [-1,1]
         if(teste == 1 || teste == 5 || teste == 9 || teste == 13){
             r = 0;
         }
@@ -694,6 +783,12 @@ int main() {
                 complexo ** S = allocateComplexMatrix(Nr, Nr);
                 complexo ** V = allocateComplexMatrix(Nt, Nr);
                 //printf("\nCalculando SVD de T...");
+                /*for (int l = 0; l < Nstream; l++){
+                    for (int c = 0; c < Nsymbol/Nstream; c++){
+                        printf("%+.1f %+.1fj ", T[l][c].real, T[l][c].img);
+                    }
+                    printf("\n");
+                }*/
                 transposed_channel_svd(T, V, S, U, Nt, Nr);
                 complexo ** xp = tx_precoder (V, x, Nt, Nr, Nstream, 1);
                 complexo ** xt = channel_transmission(H, xp, Nr, Nt, Nt, 1, r);
@@ -703,7 +798,6 @@ int main() {
                     rx_mtx[l][Nx].real = xf[l][0].real;
                     rx_mtx[l][Nx].img = xf[l][0].img;
                 }
-                free(x); free(xp); free(xt); free(xc); free(xf);
             }else if (Nr >= Nt){
                 complexo ** x = allocateComplexMatrix(Nstream, 1);
                 //printf("Vetor x%d a ser transmitido..", Nx);
@@ -730,7 +824,6 @@ int main() {
                     rx_mtx[l][Nx].real = xf[l][0].real;
                     rx_mtx[l][Nx].img = xf[l][0].img;
                 }
-                free(x); free(xp); free(xt); free(xc); free(xf);
             }
         }
         /*printf("\nMatriz mtx...\n");
