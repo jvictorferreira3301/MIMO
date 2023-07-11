@@ -686,7 +686,7 @@ int main() {
                 printf("\n");
 	        }*/
             if (Nr < Nt){
-                printf("\nTransmissão do vetor %d da matriz stream...", Nx);
+                printf("\nTransmissão do vetor v%d da matriz stream...", Nx);
                 //printf("\nTranposdo o canal..\n");
                 complexo ** T = transposta(H, Nr, Nt);
                 //printf("\nAlocando USV...");
