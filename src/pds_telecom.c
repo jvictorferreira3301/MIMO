@@ -6,6 +6,7 @@
 #include <gsl/gsl_linalg.h>
 #include <time.h>
 #include <math.h>
+#include <unistd.h>
 
 /**
  * @brief Lê os dados de um arquivo e os converte em um array de inteiros.
@@ -59,7 +60,7 @@ int * tx_data_read(FILE *fp, long int numBytes){
  * @return Um ponteiro para o array de inteiros com o preenchimento realizado, ou NULL
  *         em caso de erro na alocação de memória.
  */
-int * tx_data_padding(int* s, long int numBytes, int Npadding, int Nstream){
+int * tx_data_padding(int* s, long int numBytes, int Npadding){
     // Verifica se o número de bytes é um múltiplo do número de streams.
     if(Npadding == 0){
         return s;
@@ -551,8 +552,18 @@ complexo ** rx_feq(complexo ** S, complexo ** xc, int Slinhas, int Scolunas, int
 complexo** expandMatrix(complexo** matriz, int linhas, int colunas, int linhasExtras, int padding);
 
 int main() {
+    const char* destino = "./build/testes";
+    if (access(destino, F_OK) == 0) {
+        printf("A pasta testes existe! Pronto para iniciar!\n");
+    } else {
+        // Cria a pasta testes
+        char comando[100];
+        sprintf(comando, "mkdir %s", destino);
+        system(comando);
+        printf("Pasta testes criada! Pronto para inciar!\n");
+    }
     FILE *fp;
-    fp = fopen("tx_msg", "w+");
+    fp = fopen("./build/testes/Tx_msg", "w+");
     // Solicitar ao usuário que escreva a mensagem
     printf("Digite a mensagem que quer enviar:\n");
     char mensagem[1000];
@@ -571,7 +582,7 @@ int main() {
     for(int teste = 1; teste <= num_teste; teste++){
         
         printf("\n===================== Teste %d ===================\n\n", teste);
-        fp = fopen("tx_msg", "rb");
+        fp = fopen("./build/testes/Tx_msg", "rb");
 
         if (fp == NULL) {
             printf("Impossivel abrir o arquivo\n");
@@ -622,7 +633,7 @@ int main() {
         printf("\nQuantidade de simbolos de preenchimento: %d", Npadding);
         //Preenchimento por meio do data_padding
         printf("\nPreenchimento em tx_data_padding...\n");
-        int *pad = tx_data_padding(s, numBytes, Npadding, Nstream);
+        int *pad = tx_data_padding(s, numBytes, Npadding);
         /*for(int i = 0; i < (numBytes*4 + Npadding); i++){
             printf("%d, ", pad[i]);
         }*/
@@ -767,7 +778,7 @@ int main() {
         printf("\nSalvando arquivo com a mensagem enviada no arquivo Teste_%d_Nr%d_Nt%d_Rd%d\n", teste, Nr, Nt, r);
         
         char fileName[100];
-        sprintf(fileName, "Teste_%d_Nr%d_Nt%d_Rd%d", teste, Nr, Nt, r); // Formata o nome do arquivo com base no valor de i
+        sprintf(fileName, "./build/testes/Teste_%d_Nr%d_Nt%d_Rd%d", teste, Nr, Nt, r); // Formata o nome do arquivo com base no valor de i
         rx_data_write(s_rest, numBytes, fileName);
         free(s_rest);
         free(map);

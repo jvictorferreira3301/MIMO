@@ -44,7 +44,7 @@ cyg: $(html)/index.html
 	cygstart "$(html)/index.html"
 
 teste: $(obj)/$(out)
-	$(obj)/$(out)
+	@ $(obj)/$(out)
 
 clean:
 	@echo -e "\n=== Starting the repository cleaning ==="
