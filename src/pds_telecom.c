@@ -625,40 +625,6 @@ int main() {
     char* abs = dirname(exec_abs_path);
 
     printf("Caminho relativo: %s\n", dir);
-
-    //free(current_abs_path);
-    //free(exec_abs_path);
-    /*char exec_path[1024];
-    char current_dir[1024];
-    char target_path[1024];
-    ssize_t count = readlink("/proc/self/exe", exec_path, sizeof(exec_path) - 1);
-    if (count != -1) {
-        exec_path[count] = '\0';
-        printf("Localização do executável: %s\n", exec_path);
-    } else {
-        printf("Erro ao obter a localização do executável.\n");
-    }
-    if (getcwd(current_dir, sizeof(current_dir)) != NULL) {
-        printf("Diretório atual: %s\n", current_dir);
-    } else {
-        printf("Erro ao obter o diretório atual.\n");
-    }
-    if (strcmp(current_dir, exec_path) == 0) {
-        printf("O programa está sendo executado no mesmo diretório do executável.\n");
-    } else {
-        printf("O programa não está sendo executado no mesmo diretório do executável.\n");
-    }
-    // Construir o caminho alvo
-    snprintf(target_path, sizeof(target_path), "%s/build/", current_dir);
-
-    // Resolver o caminho absoluto
-    char *resolved_path = realpath(target_path, NULL);
-    if (resolved_path) {
-        printf("Caminho absoluto: %s\n", resolved_path);
-        free(resolved_path);
-    } else {
-        printf("Erro ao resolver o caminho absoluto.\n");
-    }*/
     char destino[1024];
     snprintf(destino, sizeof(destino), "%s/testes", abs);
     if (access(destino, F_OK) == 0) {
@@ -730,9 +696,6 @@ int main() {
         // Leitura do arquivo
         printf("\nRealizando leitura do Arquivo...");
         int * s= tx_data_read(fp, numBytes);
-        /*for(int i = 0; i < numBytes*4; i++){
-            printf("%d, ", s[i]);
-        }*/
         // Calculando número de símbolos necessário para (numBytes*4 + Npadding) % Nstream == 0.
         int Npadding;
         if ((numBytes*4) % Nstream == 0){
@@ -742,29 +705,15 @@ int main() {
         }
         printf("\nQuantidade de simbolos de preenchimento: %d", Npadding);
         //Preenchimento por meio do data_padding
-        //printf("\nPreenchimento em tx_data_padding...");
         int *pad = tx_data_padding(s, numBytes, Npadding);
-        /*for(int i = 0; i < (numBytes*4 + Npadding); i++){
-            printf("%d, ", pad[i]);
-        }*/
         // Calculando número de símbolos
         long int Nsymbol = (numBytes*4 + Npadding);
         // Mapeamento dos bits do arquivo
-        //printf("\nRealizando mapeamento dos bits para constelação em tx_qam_mapper...");
         complexo *map = tx_qam_mapper(pad, Nsymbol);
-        /*for(int i = 0; i < (numBytes*4 + Npadding); i++){
-            printf("%+.1f %+.1fj, ", map[i].real, map[i].img);
-        }*/
         //Transformando o vetor complexo do mapaeamento para uma matriz complexa Nstream linhas
-        //printf("\nMapeando a matriz stream Nstream x (Nsymbols/Nstream)...");
+        printf("\nMapeando a matriz stream Nstream x (Nsymbols/Nstream)...");
         complexo **mtx= tx_layer_mapper(map, Nstream, Nsymbol);
         complexo **rx_mtx= allocateComplexMatrix(Nstream, Nsymbol/Nstream); // matriz receptora
-        /*for (int l = 0; l < Nstream; l++){
-            for (int c = 0; c < Nsymbol/Nstream; c++){
-                printf("%+.1f %+.1fj ", mtx[l][c].real, mtx[l][c].img);
-            }
-            printf("\n");
-        }*/
         // Criação do Canal H com range entre -1 e 1
         printf("\nCriando canal de transferencia de dados...");
         complexo ** H = channel_gen(Nr, Nt, -1, 1);
@@ -786,30 +735,16 @@ int main() {
         printf("\nIniciando segmentação de transmissão...");
         for (int Nx = 0; Nx < Nsymbol/Nstream; Nx++){
             complexo ** x = allocateComplexMatrix(Nstream, 1);
-            //printf("Vetor x%d a ser transmitido..", Nx);
             for(int l = 0; l < Nstream; l++){
                 x[l][0].real = mtx[l][Nx].real;
                 x[l][0].img = mtx[l][Nx].img;
             }
-            /*for (int l = 0 ; l < Nstream; l++){
-		        printComplex(x[l][0]);
-                printf("\n");
-	        }*/
             if (Nr < Nt){
-                printf("\nTransmissão do vetor v%d da matriz stream...", Nx);
-                //printf("\nTranposdo o canal..\n");
+                printf("\nTransmissão do vetor v%d da matriz de dados em stream...", Nx);
                 complexo ** T = transposta(H, Nr, Nt);
-                //printf("\nAlocando USV...");
                 complexo ** U = allocateComplexMatrix(Nr, Nr);
                 complexo ** S = allocateComplexMatrix(Nr, Nr);
                 complexo ** V = allocateComplexMatrix(Nt, Nr);
-                //printf("\nCalculando SVD de T...");
-                /*for (int l = 0; l < Nstream; l++){
-                    for (int c = 0; c < Nsymbol/Nstream; c++){
-                        printf("%+.1f %+.1fj ", T[l][c].real, T[l][c].img);
-                    }
-                    printf("\n");
-                }*/
                 transposed_channel_svd(T, V, S, U, Nt, Nr);
                 complexo ** xp = tx_precoder (V, x, Nt, Nr, Nstream, 1);
                 complexo ** xt = channel_transmission(H, xp, Nr, Nt, Nt, 1, r);
@@ -821,21 +756,14 @@ int main() {
                 }
             }else if (Nr >= Nt){
                 complexo ** x = allocateComplexMatrix(Nstream, 1);
-                //printf("Vetor x%d a ser transmitido..", Nx);
                 for(int l = 0; l < Nstream; l++){
                     x[l][0].real = mtx[l][Nx].real;
                     x[l][0].img = mtx[l][Nx].img;
                 }
-                /*for (int l = 0 ; l < Nstream; l++){
-		            printComplex(x[l][0]);
-                    printf("\n");
-	            }*/
-                printf("\nTransmissão do vetor %d da matriz stream...", Nx);
-                //printf("\nAlocando USV");
+                printf("\nTransmissão do vetor %d da matriz de dados em stream...", Nx);
                 complexo ** U = allocateComplexMatrix(Nr, Nt);
                 complexo ** S = allocateComplexMatrix(Nt, Nt);
                 complexo ** V = allocateComplexMatrix(Nt, Nt);
-                //printf("\nCalculando SVD de L");
                 square_channel_svd(H, U, S, V, Nr, Nt);
                 complexo ** xp = tx_precoder (V, x, Nt, Nt, Nstream, 1);
                 complexo ** xt = channel_transmission(H, xp, Nr, Nt, Nt, 1, r);
@@ -847,49 +775,17 @@ int main() {
                 }
             }
         }
-        /*printf("\nMatriz mtx...\n");
-        for (int l = 0; l < Nstream; l++){
-            for (int c = 0; c < Nsymbol/Nstream; c++){
-                printf("%+.1f %+.1fj ", mtx[l][c].real, mtx[l][c].img);
-            }
-            printf("\n");
-        }
-        printf("\nMatrix rx_mtx...\n");
-        for (int l = 0; l < Nstream; l++){
-            for (int c = 0; c < Nsymbol/Nstream; c++){
-                printf("%+.1lf %+.1lfj ", rx_mtx[l][c].real, rx_mtx[l][c].img);
-            }
-            printf("\n");
-        }
-        printf("\nVetor de complexos map..\n");
-        for(int i = 0; i < Nsymbol; i++){
-            printf("%+.1f %+.1fj, ", map[i].real, map[i].img);
-        }*/
         printf("\nCompondo o vetor de complexos rx_map..");
         complexo *rx_map = rx_layer_demapper(rx_mtx, Nstream, Nsymbol);
         for(int i = 0; i < Nsymbol; i++){
             rx_map[i].real = round(rx_map[i].real);
             rx_map[i].img = round(rx_map[i].img);
         }
-        /*for(int i = 0; i < Nsymbol; i++){
-            printf("%+.30lf %+.30lfj, ", rx_map[i].real, rx_map[i].img);
-        }*/
         // Desmapeamento dos bits do arquivo
         printf("\nRealizando desmapeamento dos bits do arquivo em rx_qam_mapper...");
         int *a = rx_qam_demapper(rx_map, Nsymbol);
-        //printf("\nVetor retornando de rx_qam_demapper...");
-        /*for(int i = 0; i < Nsymbol; i++){
-            printf("%d, ",a[i]);
-        }*/
-        /*printf("\n Vetor de padding..\n");
-        for(int i = 0; i < (numBytes*4 + Npadding); i++){
-            printf("%d, ", pad[i]);
-        }*/
         printf("\nRemovendo simbolos nulos em rx_depadding...");
         int *s_rest = rx_data_depadding(a, numBytes, Nstream);
-        /*for(int i = 0; i<numBytes*4; i++){
-            printf("%d, ",s_rest[i]);
-        }*/
         // Leitura Final dos Dados
         printf("\nSalvando arquivo com a mensagem enviada no arquivo Teste_%d_Nr%d_Nt%d_Rd%d\n", teste, Nr, Nt, r);
         
@@ -933,14 +829,3 @@ complexo** expandMatrix(complexo** matriz, int linhas, int colunas, int linhasEx
     }
     return novaMatriz;
 }
-
-/* Lixeira
-    printf("Aumentando a matriz stream\n");
-        complexo **mtx_stream = expandMatrix(mtx, Nstream, (numBytes*4 + Npadding)/Nstream, (Nt - Nstream), 1);
-        for (int l = 0; l < (Nstream + (Nt - Nstream)); l++){
-            for (int c = 0; c < (numBytes*4 + Npadding)/Nstream; c++){
-                printf("%+.1f %+.1fj ", mtx_stream[l][c].real, mtx_stream[l][c].img);
-            }
-            printf("\n");
-        }
-*/
