@@ -1,4 +1,4 @@
-/// @file pds_telecom.c
+/// @file psd_telecom.c
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -151,14 +151,12 @@ complexo ** tx_layer_mapper(complexo *v, int Nstream, long int Nsymbol){
 }
 
 complexo* rx_layer_demapper(complexo** mtx_stream, int Nstream, long int numBytes) {
-    // Aloca memória para o vetor de complexos
-    complexo* v = (complexo*) malloc(numBytes * sizeof(complexo));
+    complexo* v = (complexo*) malloc(numBytes*sizeof(complexo));
     if (v == NULL) {
         printf("Erro na alocação de memória.\n");
         return NULL;
     }
 
-    // Desmapeia os dados da matriz para o vetor
     for (int i = 0; i < numBytes; i++) {
         v[i] = mtx_stream[i % Nstream][i / Nstream];
     }
@@ -166,32 +164,29 @@ complexo* rx_layer_demapper(complexo** mtx_stream, int Nstream, long int numByte
     return v;
 }
 
-int* rx_qam_demapper(complexo *vmap, long int numQAM) {
-    // Aloca memória para o vetor de inteiros
-    int *vetor = (int *)malloc(numQAM * sizeof(int));
+int* rx_qam_demapper(complexo * vmap, long int numQAM){
+
+    int *vetor = (int *)malloc(numQAM*sizeof(int));
     if (vetor == NULL) {
         printf("Erro na alocação de memória\n");
         return (int *)1;
     }
-
-    // Desmapeia os símbolos QAM para dados binários
-    for (int i = 0; i < numQAM; i++) {
-        if (vmap[i].real == -1.0 && vmap[i].img == 1.0) {
+    //Atribuição por exatidão
+    for(int i= 0; i < numQAM; i++){
+        if (vmap[i].real == -1.0 && vmap[i].img == 1.0){
             vetor[i] = 0;
-        } else if (vmap[i].real == -1.0 && vmap[i].img == -1.0) {
+        }else if (vmap[i].real== -1.0 && vmap[i].img == -1.0){
             vetor[i] = 1;
-        } else if (vmap[i].real == 1.0 && vmap[i].img == 1.0) {
+        }else if (vmap[i].real== 1.0 && vmap[i].img == 1.0){
             vetor[i] = 2;
-        } else if (vmap[i].real == 1.0 && vmap[i].img == -1.0) {
+        }else if (vmap[i].real == 1.0 && vmap[i].img == -1.0){
             vetor[i] = 3;
-        } else {
+        }else{
             vetor[i] = 4;
         }
     }
-
     return vetor;
 }
-
 int *rx_data_depadding(int *s, long int numBytes, int Nstream) {
     // Verifica se o número de bytes é um múltiplo do número de streams
     if ((4*numBytes) % Nstream == 0) {
@@ -323,34 +318,6 @@ complexo ** channel_rd_gen(int Nr, int Nt, float minValue, float maxValue){
     return H;
 }
 
-/**
- * @brief Realiza a decomposição em valores singulares (SVD) de uma matriz transposta.
- *
- * Esta função realiza a decomposição em valores singulares (SVD) de uma matriz transposta,
- * representada por uma matriz de complexos. A função utiliza apenas a parte real dos
- * elementos da matriz para realizar o cálculo do SVD. A função aloca memória dinamicamente
- * para as matrizes U, V e o vetor S, e armazena os resultados da decomposição nas matrizes
- * Uh, Sh e Vh.
- *
- * @param H Matriz transposta de complexos a ser decomposta.
- * @param Uh Matriz U resultante da decomposição, contendo os autovetores à esquerda.
- * @param Sh Matriz S resultante da decomposição, contendo os valores singulares na diagonal.
- * @param Vh Matriz V resultante da decomposição, contendo os autovetores à direita.
- * @param Tlinhas O número de linhas da matriz transposta H.
- * @param Tcolunas O número de colunas da matriz transposta H.
- *
- * @note Esta função considera apenas a parte real dos elementos da matriz H para o cálculo do SVD.
- *       A função imprime um aviso se elementos complexos forem detectados na matriz H, mas ignora
- *       a parte imaginária para o cálculo.
- *
- * @remark A função `transposed_channel_svd` é similar à função `square_channel_svd`, porém há uma diferença crucial
- *         entre elas. A função `square_channel_svd` recebe uma matriz quadrada como parâmetro, enquanto a função
- *         `transposed_channel_svd` recebe a matriz transposta como parâmetro. A matriz transposta é obtida trocando
- *         as linhas pelas colunas da matriz original. Portanto, enquanto a função `square_channel_svd` realiza a
- *         decomposição em valores singulares (SVD) de uma matriz quadrada, a função `transposed_channel_svd` realiza
- *         a decomposição SVD da matriz transposta.
- */
-
 void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo **Vh, int Tlinhas, int Tcolunas){
     for (int l = 0; l < Tlinhas; l++){
 		for (int c = 0; c < Tcolunas; c++){
@@ -403,76 +370,57 @@ void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo
     }
 }
 
-/**
- * @brief Realiza a decomposição em valores singulares (SVD) de uma matriz quadrada.
- *
- * Esta função realiza a decomposição em valores singulares (SVD) de uma matriz quadrada,
- * representada por uma matriz de complexos. A função utiliza apenas a parte real dos
- * elementos da matriz para realizar o cálculo do SVD. A função aloca memória dinamicamente
- * para as matrizes U, V e o vetor S, e armazena os resultados da decomposição nas matrizes
- * Uh, Sh e Vh.
- *
- * @param H Matriz quadrada de complexos a ser decomposta.
- * @param Uh Matriz U resultante da decomposição, contendo os autovetores à esquerda.
- * @param Sh Matriz S resultante da decomposição, contendo os valores singulares na diagonal.
- * @param Vh Matriz V resultante da decomposição, contendo os autovetores à direita.
- * @param linhas O número de linhas da matriz H.
- * @param colunas O número de colunas da matriz H.
- *
- * @note Esta função considera apenas a parte real dos elementos da matriz H para o cálculo do SVD.
- *       A função imprime um aviso se elementos complexos forem detectados na matriz H, mas ignora
- *       a parte imaginária para o cálculo.
- */
-void square_channel_svd(complexo **H,  complexo **Uh, complexo **Sh, complexo **Vh, int linhas, int colunas) {
-    for (int l = 0; l < linhas; l++) {
-        for (int c = 0; c < colunas; c++) {
-            if (H[l][c].img != 0) {
-                printf("Warning: complex matrix injected as parameter, function will use only real part from matrix\n");
-                break;
-            }
-        }
-    }
+void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, int linhas, int colunas){
+    for (int l = 0; l < linhas; l++){
+		for (int c = 0; c < colunas; c++){
+			if (H[l][c].img != 0){
+				printf("Warning: complex matrix injected as parameter, fuction will use only real part from matrix\n");
+				break;
+			}
+		}
+	}
+    gsl_matrix * U = gsl_matrix_alloc(linhas, colunas); // Matriz U lxc
+    gsl_matrix * V = gsl_matrix_alloc(colunas, colunas); // Matriz V cxc
+    gsl_vector * S = gsl_vector_alloc(colunas); // Vetor S cx1
+    gsl_vector * work = gsl_vector_alloc(colunas);
     
-    gsl_matrix *U = gsl_matrix_alloc(linhas, colunas); // Matriz U lxc
-    gsl_matrix *V = gsl_matrix_alloc(colunas, colunas); // Matriz V cxc
-    gsl_vector *S = gsl_vector_alloc(colunas); // Vetor S cx1
-    gsl_vector *work = gsl_vector_alloc(colunas);
-    
-    for (int l = 0; l < linhas; l++) {
-        for (int c = 0; c < colunas; c++) {
+    for(int l=0; l<linhas; l++){
+        for(int c=0; c<colunas; c++){
+            //printf("%+.1f ", H[l][c].real);
             gsl_matrix_set(U, l, c, H[l][c].real);
         }
+        //printf("\n");
     }
 
     gsl_linalg_SV_decomp(U, V, S, work);
-    
-    for (int l = 0; l < linhas; l++) {
-        for (int c = 0; c < colunas; c++) {
+    for(int l = 0; l < linhas; l++){
+        for(int c=0; c < colunas; c++){
             Uh[l][c].real = gsl_matrix_get(U, l, c);
             Uh[l][c].img = 0;
+            //printf("%f ", gsl_matrix_get(U, l, c));
         }
+        //printf("\n");
     }
-    
-    for (int l = 0; l < colunas; l++) {
-        for (int c = 0; c < colunas; c++) {
+    for(int l=0; l<colunas; l++){
+        for(int c=0; c<colunas; c++){
             Vh[l][c].real = gsl_matrix_get(V, l, c);
             Vh[l][c].img = 0;
+            //printf("%f ", gsl_matrix_get(V, l, c));
         }
+        //printf("\n");
     }
-    
-    for (int l = 0; l < colunas; l++) {
-        for (int c = 0; c < colunas; c++) {
-            if (l == c) {
-                Sh[l][c].real = gsl_vector_get(S, c);
+    for (int l = 0; l < colunas; l++){
+        for (int c = 0; c < colunas; c++){
+            if (l == c){
+                Sh[l][c].real = gsl_vector_get(S,c);
                 Sh[l][c].img = 0;
-            } else {
+            }else{
                 Sh[l][c].real = 0;
                 Sh[l][c].img = 0;
             }
         }
     }
 }
-
 
 complexo ** tx_precoder(complexo ** V, complexo **x, int Vlinhas, int Vcolunas, int xlinhas, int xcolunas){
     complexo **xp = produto_matricial_geral(V, x, Vlinhas, Vcolunas, xlinhas, xcolunas);
