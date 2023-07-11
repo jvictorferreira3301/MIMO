@@ -604,11 +604,12 @@ int main() {
         }
     }
     char* dir = dirname(relative_path);
+    char* abs = dirname(exec_abs_path);
 
     printf("Caminho relativo: %s\n", dir);
 
-    free(current_abs_path);
-    free(exec_abs_path);
+    //free(current_abs_path);
+    //free(exec_abs_path);
     /*char exec_path[1024];
     char current_dir[1024];
     char target_path[1024];
@@ -641,18 +642,20 @@ int main() {
         printf("Erro ao resolver o caminho absoluto.\n");
     }*/
     char destino[1024];
-    snprintf(destino, sizeof(destino), ".%s/testes", dir);
+    snprintf(destino, sizeof(destino), "%s/testes", abs);
     if (access(destino, F_OK) == 0) {
         printf("A pasta testes existe! Pronto para iniciar!\n");
     } else {
         // Cria a pasta testes
-        char comando[256];
+        char comando[1024];
         sprintf(comando, "mkdir %s", destino);
         system(comando);
         printf("Pasta testes criada! Pronto para inciar!\n");
     }
+    char filename[1024];
+    snprintf(filename, sizeof(filename), "%s/Tx_msg", destino);
     FILE *fp;
-    fp = fopen("./build/testes/Tx_msg", "w+");
+    fp = fopen(filename, "w+");
     // Solicitar ao usuário que escreva a mensagem
     printf("Digite a mensagem que quer enviar:\n");
     char mensagem[1000];
@@ -671,7 +674,7 @@ int main() {
     for(int teste = 1; teste <= num_teste; teste++){
         
         printf("\n===================== Teste %d ===================\n\n", teste);
-        fp = fopen("./build/testes/Tx_msg", "rb");
+        fp = fopen(filename, "rb");
 
         if (fp == NULL) {
             printf("Impossivel abrir o arquivo\n");
