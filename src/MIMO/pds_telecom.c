@@ -789,7 +789,7 @@ int main() {
             printf("A pasta testes existe! Pronto para iniciar!\n");
         }else{
             // Cria a pasta testes
-            char comando[MAX_PATH];
+            char comando[PATH_MAX];
             sprintf(comando, "mkdir %s", destino);
             system(comando);
             printf("Legal! Pasta testes criada! Pronto para inciar!\n");
