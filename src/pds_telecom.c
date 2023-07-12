@@ -318,33 +318,50 @@ complexo** produto_matricial_geral(complexo** mtx_a, complexo** mtx_b, int linha
     return matriz;
 }
 
-complexo ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
+/**
+ * @brief Gera uma matriz complexa representando um canal de transferência.
+ *
+ * Esta função gera uma matriz complexa que representa um canal de transferência entre antenas
+ * transmissoras e antenas receptoras. Os elementos da matriz são números complexos aleatórios
+ * dentro do intervalo [minValue, maxValue], com a parte imaginária definida como zero.
+ *
+ * @param Nr O número de antenas receptoras.
+ * @param Nt O número de antenas transmissoras.
+ * @param minValue O valor mínimo para os elementos da matriz.
+ * @param maxValue O valor máximo para os elementos da matriz.
+ *
+ * @return Uma matriz complexa representando o canal de transferência gerado.
+ *         O chamador é responsável por liberar a memória alocada utilizando a função free().
+ */
+complexo ** channel_gen(int Nr, int Nt, float minValue, float maxValue) {
     complexo** H;
 	
-    H = (complexo **) malloc(Nr*sizeof(complexo*));
+    H = (complexo **) malloc(Nr * sizeof(complexo *));
 	
-    if (H == NULL)
-    {
-        printf("Memory alocation failed.");
+    if (H == NULL) {
+        printf("Memory allocation failed.\n");
         exit(1);
     }
-    //Alocação de memória para cada linha da matriz
-    for (int i = 0; i < Nr; i++)
-    {
-        H[i] = (complexo *) malloc(Nt*sizeof(complexo));
-        if (H[i] == NULL)
-        {
-            printf("Memory allocation failed\n");
+
+    // Alocação de memória para cada linha da matriz
+    for (int i = 0; i < Nr; i++) {
+        H[i] = (complexo *) malloc(Nt * sizeof(complexo));
+        if (H[i] == NULL) {
+            printf("Memory allocation failed.\n");
             exit(1);
         }
     }
+
     srand(time(NULL));
+
+    // Preenchimento da matriz com números complexos aleatórios
     for (int i = 0; i < Nr; i++) {
         for (int j = 0; j < Nt; j++) {
             H[i][j].real = ((double)rand() / RAND_MAX) * (maxValue - minValue) + minValue;
             H[i][j].img = 0;
         }
     }
+
     return H;
 }
 
