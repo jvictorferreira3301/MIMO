@@ -149,6 +149,19 @@ complexo ** tx_layer_mapper(complexo *v, int Nstream, long int Nsymbol){
     }
     return mtx_stream;
 }
+/**
+ * @brief Mapeia os dados de um vetor para uma matriz de complexos.
+ *
+ * Esta função mapeia os dados de um vetor de complexos em uma matriz de complexos,
+ * onde cada posição da matriz representa um stream de transmissão. A função aloca
+ * memória dinamicamente para a matriz de complexos e retorna um ponteiro para a matriz.
+ *
+ * @param mtx_stream Ponteiro para o vetor de complexos contendo os dados a serem mapeados.
+ * @param Nstream O número de streams de transmissão.
+ * @param numBytes O número de bytes contidos no vetor de complexos.
+ * @return Um ponteiro para a matriz de complexos que contém os dados mapeados, ou NULL
+ *         em caso de erro na alocação de memória.
+ */
 
 complexo* rx_layer_demapper(complexo** mtx_stream, int Nstream, long int numBytes) {
     // Aloca memória para o vetor de complexos
@@ -191,6 +204,17 @@ int* rx_qam_demapper(complexo *vmap, long int numQAM) {
 
     return vetor;
 }
+/**
+ * @brief Retira os símbolos "nulos" que foram preenchidos (padding).
+ *
+ * Esta função desfaz o processamento feito pela a função data_padding
+ * fazendo com o que o nosso vetor volte ao tamanho original
+ * @param s Ponteiro para o array de inteiros contendo os dados.
+ * @param numBytes O número de bytes original antes do preenchimento.
+ * @param Nstream O número de streams para o qual o tamanho do array deve ser um múltiplo.
+ * @return Um ponteiro para o array de inteiros com os valores originais
+ *         
+ */
 
 int *rx_data_depadding(int *s, long int numBytes, int Nstream) {
     // Verifica se o número de bytes é um múltiplo do número de streams
@@ -208,6 +232,18 @@ int *rx_data_depadding(int *s, long int numBytes, int Nstream) {
         return resized_s;
     }
 }
+/**
+ * @brief Recupera os bytes originais.
+ *
+ * Esta função recupera os bytes originais a cada 4 dígitos
+ * realizando o processo inverso da função data_read, pegando o vetor de inteiros s
+ * e decodificando em bytes de caracteres para gerar o arquivo fileName
+ * @param s Ponteiro para o array de inteiros contendo os dados.
+ * @param numBytes O número de bytes original antes do preenchimento.
+ * @param Nstream O número de streams para o qual o tamanho do array deve ser um múltiplo.
+ * @return Um ponteiro para o array de inteiros com os valores originais
+ *         
+ */
 
 void rx_data_write(int* s, long int numBytes, char* fileName) {
     FILE* out = fopen(fileName, "wb");
@@ -488,7 +524,21 @@ void square_channel_svd(complexo **H,  complexo **Uh, complexo **Sh, complexo **
         }
     }
 }
-
+/**
+ * @brief Realiza a multiplicação dos símbolos das streams pela matriz V resultante da decomposição SVD
+ *
+ * Esta função utiliza a matriz V e multiplica pelo o vetor x que estamos transmitindo
+ * gerando o vetor precodificado xp .
+ *
+ * @param V Matriz V que foi alocada na main.
+ * @param x Vetor x que está sendo transmitido
+ * @param Vlinhas O número de linhas da matriz V.
+ * @param Vcolunas O número de colunas da matriz V.
+ * @param xlinhas O número de linhas do vetor x.
+ * @param xcolunas O número de colunas do vetor x.
+ *
+ * @return Retorna o vetor xp
+ */
 
 complexo ** tx_precoder(complexo ** V, complexo **x, int Vlinhas, int Vcolunas, int xlinhas, int xcolunas){
     complexo **xp = produto_matricial_geral(V, x, Vlinhas, Vcolunas, xlinhas, xcolunas);
@@ -535,12 +585,41 @@ complexo ** channel_transmission(complexo ** H, complexo ** xp, int Hlinhas, int
 	}*/
     return xt;
 }
+/**
+ * @brief Realiza a multiplicação dos sinais recebidos pelas Nr antenas pela matriz U 
+ *
+ * Esta função utiliza a matriz transposta U e multiplica pelo o vetor xt que estamos transmitindo
+ * gerando o vetor combinado xc.
+ *
+ * @param U Matriz U alocada.
+ * @param xt Vetor xt transmitido.
+ * @param Ulinhas O número de linhas da matriz U.
+ * @param Ucolunas O número de colunas da matriz U.
+ * @param xtlinhas O número de linhas do vetor xt.
+ * @param xtcolunas O número de colunas do vetor xt.
+ *
+ * @return Retorna o vetor xc
+ */
 
 complexo ** rx_combiner(complexo ** U, complexo ** xt, int Ulinhas, int Ucolunas, int xtLinhas, int xtColunas){
     complexo ** xc = produto_matricial_geral(transposta(U, Ulinhas, Ucolunas), xt, Ucolunas, Ulinhas, xtLinhas, xtColunas);
     return xc;
 }
-
+/**
+ * @brief Retira a interferência do canal H (matriz S da decomposição SVD) 
+ *
+ * Esta função utiliza cada elemento não nulo da matriz S e
+ * e divide por cada elemento do vetor xc de mesma linha.
+ *
+ * @param S Matriz S alocada.
+ * @param xc Vetor xt transmitido.
+ * @param Slinhas O número de linhas da matriz U.
+ * @param Scolunas O número de colunas da matriz U.
+ * @param xctlinhas O número de linhas do vetor xt.
+ * @param xcColunas O número de colunas do vetor xt.
+ *
+ * @return Retorna o vetor xf
+ */
 complexo ** rx_feq(complexo ** S, complexo ** xc, int Slinhas, int Scolunas, int xcLinhas, int xcColunas){
     complexo ** xf = allocateComplexMatrix(xcLinhas, xcColunas);
     for (int l = 0; l < Slinhas; l++){
