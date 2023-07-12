@@ -5,4 +5,9 @@
 .vscode
 /doc/html
 /doc/latex
+src/MIMO/output
+build/
+*.out
+Teste_*
+Tx_msg
 
