@@ -285,6 +285,29 @@ void rx_data_write(int* s, long int numBytes, char* fileName) {
     fclose(out);
 }
 
+/**
+ * @brief Realiza a multiplicação de duas matrizes complexas.
+ *
+ * Esta função realiza a multiplicação de duas matrizes complexas `mtx_a` e `mtx_b`,
+ * resultando em uma nova matriz `matriz`. A validação da operação de multiplicação
+ * é feita verificando se o número de colunas da matriz `mtx_a` é igual ao número
+ * de linhas da matriz `mtx_b`. Caso não seja compatível, a função exibe uma mensagem
+ * de erro e encerra o programa.
+ *
+ * @param mtx_a A primeira matriz complexa a ser multiplicada.
+ * @param mtx_b A segunda matriz complexa a ser multiplicada.
+ * @param linhas_a O número de linhas da matriz `mtx_a`.
+ * @param colunas_a O número de colunas da matriz `mtx_a`.
+ * @param linhas_b O número de linhas da matriz `mtx_b`.
+ * @param colunas_b O número de colunas da matriz `mtx_b`.
+ *
+ * @return Uma nova matriz complexa resultante da multiplicação de `mtx_a` e `mtx_b`.
+ *         O chamador é responsável por liberar a memória alocada utilizando a função free().
+ *
+ * @note Esta função assume que as matrizes `mtx_a` e `mtx_b` foram alocadas corretamente
+ *       e têm dimensões compatíveis para a multiplicação.
+ */
+
 complexo** produto_matricial_geral(complexo** mtx_a, complexo** mtx_b, int linhas_a, int colunas_a, int linhas_b, int colunas_b)
 {
     // Validação da operação de multiplicação (colunas_a == linhas_b).
@@ -669,6 +692,20 @@ complexo ** rx_feq(complexo ** S, complexo ** xc, int Slinhas, int Scolunas, int
     return xf;
 }
 
+/**
+ * @brief Gera estatísticas sobre os símbolos QAM transmitidos e recebidos.
+ *
+ * Esta função calcula estatísticas sobre os símbolos QAM transmitidos e recebidos,
+ * comparando o vetor de símbolos transmitidos `s` com o vetor de símbolos recebidos
+ * `finals`. A função conta o número de acertos e erros de transmissão e calcula a
+ * porcentagem de símbolos recebidos com erro em relação ao total de símbolos.
+ *
+ * @param s O vetor de símbolos QAM transmitidos.
+ * @param finals O vetor de símbolos QAM recebidos.
+ * @param numBytes O número de bytes transmitidos (considerando 4 símbolos QAM por byte).
+ *
+ * @note Esta função exibe as estatísticas na saída padrão.
+ */
 void gera_estatistica(int *s, int *finals, long int numBytes){
     int cont_acertos=0;
     int cont_erros=0;
