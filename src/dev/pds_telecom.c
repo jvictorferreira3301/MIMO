@@ -1,4 +1,4 @@
-/// @file pds_telecom.c
+/// @file psd_telecom.c
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -149,29 +149,14 @@ complexo ** tx_layer_mapper(complexo *v, int Nstream, long int Nsymbol){
     }
     return mtx_stream;
 }
-/**
- * @brief Mapeia os dados de um vetor para uma matriz de complexos.
- *
- * Esta função mapeia os dados de um vetor de complexos em uma matriz de complexos,
- * onde cada posição da matriz representa um stream de transmissão. A função aloca
- * memória dinamicamente para a matriz de complexos e retorna um ponteiro para a matriz.
- *
- * @param mtx_stream Ponteiro para o vetor de complexos contendo os dados a serem mapeados.
- * @param Nstream O número de streams de transmissão.
- * @param numBytes O número de bytes contidos no vetor de complexos.
- * @return Um ponteiro para a matriz de complexos que contém os dados mapeados, ou NULL
- *         em caso de erro na alocação de memória.
- */
 
 complexo* rx_layer_demapper(complexo** mtx_stream, int Nstream, long int numBytes) {
-    // Aloca memória para o vetor de complexos
-    complexo* v = (complexo*) malloc(numBytes * sizeof(complexo));
+    complexo* v = (complexo*) malloc(numBytes*sizeof(complexo));
     if (v == NULL) {
         printf("Erro na alocação de memória.\n");
         return NULL;
     }
 
-    // Desmapeia os dados da matriz para o vetor
     for (int i = 0; i < numBytes; i++) {
         v[i] = mtx_stream[i % Nstream][i / Nstream];
     }
@@ -179,62 +164,29 @@ complexo* rx_layer_demapper(complexo** mtx_stream, int Nstream, long int numByte
     return v;
 }
 
-/**
- * @brief Desmapeia os símbolos QAM para dados binários.
- *
- * Esta função recebe um vetor de complexos representando símbolos QAM e realiza o desmapeamento
- * desses símbolos para dados binários. Cada símbolo QAM é associado a um valor binário, de acordo
- * com a seguinte tabela:
- * - (-1, 1)  -> 0
- * - (-1, -1) -> 1
- * - (1, 1)   -> 2
- * - (1, -1)  -> 3
- * - Outros   -> 4
- *
- * @param vmap Vetor de complexos representando os símbolos QAM.
- * @param numQAM O número de símbolos QAM no vetor.
- *
- * @return Um vetor de inteiros contendo os dados binários desmapeados dos símbolos QAM.
- *         O chamador é responsável por liberar a memória alocada utilizando a função free().
- */
-int* rx_qam_demapper(complexo *vmap, long int numQAM) {
-    // Aloca memória para o vetor de inteiros
-    int *vetor = (int *)malloc(numQAM * sizeof(int));
+int* rx_qam_demapper(complexo * vmap, long int numQAM){
+
+    int *vetor = (int *)malloc(numQAM*sizeof(int));
     if (vetor == NULL) {
         printf("Erro na alocação de memória\n");
         return (int *)1;
     }
-
-    // Desmapeia os símbolos QAM para dados binários
-    for (int i = 0; i < numQAM; i++) {
-        if (vmap[i].real == -1.0 && vmap[i].img == 1.0) {
+    //Atribuição por exatidão
+    for(int i= 0; i < numQAM; i++){
+        if (vmap[i].real == -1.0 && vmap[i].img == 1.0){
             vetor[i] = 0;
-        } else if (vmap[i].real == -1.0 && vmap[i].img == -1.0) {
+        }else if (vmap[i].real== -1.0 && vmap[i].img == -1.0){
             vetor[i] = 1;
-        } else if (vmap[i].real == 1.0 && vmap[i].img == 1.0) {
+        }else if (vmap[i].real== 1.0 && vmap[i].img == 1.0){
             vetor[i] = 2;
-        } else if (vmap[i].real == 1.0 && vmap[i].img == -1.0) {
+        }else if (vmap[i].real == 1.0 && vmap[i].img == -1.0){
             vetor[i] = 3;
-        } else {
+        }else{
             vetor[i] = 4;
         }
     }
-
     return vetor;
 }
-
-/**
- * @brief Retira os símbolos "nulos" que foram preenchidos (padding).
- *
- * Esta função desfaz o processamento feito pela a função data_padding
- * fazendo com o que o nosso vetor volte ao tamanho original
- * @param s Ponteiro para o array de inteiros contendo os dados.
- * @param numBytes O número de bytes original antes do preenchimento.
- * @param Nstream O número de streams para o qual o tamanho do array deve ser um múltiplo.
- * @return Um ponteiro para o array de inteiros com os valores originais
- *         
- */
-
 int *rx_data_depadding(int *s, long int numBytes, int Nstream) {
     // Verifica se o número de bytes é um múltiplo do número de streams
     if ((4*numBytes) % Nstream == 0) {
@@ -251,18 +203,6 @@ int *rx_data_depadding(int *s, long int numBytes, int Nstream) {
         return resized_s;
     }
 }
-/**
- * @brief Recupera os bytes originais.
- *
- * Esta função recupera os bytes originais a cada 4 dígitos
- * realizando o processo inverso da função data_read, pegando o vetor de inteiros s
- * e decodificando em bytes de caracteres para gerar o arquivo fileName
- * @param s Ponteiro para o array de inteiros contendo os dados.
- * @param numBytes O número de bytes original antes do preenchimento.
- * @param Nstream O número de streams para o qual o tamanho do array deve ser um múltiplo.
- * @return Um ponteiro para o array de inteiros com os valores originais
- *         
- */
 
 void rx_data_write(int* s, long int numBytes, char* fileName) {
     FILE* out = fopen(fileName, "wb");
@@ -284,29 +224,6 @@ void rx_data_write(int* s, long int numBytes, char* fileName) {
 
     fclose(out);
 }
-
-/**
- * @brief Realiza a multiplicação de duas matrizes complexas.
- *
- * Esta função realiza a multiplicação de duas matrizes complexas `mtx_a` e `mtx_b`,
- * resultando em uma nova matriz `matriz`. A validação da operação de multiplicação
- * é feita verificando se o número de colunas da matriz `mtx_a` é igual ao número
- * de linhas da matriz `mtx_b`. Caso não seja compatível, a função exibe uma mensagem
- * de erro e encerra o programa.
- *
- * @param mtx_a A primeira matriz complexa a ser multiplicada.
- * @param mtx_b A segunda matriz complexa a ser multiplicada.
- * @param linhas_a O número de linhas da matriz `mtx_a`.
- * @param colunas_a O número de colunas da matriz `mtx_a`.
- * @param linhas_b O número de linhas da matriz `mtx_b`.
- * @param colunas_b O número de colunas da matriz `mtx_b`.
- *
- * @return Uma nova matriz complexa resultante da multiplicação de `mtx_a` e `mtx_b`.
- *         O chamador é responsável por liberar a memória alocada utilizando a função free().
- *
- * @note Esta função assume que as matrizes `mtx_a` e `mtx_b` foram alocadas corretamente
- *       e têm dimensões compatíveis para a multiplicação.
- */
 
 complexo** produto_matricial_geral(complexo** mtx_a, complexo** mtx_b, int linhas_a, int colunas_a, int linhas_b, int colunas_b)
 {
@@ -341,68 +258,35 @@ complexo** produto_matricial_geral(complexo** mtx_a, complexo** mtx_b, int linha
     return matriz;
 }
 
-/**
- * @brief Gera uma matriz complexa representando um canal de transferência.
- *
- * Esta função gera uma matriz complexa que representa um canal de transferência entre antenas
- * transmissoras e antenas receptoras. Os elementos da matriz são números complexos aleatórios
- * dentro do intervalo [minValue, maxValue], com a parte imaginária definida como zero.
- *
- * @param Nr O número de antenas receptoras.
- * @param Nt O número de antenas transmissoras.
- * @param minValue O valor mínimo para os elementos da matriz.
- * @param maxValue O valor máximo para os elementos da matriz.
- *
- * @return Uma matriz complexa representando o canal de transferência gerado.
- *         O chamador é responsável por liberar a memória alocada utilizando a função free().
- */
-complexo ** channel_gen(int Nr, int Nt, float minValue, float maxValue) {
+complexo ** channel_gen(int Nr, int Nt, float minValue, float maxValue){
     complexo** H;
 	
-    H = (complexo **) malloc(Nr * sizeof(complexo *));
+    H = (complexo **) malloc(Nr*sizeof(complexo*));
 	
-    if (H == NULL) {
-        printf("Memory allocation failed.\n");
+    if (H == NULL)
+    {
+        printf("Memory alocation failed.");
         exit(1);
     }
-
-    // Alocação de memória para cada linha da matriz
-    for (int i = 0; i < Nr; i++) {
-        H[i] = (complexo *) malloc(Nt * sizeof(complexo));
-        if (H[i] == NULL) {
-            printf("Memory allocation failed.\n");
+    //Alocação de memória para cada linha da matriz
+    for (int i = 0; i < Nr; i++)
+    {
+        H[i] = (complexo *) malloc(Nt*sizeof(complexo));
+        if (H[i] == NULL)
+        {
+            printf("Memory allocation failed\n");
             exit(1);
         }
     }
-
     srand(time(NULL));
-
-    // Preenchimento da matriz com números complexos aleatórios
     for (int i = 0; i < Nr; i++) {
         for (int j = 0; j < Nt; j++) {
             H[i][j].real = ((double)rand() / RAND_MAX) * (maxValue - minValue) + minValue;
             H[i][j].img = 0;
         }
     }
-
     return H;
 }
-
-/**
- * @brief Gera uma matriz de complexos representando o ruído do canal de comunicação.
- *
- * Esta função gera uma matriz de complexos representando o ruído do canal de comunicação.
- * A matriz resultante possui dimensões Nr x Nt, onde Nr é o número de antenas receptoras
- * e Nt é o número de antenas transmissoras. Os valores dos elementos da matriz são gerados
- * aleatoriamente dentro do intervalo definido por minValue e maxValue.
- *
- * @param Nr Número de antenas receptoras.
- * @param Nt Número de antenas transmissoras.
- * @param minValue Valor mínimo para os elementos da matriz.
- * @param maxValue Valor máximo para os elementos da matriz.
- *
- * @return A matriz de complexos representando o ruído do canal de comunicação.
- */
 
 complexo ** channel_rd_gen(int Nr, int Nt, float minValue, float maxValue){
     complexo** H;
@@ -433,34 +317,6 @@ complexo ** channel_rd_gen(int Nr, int Nt, float minValue, float maxValue){
     }
     return H;
 }
-
-/**
- * @brief Realiza a decomposição em valores singulares (SVD) de uma matriz transposta.
- *
- * Esta função realiza a decomposição em valores singulares (SVD) de uma matriz transposta,
- * representada por uma matriz de complexos. A função utiliza apenas a parte real dos
- * elementos da matriz para realizar o cálculo do SVD. A função aloca memória dinamicamente
- * para as matrizes U, V e o vetor S, e armazena os resultados da decomposição nas matrizes
- * Uh, Sh e Vh.
- *
- * @param H Matriz transposta de complexos a ser decomposta.
- * @param Uh Matriz U resultante da decomposição, contendo os autovetores à esquerda.
- * @param Sh Matriz S resultante da decomposição, contendo os valores singulares na diagonal.
- * @param Vh Matriz V resultante da decomposição, contendo os autovetores à direita.
- * @param Tlinhas O número de linhas da matriz transposta H.
- * @param Tcolunas O número de colunas da matriz transposta H.
- *
- * @note Esta função considera apenas a parte real dos elementos da matriz H para o cálculo do SVD.
- *       A função imprime um aviso se elementos complexos forem detectados na matriz H, mas ignora
- *       a parte imaginária para o cálculo.
- *
- * @remark A função `transposed_channel_svd` é similar a função `square_channel_svd`, porém há uma diferença crucial
- *         entre elas. A função `square_channel_svd` recebe uma matriz quadrada como parâmetro, enquanto a função
- *         `transposed_channel_svd` recebe a matriz transposta como parâmetro. A matriz transposta é obtida trocando
- *         as linhas pelas colunas da matriz original. Portanto, enquanto a função `square_channel_svd` realiza a
- *         decomposição em valores singulares (SVD) de uma matriz quadrada, a função `transposed_channel_svd` realiza
- *         a decomposição SVD da matriz transposta.
- */
 
 void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo **Vh, int Tlinhas, int Tcolunas){
     for (int l = 0; l < Tlinhas; l++){
@@ -514,115 +370,62 @@ void transposed_channel_svd(complexo **H, complexo **Uh, complexo **Sh, complexo
     }
 }
 
-/**
- * @brief Realiza a decomposição em valores singulares (SVD) de uma matriz quadrada.
- *
- * Esta função realiza a decomposição em valores singulares (SVD) de uma matriz quadrada,
- * representada por uma matriz de complexos. A função utiliza apenas a parte real dos
- * elementos da matriz para realizar o cálculo do SVD. A função aloca memória dinamicamente
- * para as matrizes U, V e o vetor S, e armazena os resultados da decomposição nas matrizes
- * Uh, Sh e Vh.
- *
- * @param H Matriz quadrada de complexos a ser decomposta.
- * @param Uh Matriz U resultante da decomposição, contendo os autovetores à esquerda.
- * @param Sh Matriz S resultante da decomposição, contendo os valores singulares na diagonal.
- * @param Vh Matriz V resultante da decomposição, contendo os autovetores à direita.
- * @param linhas O número de linhas da matriz H.
- * @param colunas O número de colunas da matriz H.
- *
- * @note Esta função considera apenas a parte real dos elementos da matriz H para o cálculo do SVD.
- *       A função imprime um aviso se elementos complexos forem detectados na matriz H, mas ignora
- *       a parte imaginária para o cálculo.
- */
-void square_channel_svd(complexo **H,  complexo **Uh, complexo **Sh, complexo **Vh, int linhas, int colunas) {
-    for (int l = 0; l < linhas; l++) {
-        for (int c = 0; c < colunas; c++) {
-            if (H[l][c].img != 0) {
-                printf("Warning: complex matrix injected as parameter, function will use only real part from matrix\n");
-                break;
-            }
-        }
-    }
+void square_channel_svd(complexo **H, complexo**Uh, complexo**Sh, complexo**Vh, int linhas, int colunas){
+    for (int l = 0; l < linhas; l++){
+		for (int c = 0; c < colunas; c++){
+			if (H[l][c].img != 0){
+				printf("Warning: complex matrix injected as parameter, fuction will use only real part from matrix\n");
+				break;
+			}
+		}
+	}
+    gsl_matrix * U = gsl_matrix_alloc(linhas, colunas); // Matriz U lxc
+    gsl_matrix * V = gsl_matrix_alloc(colunas, colunas); // Matriz V cxc
+    gsl_vector * S = gsl_vector_alloc(colunas); // Vetor S cx1
+    gsl_vector * work = gsl_vector_alloc(colunas);
     
-    gsl_matrix *U = gsl_matrix_alloc(linhas, colunas); // Matriz U lxc
-    gsl_matrix *V = gsl_matrix_alloc(colunas, colunas); // Matriz V cxc
-    gsl_vector *S = gsl_vector_alloc(colunas); // Vetor S cx1
-    gsl_vector *work = gsl_vector_alloc(colunas);
-    
-    for (int l = 0; l < linhas; l++) {
-        for (int c = 0; c < colunas; c++) {
+    for(int l=0; l<linhas; l++){
+        for(int c=0; c<colunas; c++){
+            //printf("%+.1f ", H[l][c].real);
             gsl_matrix_set(U, l, c, H[l][c].real);
         }
+        //printf("\n");
     }
 
     gsl_linalg_SV_decomp(U, V, S, work);
-    
-    for (int l = 0; l < linhas; l++) {
-        for (int c = 0; c < colunas; c++) {
+    for(int l = 0; l < linhas; l++){
+        for(int c=0; c < colunas; c++){
             Uh[l][c].real = gsl_matrix_get(U, l, c);
             Uh[l][c].img = 0;
+            //printf("%f ", gsl_matrix_get(U, l, c));
         }
+        //printf("\n");
     }
-    
-    for (int l = 0; l < colunas; l++) {
-        for (int c = 0; c < colunas; c++) {
+    for(int l=0; l<colunas; l++){
+        for(int c=0; c<colunas; c++){
             Vh[l][c].real = gsl_matrix_get(V, l, c);
             Vh[l][c].img = 0;
+            //printf("%f ", gsl_matrix_get(V, l, c));
         }
+        //printf("\n");
     }
-    
-    for (int l = 0; l < colunas; l++) {
-        for (int c = 0; c < colunas; c++) {
-            if (l == c) {
-                Sh[l][c].real = gsl_vector_get(S, c);
+    for (int l = 0; l < colunas; l++){
+        for (int c = 0; c < colunas; c++){
+            if (l == c){
+                Sh[l][c].real = gsl_vector_get(S,c);
                 Sh[l][c].img = 0;
-            } else {
+            }else{
                 Sh[l][c].real = 0;
                 Sh[l][c].img = 0;
             }
         }
     }
 }
-/**
- * @brief Realiza a multiplicação dos símbolos das streams pela matriz V resultante da decomposição SVD
- *
- * Esta função utiliza a matriz V e multiplica pelo o vetor x que estamos transmitindo
- * gerando o vetor precodificado xp .
- *
- * @param V Matriz V que foi alocada na main.
- * @param x Vetor x que está sendo transmitido
- * @param Vlinhas O número de linhas da matriz V.
- * @param Vcolunas O número de colunas da matriz V.
- * @param xlinhas O número de linhas do vetor x.
- * @param xcolunas O número de colunas do vetor x.
- *
- * @return Retorna o vetor xp
- */
 
 complexo ** tx_precoder(complexo ** V, complexo **x, int Vlinhas, int Vcolunas, int xlinhas, int xcolunas){
     complexo **xp = produto_matricial_geral(V, x, Vlinhas, Vcolunas, xlinhas, xcolunas);
     return xp;
 }
-
-/**
- * @brief Realiza a transmissão do sinal através do canal de comunicação.
- *
- * Esta função realiza a transmissão do sinal de entrada xp através do canal de comunicação
- * representado pela matriz H. O resultado da transmissão é calculado multiplicando a matriz H
- * pelo vetor xp. Além disso, um ruído Rd é adicionado ao sinal transmitido para simular as
- * características do canal de comunicação.
- *
- * @param H Matriz representando o canal de comunicação.
- * @param xp Vetor de entrada a ser transmitido pelo canal.
- * @param Hlinhas O número de linhas da matriz H.
- * @param Hcolunas O número de colunas da matriz H.
- * @param xpLinhas O número de linhas do vetor xp.
- * @param xpColunas O número de colunas do vetor xp.
- * @param r O valor que define o intervalo do ruído a ser adicionado: 0 para [-0.001, 0.001],
- *          1 para [-0.01, 0.01], 2 para [-0.5, 0.5], 3 para [-1, 1].
- *
- * @return A matriz resultante da transmissão do sinal pelo canal, acrescido do ruído.
- */
 
 complexo ** channel_transmission(complexo ** H, complexo ** xp, int Hlinhas, int Hcolunas, int xpLinhas, int xpColunas, int r){
     complexo **xh = produto_matricial_geral(H, xp, Hlinhas, Hcolunas, xpLinhas, xpColunas);
@@ -644,41 +447,12 @@ complexo ** channel_transmission(complexo ** H, complexo ** xp, int Hlinhas, int
 	}*/
     return xt;
 }
-/**
- * @brief Realiza a multiplicação dos sinais recebidos pelas Nr antenas pela matriz U 
- *
- * Esta função utiliza a matriz transposta U e multiplica pelo o vetor xt que estamos transmitindo
- * gerando o vetor combinado xc.
- *
- * @param U Matriz U alocada.
- * @param xt Vetor xt transmitido.
- * @param Ulinhas O número de linhas da matriz U.
- * @param Ucolunas O número de colunas da matriz U.
- * @param xtlinhas O número de linhas do vetor xt.
- * @param xtcolunas O número de colunas do vetor xt.
- *
- * @return Retorna o vetor xc
- */
 
 complexo ** rx_combiner(complexo ** U, complexo ** xt, int Ulinhas, int Ucolunas, int xtLinhas, int xtColunas){
     complexo ** xc = produto_matricial_geral(transposta(U, Ulinhas, Ucolunas), xt, Ucolunas, Ulinhas, xtLinhas, xtColunas);
     return xc;
 }
-/**
- * @brief Retira a interferência do canal H (matriz S da decomposição SVD) 
- *
- * Esta função utiliza cada elemento não nulo da matriz S e
- * e divide por cada elemento do vetor xc de mesma linha.
- *
- * @param S Matriz S alocada.
- * @param xc Vetor xt transmitido.
- * @param Slinhas O número de linhas da matriz U.
- * @param Scolunas O número de colunas da matriz U.
- * @param xctlinhas O número de linhas do vetor xt.
- * @param xcColunas O número de colunas do vetor xt.
- *
- * @return Retorna o vetor xf
- */
+
 complexo ** rx_feq(complexo ** S, complexo ** xc, int Slinhas, int Scolunas, int xcLinhas, int xcColunas){
     complexo ** xf = allocateComplexMatrix(xcLinhas, xcColunas);
     for (int l = 0; l < Slinhas; l++){
@@ -692,20 +466,6 @@ complexo ** rx_feq(complexo ** S, complexo ** xc, int Slinhas, int Scolunas, int
     return xf;
 }
 
-/**
- * @brief Gera estatísticas sobre os símbolos QAM transmitidos e recebidos.
- *
- * Esta função calcula estatísticas sobre os símbolos QAM transmitidos e recebidos,
- * comparando o vetor de símbolos transmitidos `s` com o vetor de símbolos recebidos
- * `finals`. A função conta o número de acertos e erros de transmissão e calcula a
- * porcentagem de símbolos recebidos com erro em relação ao total de símbolos.
- *
- * @param s O vetor de símbolos QAM transmitidos.
- * @param finals O vetor de símbolos QAM recebidos.
- * @param numBytes O número de bytes transmitidos (considerando 4 símbolos QAM por byte).
- *
- * @note Esta função exibe as estatísticas na saída padrão.
- */
 void gera_estatistica(int *s, int *finals, long int numBytes){
     int cont_acertos=0;
     int cont_erros=0;

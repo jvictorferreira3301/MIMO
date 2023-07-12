@@ -6,7 +6,7 @@ html = ./doc/html
 w = -W -Wall -pedantic
 gsl = -lgslcblas -lgsl
 math = -lm
-font = ./src/pds_telecom.c
+font = ./src/MIMO/pds_telecom.c
 teste_arq = Teste_*
 
 all:$(obj) $(out) doc
