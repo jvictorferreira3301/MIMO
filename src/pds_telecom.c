@@ -179,6 +179,24 @@ complexo* rx_layer_demapper(complexo** mtx_stream, int Nstream, long int numByte
     return v;
 }
 
+/**
+ * @brief Desmapeia os símbolos QAM para dados binários.
+ *
+ * Esta função recebe um vetor de complexos representando símbolos QAM e realiza o desmapeamento
+ * desses símbolos para dados binários. Cada símbolo QAM é associado a um valor binário, de acordo
+ * com a seguinte tabela:
+ * - (-1, 1)  -> 0
+ * - (-1, -1) -> 1
+ * - (1, 1)   -> 2
+ * - (1, -1)  -> 3
+ * - Outros   -> 4
+ *
+ * @param vmap Vetor de complexos representando os símbolos QAM.
+ * @param numQAM O número de símbolos QAM no vetor.
+ *
+ * @return Um vetor de inteiros contendo os dados binários desmapeados dos símbolos QAM.
+ *         O chamador é responsável por liberar a memória alocada utilizando a função free().
+ */
 int* rx_qam_demapper(complexo *vmap, long int numQAM) {
     // Aloca memória para o vetor de inteiros
     int *vetor = (int *)malloc(numQAM * sizeof(int));
@@ -204,6 +222,7 @@ int* rx_qam_demapper(complexo *vmap, long int numQAM) {
 
     return vetor;
 }
+
 /**
  * @brief Retira os símbolos "nulos" que foram preenchidos (padding).
  *
