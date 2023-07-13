@@ -51,13 +51,6 @@ O Makefile usa as seguintes dependências externas:
 
 ### Estrutura do diretório
 O Makefile assume a seguinte estrutura de diretórios:
-/
-├─ src/
-│   ├─ matrizes/
-│   └─ MIMO/
-├─ build/
-└─ doc/
-    └─ html/
 
 - src: Diretório principal que contém os arquivos de origem do código fonte.
 - matrizes: Subdiretório dentro de src que contém os arquivos relacionados às operações matriciais.
