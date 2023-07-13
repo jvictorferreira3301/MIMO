@@ -720,7 +720,7 @@ void gera_estatistica(int *s, int *finals, long int numBytes){
     }
     float porcentagem_erro = (cont_erros*100)/(4*numBytes);
     printf("Número de símbolos QAM recebidos com erro: %d\n",cont_erros);
-    printf("Porcentagem de símbolos QAM recebidos com erro: %0.2f%\n\n",porcentagem_erro);
+    printf("Porcentagem de símbolos QAM recebidos com erro: %0.2f%%\n\n",porcentagem_erro);
 }
 
 complexo** expandMatrix(complexo** matriz, int linhas, int colunas, int linhasExtras, int padding){
@@ -789,7 +789,7 @@ int main() {
             printf("A pasta testes existe! Pronto para iniciar!\n");
         }else{
             // Cria a pasta testes
-            char comando[MAX_PATH];
+            char comando[PATH_MAX];
             sprintf(comando, "mkdir %s", destino);
             system(comando);
             printf("Legal! Pasta testes criada! Pronto para inciar!\n");
