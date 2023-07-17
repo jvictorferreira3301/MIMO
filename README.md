@@ -20,14 +20,14 @@ Certifique-se de ter os seguintes requisitos instalados no seu sistema antes de 
 * gcc (GNU Compiler Collection)
 * doxygen (opcional)
 
-### Comandos disponíveis
+## Comandos disponíveis
 O Makefile oferece vários comandos para executar tarefas específicas. Abaixo estão os comandos disponíveis e suas descrições:
 
-## Comandos de compilação
+### Comandos de compilação
 - make: O comando padrão. Compila o código fonte e gera o executável aplicacao.
 - make clean: Remove todos os arquivos gerados durante a compilação, incluindo o diretório de objetos, executáveis de teste e arquivos de documentação.
 
-## Comandos de execução
+### Comandos de execução
 * make teste: Executa o arquivo aplicacao gerado. Isso executará o código do arquivo pds_telecom.c.
   ```sh
   make teste
