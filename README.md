@@ -15,4 +15,4 @@ Ao longo da disciplina foram propostas as seguintes tarefas:
 - [ ] Tarefa 5 - Implementação de Sistema de Comunicação Digital MIMO
 
 
-[Clique aqui para abrir o arquivo HTML](doc/html/index.html)
+[Clique aqui para abrir o site](https://jvictorferreira3301.github.io/Projeto-de-Engenharia-II/)
