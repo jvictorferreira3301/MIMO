@@ -1,0 +1,559 @@
+\hypertarget{pds__telecom_8c}{}\doxysection{Referência ao ficheiro src/\+MIMO/pds\+\_\+telecom.c}
+\label{pds__telecom_8c}\index{src/MIMO/pds\_telecom.c@{src/MIMO/pds\_telecom.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../matrizes/matrizes.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+linalg.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$libgen.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+Diagrama de dependências de inclusão para pds\+\_\+telecom.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pds__telecom_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+int $\ast$ \mbox{\hyperlink{pds__telecom_8c_ab15359648110ac707e2aa5658f4a4312}{tx\+\_\+data\+\_\+read}} (FILE $\ast$fp, long int num\+Bytes)
+\begin{DoxyCompactList}\small\item\em Lê os dados de um arquivo e os converte em um array de inteiros. \end{DoxyCompactList}\item 
+int $\ast$ \mbox{\hyperlink{pds__telecom_8c_a1c53251390c9eb0d28ab94ed4aae790f}{tx\+\_\+data\+\_\+padding}} (int $\ast$s, long int num\+Bytes, int Npadding)
+\begin{DoxyCompactList}\small\item\em Realiza o preenchimento (padding) dos dados com zeros. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$ \mbox{\hyperlink{pds__telecom_8c_a0e9ef869be44bc1f0821428f9fd46ce6}{tx\+\_\+qam\+\_\+mapper}} (int $\ast$s, long int num\+QAM)
+\begin{DoxyCompactList}\small\item\em Mapeia os dados binários em uma sequência de símbolos QAM. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{pds__telecom_8c_acf975ddcdcb95ab5e2fc261a9f32dfa3}{tx\+\_\+layer\+\_\+mapper}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$v, int Nstream, long int Nsymbol)
+\begin{DoxyCompactList}\small\item\em Mapeia os dados de um vetor para uma matriz de complexos. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$ \mbox{\hyperlink{pds__telecom_8c_af34debfab01a53ac162063f8df9286d2}{rx\+\_\+layer\+\_\+demapper}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+stream, int Nstream, long int num\+Bytes)
+\begin{DoxyCompactList}\small\item\em Mapeia os dados de um vetor para uma matriz de complexos. \end{DoxyCompactList}\item 
+int $\ast$ \mbox{\hyperlink{pds__telecom_8c_a6f4c4ca22fa77b6407d3e8d91118ee0a}{rx\+\_\+qam\+\_\+demapper}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$vmap, long int num\+QAM)
+\begin{DoxyCompactList}\small\item\em Desmapeia os símbolos QAM para dados binários. \end{DoxyCompactList}\item 
+int $\ast$ \mbox{\hyperlink{pds__telecom_8c_a93398a6e73daf2dd1866ab475486468c}{rx\+\_\+data\+\_\+depadding}} (int $\ast$s, long int num\+Bytes, int Nstream)
+\begin{DoxyCompactList}\small\item\em Retira os símbolos \char`\"{}nulos\char`\"{} que foram preenchidos (padding). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pds__telecom_8c_ac1a0b1e728db06c6e0e3eb03eeae5bc9}{rx\+\_\+data\+\_\+write}} (int $\ast$s, long int num\+Bytes, char $\ast$file\+Name)
+\begin{DoxyCompactList}\small\item\em Recupera os bytes originais. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{pds__telecom_8c_ac913d43ccaf5bcca38ad71bec62e8a20}{produto\+\_\+matricial\+\_\+geral}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+a, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+b, int linhas\+\_\+a, int colunas\+\_\+a, int linhas\+\_\+b, int colunas\+\_\+b)
+\begin{DoxyCompactList}\small\item\em Realiza a multiplicação de duas matrizes complexas. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{pds__telecom_8c_ad3ef00a466212849dc5175bafdf784a1}{channel\+\_\+gen}} (int Nr, int Nt, float min\+Value, float max\+Value)
+\begin{DoxyCompactList}\small\item\em Gera uma matriz complexa representando um canal de transferência. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{pds__telecom_8c_ab2b3c8e848a59d549a6b741993d38897}{channel\+\_\+rd\+\_\+gen}} (int Nr, int Nt, float min\+Value, float max\+Value)
+\begin{DoxyCompactList}\small\item\em Gera uma matriz de complexos representando o ruído do canal de comunicação. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pds__telecom_8c_a734a93faf0ec02dc693c60447ae509d6}{transposed\+\_\+channel\+\_\+svd}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$H, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$Uh, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$Sh, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$Vh, int Tlinhas, int Tcolunas)
+\begin{DoxyCompactList}\small\item\em Realiza a decomposição em valores singulares (SVD) de uma matriz transposta. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pds__telecom_8c_a573cdce01ea489eff0d0c6cf835f0fcb}{square\+\_\+channel\+\_\+svd}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$H, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$Uh, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$Sh, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$Vh, int linhas, int colunas)
+\begin{DoxyCompactList}\small\item\em Realiza a decomposição em valores singulares (SVD) de uma matriz quadrada. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{pds__telecom_8c_a7cb2e62a8dca68179c8f01f5a3dc6eb7}{tx\+\_\+precoder}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$V, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$x, int Vlinhas, int Vcolunas, int xlinhas, int xcolunas)
+\begin{DoxyCompactList}\small\item\em Realiza a multiplicação dos símbolos das streams pela matriz V resultante da decomposição SVD. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{pds__telecom_8c_a253ab9e633bedd7bedcbf54813bdbae7}{channel\+\_\+transmission}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$H, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$xp, int Hlinhas, int Hcolunas, int xp\+Linhas, int xp\+Colunas, int r)
+\begin{DoxyCompactList}\small\item\em Realiza a transmissão do sinal através do canal de comunicação. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{pds__telecom_8c_ac74b7bdbb1d3a2c1749d2238ebdd6733}{rx\+\_\+combiner}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$U, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$xt, int Ulinhas, int Ucolunas, int xt\+Linhas, int xt\+Colunas)
+\begin{DoxyCompactList}\small\item\em Realiza a multiplicação dos sinais recebidos pelas Nr antenas pela matriz U. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{pds__telecom_8c_a2e8d036544b7e74e391913edf992f155}{rx\+\_\+feq}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$S, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$xc, int Slinhas, int Scolunas, int xc\+Linhas, int xc\+Colunas)
+\begin{DoxyCompactList}\small\item\em Retira a interferência do canal H (matriz S da decomposição SVD) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pds__telecom_8c_a86b7986db8bfdf925e8c6e14c1b4e02a}{gera\+\_\+estatistica}} (int $\ast$s, int $\ast$finals, long int num\+Bytes)
+\begin{DoxyCompactList}\small\item\em Gera estatísticas sobre os símbolos QAM transmitidos e recebidos. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pds__telecom_8c_a7b6aefb69421016701b4bf643a6fe61e}\label{pds__telecom_8c_a7b6aefb69421016701b4bf643a6fe61e}} 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ {\bfseries expand\+Matrix} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$matriz, int linhas, int colunas, int linhas\+Extras, int padding)
+\item 
+\mbox{\Hypertarget{pds__telecom_8c_a6fc483247769776ab74af61caf8b616f}\label{pds__telecom_8c_a6fc483247769776ab74af61caf8b616f}} 
+bool {\bfseries is\+\_\+running\+\_\+in\+\_\+wsl} ()
+\item 
+\mbox{\Hypertarget{pds__telecom_8c_a75acb5f2a6b6c148958a55c275cbdb11}\label{pds__telecom_8c_a75acb5f2a6b6c148958a55c275cbdb11}} 
+bool {\bfseries is\+\_\+wsl\+\_\+there} ()
+\item 
+\mbox{\Hypertarget{pds__telecom_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{pds__telecom_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+int {\bfseries main} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{pds__telecom_8c_ad3ef00a466212849dc5175bafdf784a1}\label{pds__telecom_8c_ad3ef00a466212849dc5175bafdf784a1}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!channel\_gen@{channel\_gen}}
+\index{channel\_gen@{channel\_gen}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{channel\_gen()}{channel\_gen()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ channel\+\_\+gen (\begin{DoxyParamCaption}\item[{int}]{Nr,  }\item[{int}]{Nt,  }\item[{float}]{min\+Value,  }\item[{float}]{max\+Value }\end{DoxyParamCaption})}
+
+
+
+Gera uma matriz complexa representando um canal de transferência. 
+
+Esta função gera uma matriz complexa que representa um canal de transferência entre antenas transmissoras e antenas receptoras. Os elementos da matriz são números complexos aleatórios dentro do intervalo \mbox{[}min\+Value, max\+Value\mbox{]}, com a parte imaginária definida como zero.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em Nr} & O número de antenas receptoras. \\
+\hline
+{\em Nt} & O número de antenas transmissoras. \\
+\hline
+{\em min\+Value} & O valor mínimo para os elementos da matriz. \\
+\hline
+{\em max\+Value} & O valor máximo para os elementos da matriz.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Uma matriz complexa representando o canal de transferência gerado. O chamador é responsável por liberar a memória alocada utilizando a função free(). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_ab2b3c8e848a59d549a6b741993d38897}\label{pds__telecom_8c_ab2b3c8e848a59d549a6b741993d38897}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!channel\_rd\_gen@{channel\_rd\_gen}}
+\index{channel\_rd\_gen@{channel\_rd\_gen}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{channel\_rd\_gen()}{channel\_rd\_gen()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ channel\+\_\+rd\+\_\+gen (\begin{DoxyParamCaption}\item[{int}]{Nr,  }\item[{int}]{Nt,  }\item[{float}]{min\+Value,  }\item[{float}]{max\+Value }\end{DoxyParamCaption})}
+
+
+
+Gera uma matriz de complexos representando o ruído do canal de comunicação. 
+
+Esta função gera uma matriz de complexos representando o ruído do canal de comunicação. A matriz resultante possui dimensões Nr x Nt, onde Nr é o número de antenas receptoras e Nt é o número de antenas transmissoras. Os valores dos elementos da matriz são gerados aleatoriamente dentro do intervalo definido por min\+Value e max\+Value.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em Nr} & Número de antenas receptoras. \\
+\hline
+{\em Nt} & Número de antenas transmissoras. \\
+\hline
+{\em min\+Value} & Valor mínimo para os elementos da matriz. \\
+\hline
+{\em max\+Value} & Valor máximo para os elementos da matriz.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+A matriz de complexos representando o ruído do canal de comunicação. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_a253ab9e633bedd7bedcbf54813bdbae7}\label{pds__telecom_8c_a253ab9e633bedd7bedcbf54813bdbae7}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!channel\_transmission@{channel\_transmission}}
+\index{channel\_transmission@{channel\_transmission}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{channel\_transmission()}{channel\_transmission()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ channel\+\_\+transmission (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{H,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{xp,  }\item[{int}]{Hlinhas,  }\item[{int}]{Hcolunas,  }\item[{int}]{xp\+Linhas,  }\item[{int}]{xp\+Colunas,  }\item[{int}]{r }\end{DoxyParamCaption})}
+
+
+
+Realiza a transmissão do sinal através do canal de comunicação. 
+
+Esta função realiza a transmissão do sinal de entrada xp através do canal de comunicação representado pela matriz H. O resultado da transmissão é calculado multiplicando a matriz H pelo vetor xp. Além disso, um ruído Rd é adicionado ao sinal transmitido para simular as características do canal de comunicação.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em H} & Matriz representando o canal de comunicação. \\
+\hline
+{\em xp} & Vetor de entrada a ser transmitido pelo canal. \\
+\hline
+{\em Hlinhas} & O número de linhas da matriz H. \\
+\hline
+{\em Hcolunas} & O número de colunas da matriz H. \\
+\hline
+{\em xp\+Linhas} & O número de linhas do vetor xp. \\
+\hline
+{\em xp\+Colunas} & O número de colunas do vetor xp. \\
+\hline
+{\em r} & O valor que define o intervalo do ruído a ser adicionado\+: 0 para \mbox{[}-\/0.\+001, 0.\+001\mbox{]}, 1 para \mbox{[}-\/0.\+01, 0.\+01\mbox{]}, 2 para \mbox{[}-\/0.\+5, 0.\+5\mbox{]}, 3 para \mbox{[}-\/1, 1\mbox{]}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+A matriz resultante da transmissão do sinal pelo canal, acrescido do ruído. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_a86b7986db8bfdf925e8c6e14c1b4e02a}\label{pds__telecom_8c_a86b7986db8bfdf925e8c6e14c1b4e02a}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!gera\_estatistica@{gera\_estatistica}}
+\index{gera\_estatistica@{gera\_estatistica}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{gera\_estatistica()}{gera\_estatistica()}}
+{\footnotesize\ttfamily void gera\+\_\+estatistica (\begin{DoxyParamCaption}\item[{int $\ast$}]{s,  }\item[{int $\ast$}]{finals,  }\item[{long int}]{num\+Bytes }\end{DoxyParamCaption})}
+
+
+
+Gera estatísticas sobre os símbolos QAM transmitidos e recebidos. 
+
+Esta função calcula estatísticas sobre os símbolos QAM transmitidos e recebidos, comparando o vetor de símbolos transmitidos {\ttfamily s} com o vetor de símbolos recebidos {\ttfamily finals}. A função conta o número de acertos e erros de transmissão e calcula a porcentagem de símbolos recebidos com erro em relação ao total de símbolos.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em s} & O vetor de símbolos QAM transmitidos. \\
+\hline
+{\em finals} & O vetor de símbolos QAM recebidos. \\
+\hline
+{\em num\+Bytes} & O número de bytes transmitidos (considerando 4 símbolos QAM por byte).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Nota}
+Esta função exibe as estatísticas na saída padrão. 
+\end{DoxyNote}
+\mbox{\Hypertarget{pds__telecom_8c_ac913d43ccaf5bcca38ad71bec62e8a20}\label{pds__telecom_8c_ac913d43ccaf5bcca38ad71bec62e8a20}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!produto\_matricial\_geral@{produto\_matricial\_geral}}
+\index{produto\_matricial\_geral@{produto\_matricial\_geral}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{produto\_matricial\_geral()}{produto\_matricial\_geral()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ produto\+\_\+matricial\+\_\+geral (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx\+\_\+a,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx\+\_\+b,  }\item[{int}]{linhas\+\_\+a,  }\item[{int}]{colunas\+\_\+a,  }\item[{int}]{linhas\+\_\+b,  }\item[{int}]{colunas\+\_\+b }\end{DoxyParamCaption})}
+
+
+
+Realiza a multiplicação de duas matrizes complexas. 
+
+Esta função realiza a multiplicação de duas matrizes complexas {\ttfamily mtx\+\_\+a} e {\ttfamily mtx\+\_\+b}, resultando em uma nova matriz {\ttfamily matriz}. A validação da operação de multiplicação é feita verificando se o número de colunas da matriz {\ttfamily mtx\+\_\+a} é igual ao número de linhas da matriz {\ttfamily mtx\+\_\+b}. Caso não seja compatível, a função exibe uma mensagem de erro e encerra o programa.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em mtx\+\_\+a} & A primeira matriz complexa a ser multiplicada. \\
+\hline
+{\em mtx\+\_\+b} & A segunda matriz complexa a ser multiplicada. \\
+\hline
+{\em linhas\+\_\+a} & O número de linhas da matriz {\ttfamily mtx\+\_\+a}. \\
+\hline
+{\em colunas\+\_\+a} & O número de colunas da matriz {\ttfamily mtx\+\_\+a}. \\
+\hline
+{\em linhas\+\_\+b} & O número de linhas da matriz {\ttfamily mtx\+\_\+b}. \\
+\hline
+{\em colunas\+\_\+b} & O número de colunas da matriz {\ttfamily mtx\+\_\+b}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Uma nova matriz complexa resultante da multiplicação de {\ttfamily mtx\+\_\+a} e {\ttfamily mtx\+\_\+b}. O chamador é responsável por liberar a memória alocada utilizando a função free().
+\end{DoxyReturn}
+\begin{DoxyNote}{Nota}
+Esta função assume que as matrizes {\ttfamily mtx\+\_\+a} e {\ttfamily mtx\+\_\+b} foram alocadas corretamente e têm dimensões compatíveis para a multiplicação. 
+\end{DoxyNote}
+\mbox{\Hypertarget{pds__telecom_8c_ac74b7bdbb1d3a2c1749d2238ebdd6733}\label{pds__telecom_8c_ac74b7bdbb1d3a2c1749d2238ebdd6733}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!rx\_combiner@{rx\_combiner}}
+\index{rx\_combiner@{rx\_combiner}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{rx\_combiner()}{rx\_combiner()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ rx\+\_\+combiner (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{U,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{xt,  }\item[{int}]{Ulinhas,  }\item[{int}]{Ucolunas,  }\item[{int}]{xt\+Linhas,  }\item[{int}]{xt\+Colunas }\end{DoxyParamCaption})}
+
+
+
+Realiza a multiplicação dos sinais recebidos pelas Nr antenas pela matriz U. 
+
+Esta função utiliza a matriz transposta U e multiplica pelo o vetor xt que estamos transmitindo gerando o vetor combinado xc.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em U} & Matriz U alocada. \\
+\hline
+{\em xt} & Vetor xt transmitido. \\
+\hline
+{\em Ulinhas} & O número de linhas da matriz U. \\
+\hline
+{\em Ucolunas} & O número de colunas da matriz U. \\
+\hline
+{\em xtlinhas} & O número de linhas do vetor xt. \\
+\hline
+{\em xtcolunas} & O número de colunas do vetor xt.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Retorna o vetor xc 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_a93398a6e73daf2dd1866ab475486468c}\label{pds__telecom_8c_a93398a6e73daf2dd1866ab475486468c}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!rx\_data\_depadding@{rx\_data\_depadding}}
+\index{rx\_data\_depadding@{rx\_data\_depadding}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{rx\_data\_depadding()}{rx\_data\_depadding()}}
+{\footnotesize\ttfamily int$\ast$ rx\+\_\+data\+\_\+depadding (\begin{DoxyParamCaption}\item[{int $\ast$}]{s,  }\item[{long int}]{num\+Bytes,  }\item[{int}]{Nstream }\end{DoxyParamCaption})}
+
+
+
+Retira os símbolos \char`\"{}nulos\char`\"{} que foram preenchidos (padding). 
+
+Esta função desfaz o processamento feito pela a função data\+\_\+padding fazendo com o que o nosso vetor volte ao tamanho original 
+\begin{DoxyParams}{Parâmetros}
+{\em s} & Ponteiro para o array de inteiros contendo os dados. \\
+\hline
+{\em num\+Bytes} & O número de bytes original antes do preenchimento. \\
+\hline
+{\em Nstream} & O número de streams para o qual o tamanho do array deve ser um múltiplo. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Um ponteiro para o array de inteiros com os valores originais 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_ac1a0b1e728db06c6e0e3eb03eeae5bc9}\label{pds__telecom_8c_ac1a0b1e728db06c6e0e3eb03eeae5bc9}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!rx\_data\_write@{rx\_data\_write}}
+\index{rx\_data\_write@{rx\_data\_write}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{rx\_data\_write()}{rx\_data\_write()}}
+{\footnotesize\ttfamily void rx\+\_\+data\+\_\+write (\begin{DoxyParamCaption}\item[{int $\ast$}]{s,  }\item[{long int}]{num\+Bytes,  }\item[{char $\ast$}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+Recupera os bytes originais. 
+
+Esta função recupera os bytes originais a cada 4 dígitos realizando o processo inverso da função data\+\_\+read, pegando o vetor de inteiros s e decodificando em bytes de caracteres para gerar o arquivo file\+Name 
+\begin{DoxyParams}{Parâmetros}
+{\em s} & Ponteiro para o array de inteiros contendo os dados. \\
+\hline
+{\em num\+Bytes} & O número de bytes original antes do preenchimento. \\
+\hline
+{\em Nstream} & O número de streams para o qual o tamanho do array deve ser um múltiplo. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Um ponteiro para o array de inteiros com os valores originais 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_a2e8d036544b7e74e391913edf992f155}\label{pds__telecom_8c_a2e8d036544b7e74e391913edf992f155}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!rx\_feq@{rx\_feq}}
+\index{rx\_feq@{rx\_feq}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{rx\_feq()}{rx\_feq()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ rx\+\_\+feq (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{S,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{xc,  }\item[{int}]{Slinhas,  }\item[{int}]{Scolunas,  }\item[{int}]{xc\+Linhas,  }\item[{int}]{xc\+Colunas }\end{DoxyParamCaption})}
+
+
+
+Retira a interferência do canal H (matriz S da decomposição SVD) 
+
+Esta função utiliza cada elemento não nulo da matriz S e e divide por cada elemento do vetor xc de mesma linha.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em S} & Matriz S alocada. \\
+\hline
+{\em xc} & Vetor xt transmitido. \\
+\hline
+{\em Slinhas} & O número de linhas da matriz U. \\
+\hline
+{\em Scolunas} & O número de colunas da matriz U. \\
+\hline
+{\em xctlinhas} & O número de linhas do vetor xt. \\
+\hline
+{\em xc\+Colunas} & O número de colunas do vetor xt.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Retorna o vetor xf 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_af34debfab01a53ac162063f8df9286d2}\label{pds__telecom_8c_af34debfab01a53ac162063f8df9286d2}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!rx\_layer\_demapper@{rx\_layer\_demapper}}
+\index{rx\_layer\_demapper@{rx\_layer\_demapper}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{rx\_layer\_demapper()}{rx\_layer\_demapper()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$ rx\+\_\+layer\+\_\+demapper (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx\+\_\+stream,  }\item[{int}]{Nstream,  }\item[{long int}]{num\+Bytes }\end{DoxyParamCaption})}
+
+
+
+Mapeia os dados de um vetor para uma matriz de complexos. 
+
+Esta função mapeia os dados de um vetor de complexos em uma matriz de complexos, onde cada posição da matriz representa um stream de transmissão. A função aloca memória dinamicamente para a matriz de complexos e retorna um ponteiro para a matriz.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em mtx\+\_\+stream} & Ponteiro para o vetor de complexos contendo os dados a serem mapeados. \\
+\hline
+{\em Nstream} & O número de streams de transmissão. \\
+\hline
+{\em num\+Bytes} & O número de bytes contidos no vetor de complexos. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Um ponteiro para a matriz de complexos que contém os dados mapeados, ou NULL em caso de erro na alocação de memória. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_a6f4c4ca22fa77b6407d3e8d91118ee0a}\label{pds__telecom_8c_a6f4c4ca22fa77b6407d3e8d91118ee0a}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!rx\_qam\_demapper@{rx\_qam\_demapper}}
+\index{rx\_qam\_demapper@{rx\_qam\_demapper}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{rx\_qam\_demapper()}{rx\_qam\_demapper()}}
+{\footnotesize\ttfamily int$\ast$ rx\+\_\+qam\+\_\+demapper (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$}]{vmap,  }\item[{long int}]{num\+QAM }\end{DoxyParamCaption})}
+
+
+
+Desmapeia os símbolos QAM para dados binários. 
+
+Esta função recebe um vetor de complexos representando símbolos QAM e realiza o desmapeamento desses símbolos para dados binários. Cada símbolo QAM é associado a um valor binário, de acordo com a seguinte tabela\+:
+\begin{DoxyItemize}
+\item (-\/1, 1) -\/$>$ 0
+\item (-\/1, -\/1) -\/$>$ 1
+\item (1, 1) -\/$>$ 2
+\item (1, -\/1) -\/$>$ 3
+\item Outros -\/$>$ 4
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em vmap} & Vetor de complexos representando os símbolos QAM. \\
+\hline
+{\em num\+QAM} & O número de símbolos QAM no vetor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Um vetor de inteiros contendo os dados binários desmapeados dos símbolos QAM. O chamador é responsável por liberar a memória alocada utilizando a função free(). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_a573cdce01ea489eff0d0c6cf835f0fcb}\label{pds__telecom_8c_a573cdce01ea489eff0d0c6cf835f0fcb}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!square\_channel\_svd@{square\_channel\_svd}}
+\index{square\_channel\_svd@{square\_channel\_svd}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{square\_channel\_svd()}{square\_channel\_svd()}}
+{\footnotesize\ttfamily void square\+\_\+channel\+\_\+svd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{H,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{Uh,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{Sh,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{Vh,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+
+
+Realiza a decomposição em valores singulares (SVD) de uma matriz quadrada. 
+
+Esta função realiza a decomposição em valores singulares (SVD) de uma matriz quadrada, representada por uma matriz de complexos. A função utiliza apenas a parte real dos elementos da matriz para realizar o cálculo do SVD. A função aloca memória dinamicamente para as matrizes U, V e o vetor S, e armazena os resultados da decomposição nas matrizes Uh, Sh e Vh.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em H} & Matriz quadrada de complexos a ser decomposta. \\
+\hline
+{\em Uh} & Matriz U resultante da decomposição, contendo os autovetores à esquerda. \\
+\hline
+{\em Sh} & Matriz S resultante da decomposição, contendo os valores singulares na diagonal. \\
+\hline
+{\em Vh} & Matriz V resultante da decomposição, contendo os autovetores à direita. \\
+\hline
+{\em linhas} & O número de linhas da matriz H. \\
+\hline
+{\em colunas} & O número de colunas da matriz H.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Nota}
+Esta função considera apenas a parte real dos elementos da matriz H para o cálculo do SVD. A função imprime um aviso se elementos complexos forem detectados na matriz H, mas ignora a parte imaginária para o cálculo. 
+\end{DoxyNote}
+\mbox{\Hypertarget{pds__telecom_8c_a734a93faf0ec02dc693c60447ae509d6}\label{pds__telecom_8c_a734a93faf0ec02dc693c60447ae509d6}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!transposed\_channel\_svd@{transposed\_channel\_svd}}
+\index{transposed\_channel\_svd@{transposed\_channel\_svd}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{transposed\_channel\_svd()}{transposed\_channel\_svd()}}
+{\footnotesize\ttfamily void transposed\+\_\+channel\+\_\+svd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{H,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{Uh,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{Sh,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{Vh,  }\item[{int}]{Tlinhas,  }\item[{int}]{Tcolunas }\end{DoxyParamCaption})}
+
+
+
+Realiza a decomposição em valores singulares (SVD) de uma matriz transposta. 
+
+Esta função realiza a decomposição em valores singulares (SVD) de uma matriz transposta, representada por uma matriz de complexos. A função utiliza apenas a parte real dos elementos da matriz para realizar o cálculo do SVD. A função aloca memória dinamicamente para as matrizes U, V e o vetor S, e armazena os resultados da decomposição nas matrizes Uh, Sh e Vh.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em H} & Matriz transposta de complexos a ser decomposta. \\
+\hline
+{\em Uh} & Matriz U resultante da decomposição, contendo os autovetores à esquerda. \\
+\hline
+{\em Sh} & Matriz S resultante da decomposição, contendo os valores singulares na diagonal. \\
+\hline
+{\em Vh} & Matriz V resultante da decomposição, contendo os autovetores à direita. \\
+\hline
+{\em Tlinhas} & O número de linhas da matriz transposta H. \\
+\hline
+{\em Tcolunas} & O número de colunas da matriz transposta H.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Nota}
+Esta função considera apenas a parte real dos elementos da matriz H para o cálculo do SVD. A função imprime um aviso se elementos complexos forem detectados na matriz H, mas ignora a parte imaginária para o cálculo.
+\end{DoxyNote}
+\begin{DoxyRemark}{Observações}
+A função {\ttfamily transposed\+\_\+channel\+\_\+svd} é similar a função {\ttfamily square\+\_\+channel\+\_\+svd}, porém há uma diferença crucial entre elas. A função {\ttfamily square\+\_\+channel\+\_\+svd} recebe uma matriz quadrada como parâmetro, enquanto a função {\ttfamily transposed\+\_\+channel\+\_\+svd} recebe a matriz transposta como parâmetro. A matriz transposta é obtida trocando as linhas pelas colunas da matriz original. Portanto, enquanto a função {\ttfamily square\+\_\+channel\+\_\+svd} realiza a decomposição em valores singulares (SVD) de uma matriz quadrada, a função {\ttfamily transposed\+\_\+channel\+\_\+svd} realiza a decomposição SVD da matriz transposta. 
+\end{DoxyRemark}
+\mbox{\Hypertarget{pds__telecom_8c_a1c53251390c9eb0d28ab94ed4aae790f}\label{pds__telecom_8c_a1c53251390c9eb0d28ab94ed4aae790f}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!tx\_data\_padding@{tx\_data\_padding}}
+\index{tx\_data\_padding@{tx\_data\_padding}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{tx\_data\_padding()}{tx\_data\_padding()}}
+{\footnotesize\ttfamily int$\ast$ tx\+\_\+data\+\_\+padding (\begin{DoxyParamCaption}\item[{int $\ast$}]{s,  }\item[{long int}]{num\+Bytes,  }\item[{int}]{Npadding }\end{DoxyParamCaption})}
+
+
+
+Realiza o preenchimento (padding) dos dados com zeros. 
+
+Esta função realiza o preenchimento (padding) dos dados com zeros para garantir que o tamanho do array de inteiros seja um múltiplo inteiro do número de streams (Nstream). Se o número de bytes (num\+Bytes) for um múltiplo exato do número de streams, a função retorna o array de inteiros original sem alterações. Caso contrário, a função realoca memória para o array de inteiros e preenche o espaço adicional com zeros.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em s} & Ponteiro para o array de inteiros contendo os dados. \\
+\hline
+{\em num\+Bytes} & O número de bytes original antes do preenchimento. \\
+\hline
+{\em Nstream} & O número de streams para o qual o tamanho do array deve ser um múltiplo. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Um ponteiro para o array de inteiros com o preenchimento realizado, ou NULL em caso de erro na alocação de memória. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_ab15359648110ac707e2aa5658f4a4312}\label{pds__telecom_8c_ab15359648110ac707e2aa5658f4a4312}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!tx\_data\_read@{tx\_data\_read}}
+\index{tx\_data\_read@{tx\_data\_read}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{tx\_data\_read()}{tx\_data\_read()}}
+{\footnotesize\ttfamily int$\ast$ tx\+\_\+data\+\_\+read (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{fp,  }\item[{long int}]{num\+Bytes }\end{DoxyParamCaption})}
+
+
+
+Lê os dados de um arquivo e os converte em um array de inteiros. 
+
+Esta função lê os dados binários de um arquivo e os converte em um array de inteiros, em que cada inteiro representa 2 bits de dados. A função aloca memória dinamicamente para o array de inteiros e retorna um ponteiro para o início do array.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em fp} & Ponteiro para o arquivo a ser lido. \\
+\hline
+{\em num\+Bytes} & O número de bytes a serem lidos do arquivo. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Um ponteiro para o array de inteiros que contém os dados convertidos, ou NULL em caso de erro na alocação de memória.
+\end{DoxyReturn}
+\begin{DoxyNote}{Nota}
+O chamador é responsável por liberar a memória alocada para o array de inteiros quando não precisar mais dele, usando a função free(). 
+\end{DoxyNote}
+\mbox{\Hypertarget{pds__telecom_8c_acf975ddcdcb95ab5e2fc261a9f32dfa3}\label{pds__telecom_8c_acf975ddcdcb95ab5e2fc261a9f32dfa3}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!tx\_layer\_mapper@{tx\_layer\_mapper}}
+\index{tx\_layer\_mapper@{tx\_layer\_mapper}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{tx\_layer\_mapper()}{tx\_layer\_mapper()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ tx\+\_\+layer\+\_\+mapper (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$}]{v,  }\item[{int}]{Nstream,  }\item[{long int}]{Nsymbol }\end{DoxyParamCaption})}
+
+
+
+Mapeia os dados de um vetor para uma matriz de complexos. 
+
+Esta função mapeia os dados de um vetor de complexos em uma matriz de complexos, onde cada posição da matriz representa um stream de transmissão. A função aloca memória dinamicamente para a matriz de complexos e retorna um ponteiro para a matriz.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em v} & Ponteiro para o vetor de complexos contendo os dados a serem mapeados. \\
+\hline
+{\em Nstream} & O número de streams de transmissão. \\
+\hline
+{\em num\+Bytes} & O número de bytes contidos no vetor de complexos. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Um ponteiro para a matriz de complexos que contém os dados mapeados, ou NULL em caso de erro na alocação de memória. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_a7cb2e62a8dca68179c8f01f5a3dc6eb7}\label{pds__telecom_8c_a7cb2e62a8dca68179c8f01f5a3dc6eb7}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!tx\_precoder@{tx\_precoder}}
+\index{tx\_precoder@{tx\_precoder}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{tx\_precoder()}{tx\_precoder()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ tx\+\_\+precoder (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{V,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{x,  }\item[{int}]{Vlinhas,  }\item[{int}]{Vcolunas,  }\item[{int}]{xlinhas,  }\item[{int}]{xcolunas }\end{DoxyParamCaption})}
+
+
+
+Realiza a multiplicação dos símbolos das streams pela matriz V resultante da decomposição SVD. 
+
+Esta função utiliza a matriz V e multiplica pelo o vetor x que estamos transmitindo gerando o vetor precodificado xp .
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em V} & Matriz V que foi alocada na main. \\
+\hline
+{\em x} & Vetor x que está sendo transmitido \\
+\hline
+{\em Vlinhas} & O número de linhas da matriz V. \\
+\hline
+{\em Vcolunas} & O número de colunas da matriz V. \\
+\hline
+{\em xlinhas} & O número de linhas do vetor x. \\
+\hline
+{\em xcolunas} & O número de colunas do vetor x.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Retorna o vetor xp 
+\end{DoxyReturn}
+\mbox{\Hypertarget{pds__telecom_8c_a0e9ef869be44bc1f0821428f9fd46ce6}\label{pds__telecom_8c_a0e9ef869be44bc1f0821428f9fd46ce6}} 
+\index{pds\_telecom.c@{pds\_telecom.c}!tx\_qam\_mapper@{tx\_qam\_mapper}}
+\index{tx\_qam\_mapper@{tx\_qam\_mapper}!pds\_telecom.c@{pds\_telecom.c}}
+\doxysubsubsection{\texorpdfstring{tx\_qam\_mapper()}{tx\_qam\_mapper()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$ tx\+\_\+qam\+\_\+mapper (\begin{DoxyParamCaption}\item[{int $\ast$}]{s,  }\item[{long int}]{num\+QAM }\end{DoxyParamCaption})}
+
+
+
+Mapeia os dados binários em uma sequência de símbolos QAM. 
+
+Esta função mapeia os dados binários em uma sequência de símbolos QAM (Quadrature Amplitude Modulation) representados por números complexos. A função aloca memória dinamicamente para o vetor de complexos e retorna um ponteiro para o vetor.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em s} & Ponteiro para o array de inteiros contendo os dados binários. \\
+\hline
+{\em num\+Bytes} & O número de bytes contidos no array de inteiros. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Um ponteiro para o vetor de complexos que contém os símbolos QAM mapeados, ou NULL em caso de erro na alocação de memória. 
+\end{DoxyReturn}

@@ -15,3 +15,4 @@ Ao longo da disciplina foram propostas as seguintes tarefas:
 - [ ] Tarefa 5 - Implementação de Sistema de Comunicação Digital MIMO
 
 
+[Clique aqui para abrir o arquivo HTML](doc/html/index.html)
