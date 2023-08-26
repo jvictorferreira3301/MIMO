@@ -1,3 +1,5 @@
+link do site com a documentação feita pelo doxygen: https://jvictorferreira3301.github.io/Projeto-de-Engenharia-II/
+
 # Projeto de Engenharia II - Implementação de Sistema de Comunicação Digital MIMO
 
 Projeto feito para a disciplina de Projeto de Engenharia II ministrada no segundo semestre na Faculdade de Computação e Telecomunicações da Universidade Federal do Pará. O objetivo deste projeto é desenvolver uma biblioteca em C contendo funções que implementam operações matriciais. A biblioteca resultante será utilizada para implementar um sistema de Comunicação Digital MIMO (Multiple-in, Multiple-out) em Linguagem C. O sistema a ser implementado é o descrito na imagem abaixo:
