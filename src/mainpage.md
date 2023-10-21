@@ -12,7 +12,7 @@ Ao longo da disciplina foram propostas as seguintes tarefas:
 - [x] Tarefa 2 - Implementação de funções para álgebra matricial e operações com matrizes.	
 - [x] Tarefa 3 - Documentação do código com comentários e doxygen e automação com makefile.
 - [x] Tarefa 4 - Integração de cálculo de SVD na biblioteca matrizes a partir de biblioteca externa.
-- [x] Tarefa 5 - Implementação de Sistema de Comunicação Digital MIMO
+- [x] Tarefa 5 - Implementação de Sistema de Comunicação Digital MIMO.
 
 
 Para mais informações, visite https://github.com/jvictorferreira3301/Projeto-de-Engenharia-II.
