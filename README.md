@@ -17,40 +17,39 @@ Ao longo da disciplina foram propostas as seguintes tarefas:
 - [x] Tarefa 5 - Implementação de Sistema de Comunicação Digital MIMO
 
 ### 💻 Pré-requisitos
-Certifique-se de ter os seguintes requisitos instalados no seu sistema antes de utilizar o Makefile:
 
-* gcc (GNU Compiler Collection)
-* doxygen (opcional)
+- Biblioteca GSL (`gsl/gsl_linalg.h`): A Biblioteca Científica GNU (GSL) é uma biblioteca numérica para C e C++. Neste caso, está sendo usada a parte de álgebra linear.
 
-## Comandos disponíveis
-O Makefile oferece vários comandos para executar tarefas específicas. Abaixo estão os comandos disponíveis e suas descrições:
+- Makefile: utilitário que automatiza o processo de compilação de programas, gerenciando dependências entre arquivos fonte. 
 
-### Comandos de compilação
-- make: O comando padrão. Compila o código fonte e gera o executável aplicacao.
-- make clean: Remove todos os arquivos gerados durante a compilação, incluindo o diretório de objetos, executáveis de teste e arquivos de documentação.
+## Guia para o Makefile
+O Makefile neste projeto é usado para automatizar o processo de construção do projeto em C. Aqui está um guia de como usá-lo:
 
-### Comandos de execução
-* make teste: Executa o arquivo aplicacao gerado. Isso executará o código do arquivo pds_telecom.c.
-  ```sh
-  make teste
-  ```
+### Variáveis
 
-* make doc: Gera a documentação do código fonte usando o doxygen. Os arquivos de documentação são armazenados no diretório doc/html.
- ```sh
-  make doc
-  ```
-* make doxy: Abre a documentação gerada em um navegador padrão. Este comando é específico para sistemas Windows.
- ```sh
-  make doxy
-  ```
+O Makefile configura algumas variáveis para diretórios e flags usadas no processo de compilação:
+
+- `src`: O diretório contendo os arquivos de origem.
+- `matrizes`: O diretório contendo os arquivos de matrizes.
+- `obj`: O diretório onde os arquivos de objeto e o executável serão armazenados.
+- `out`: O nome do arquivo executável.
+- `w`: Flags de aviso para o compilador gcc.
+- `gsl`: Flags para linkar a biblioteca GSL (GNU Scientific Library).
+- `math`: Flag para linkar a biblioteca matemática.
+- `font`: O arquivo de origem principal do projeto.
+- `teste_arq`: Padrão de nome de arquivo para arquivos de teste.
+
+### Comandos
+
+- `all`: Este é o comando padrão. Ele cria o diretório `obj` (se não existir) e compila o projeto.
+- `$(out)`: Este comando compila o arquivo de origem principal e linka com a biblioteca GSL e a biblioteca matemática.
+- `$(obj)/matrizes.o`: Este comando compila o arquivo de matrizes e gera um arquivo de objeto.
+- `$(obj)`: Este comando cria o diretório `obj` se ele não existir.
+- `teste`: Este comando executa o arquivo executável.
+- `clean`: Este comando limpa o diretório `obj` e remove todos os arquivos de teste.
+
+Para usar o Makefile, você pode digitar `make <comando>` no terminal, substituindo `<comando>` pelo comando que você deseja executar. Por exemplo, `make all` para compilar o projeto, ou `make clean` para limpar o diretório de construção.
   
-### Dependências externas
-O Makefile usa as seguintes dependências externas:
-
-- lgslcblas: Biblioteca GSL para operações matemáticas.
-- lgsl: Biblioteca GSL para funções especiais.
-- lm: Biblioteca de matemática padrão.
-
 ### Estrutura do diretório
 O Makefile assume a seguinte estrutura de diretórios:
 
@@ -58,6 +57,4 @@ O Makefile assume a seguinte estrutura de diretórios:
 - matrizes: Subdiretório dentro de src que contém os arquivos relacionados às operações matriciais.
 - MIMO: Subdiretório dentro de src que contém os arquivos relacionados ao código pds_telecom.c que implementa o sistema de comunicação MIMO
 - build: Diretório onde os arquivos de objeto e executáveis serão gerados.
-- doc: Diretório que armazena os arquivos de documentação.
-- html: Subdiretório dentro de doc que armazena a documentação HTML gerada pelo doxygen.
 
