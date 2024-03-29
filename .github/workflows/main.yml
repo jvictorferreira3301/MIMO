@@ -16,6 +16,9 @@ jobs:
       - name: Install Doxygen  # Segundo passo: instalar Doxygen
         run: sudo apt-get install -y doxygen  # Executa o comando para instalar Doxygen
 
+      - name: Install Graphviz  # Novo passo: instalar Graphviz
+        run: sudo apt-get install -y graphviz  # Executa o comando para instalar Graphviz
+
       - name: Build Doxygen documentation  # Terceiro passo: gerar a documentação com Doxygen
         run: doxygen Doxyfile  # Executa o comando para gerar a documentação
 
