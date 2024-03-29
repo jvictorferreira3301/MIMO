@@ -1,1 +1,0 @@
-Pasta direcionada aos arquivos .o
