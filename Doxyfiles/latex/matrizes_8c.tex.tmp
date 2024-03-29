@@ -1,0 +1,368 @@
+\hypertarget{matrizes_8c}{}\doxysection{Referência ao ficheiro src/matrizes/matrizes.c}
+\label{matrizes_8c}\index{src/matrizes/matrizes.c@{src/matrizes/matrizes.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}matrizes.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+linalg.\+h$>$}\newline
+Diagrama de dependências de inclusão para matrizes.\+c\+:
+% FIG 0
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{matrizes_8c_a8214d171fd20751ee734ab0115eeba5f}{teste\+\_\+todos}} (void)
+\begin{DoxyCompactList}\small\item\em Executa cada função de teste uma vez. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_aff0ae830addccc15068fc29baec88651}{transposta}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_a8114594cf98abb2ef63638954f3a4385}{conjugada}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_a4c238ca1a9358c2ed01b2d855575d528}{hermitiana}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_adf520dbe06d6f70b80d8edd3b6a5e75f}{soma}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+a, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+b, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_a16ca849f070a336d14c19d77b66104df}{subtracao}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+a, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+b, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} \mbox{\hyperlink{matrizes_8c_ae9090c46635b64006efe6fa3ba3d0471}{produto\+\_\+interno}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$v1, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$v2, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_a3892c48c33910aef73bc59273c596b5b}{produto\+\_\+matricial}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+a, \mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx\+\_\+b, int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_a55b2aefd735321dabcb5669eb4d14ffc}{produto\+\_\+por\+\_\+escalar}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas, int k)
+\item 
+void \mbox{\hyperlink{matrizes_8c_a8aafafd8fe49c18928ecbfac41ac9bdf}{teste\+\_\+transposta}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8c_a9145a2aea3d50e356f71b63f8ed4a47c}{calc\+\_\+svd}} (\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$mtx, int linhas, int colunas)
+\item 
+void \mbox{\hyperlink{matrizes_8c_ad5852d275ebeccd1a78727dc9a0835ef}{teste\+\_\+conjugada}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8c_afa86f9df5766e512fb394079d56fd067}{teste\+\_\+hermitiana}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8c_a51484ff5677a5d204b8c09b292e56628}{teste\+\_\+soma}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8c_acb524111ea00a722483c75f54489939c}{teste\+\_\+subtracao}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8c_a617ab559ef89a9678d599998094170f2}{teste\+\_\+produto\+\_\+interno}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8c_a5fa152ec83e7ad257f2a8c4ca86be397}{teste\+\_\+produto\+\_\+matricial}} (void)
+\item 
+void \mbox{\hyperlink{matrizes_8c_ac55611891ace3a8f1ee1bd1061ac101d}{print\+Complex}} (\mbox{\hyperlink{structcomplexo}{complexo}} c)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$ \mbox{\hyperlink{matrizes_8c_aa90aee15388876e1b634c4ad52ac00a6}{allocate\+Complex\+Matrix}} (int linhas, int colunas)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} \mbox{\hyperlink{matrizes_8c_a05b04543866b53f506c523cc2eb861fa}{soma\+\_\+complexo}} (\mbox{\hyperlink{structcomplexo}{complexo}} c1, \mbox{\hyperlink{structcomplexo}{complexo}} c2)
+\item 
+\mbox{\Hypertarget{matrizes_8c_a885bf964a8dede3efab9fb5280167645}\label{matrizes_8c_a885bf964a8dede3efab9fb5280167645}} 
+void {\bfseries teste\+\_\+calc\+\_\+svd} (void)
+\item 
+\mbox{\hyperlink{structcomplexo}{complexo}} \mbox{\hyperlink{matrizes_8c_af4484a42d3c830bc933a292cdfea2d4a}{multcomp}} (\mbox{\hyperlink{structcomplexo}{complexo}} c1, \mbox{\hyperlink{structcomplexo}{complexo}} c2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{matrizes_8c_aa90aee15388876e1b634c4ad52ac00a6}\label{matrizes_8c_aa90aee15388876e1b634c4ad52ac00a6}} 
+\index{matrizes.c@{matrizes.c}!allocateComplexMatrix@{allocateComplexMatrix}}
+\index{allocateComplexMatrix@{allocateComplexMatrix}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{allocateComplexMatrix()}{allocateComplexMatrix()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ allocate\+Complex\+Matrix (\begin{DoxyParamCaption}\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+Função\+: Alocação de memória para uma matriz complexa. \mbox{\Hypertarget{matrizes_8c_a9145a2aea3d50e356f71b63f8ed4a47c}\label{matrizes_8c_a9145a2aea3d50e356f71b63f8ed4a47c}} 
+\index{matrizes.c@{matrizes.c}!calc\_svd@{calc\_svd}}
+\index{calc\_svd@{calc\_svd}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{calc\_svd()}{calc\_svd()}}
+{\footnotesize\ttfamily void calc\+\_\+svd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md12}{}\doxyparagraph{Função Calculo do SVD\+:}\label{matrizes_8h_autotoc_md12}
+A função {\ttfamily Calculo SVD} implementa o operador SVD.
+\begin{DoxyItemize}
+\item A função {\ttfamily Calculo SVD} recebe três parâmetros\+: {\ttfamily mtx} (uma matriz de números complexos),{\ttfamily linhas} (número de linhas da matriz), {\ttfamily colunas} (o número de colunas da matriz).
+\item O SVD foi implementado somente para matrizes reais, portanto, antes de iniciar o calculo do SVD, a função testa se há parte imaginaria, caso houver um aviso aparece na tela informando que não há suporte para matrizes complexas.
+\item Não há retorno na função, ela imprime na tela o valor do SVD da matriz {\ttfamily mtx}. 
+\begin{DoxyParams}[1]{Parâmetros}
+\mbox{\texttt{ in}}  & {\em mtx,linhas,colunas} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\mbox{\Hypertarget{matrizes_8c_a8114594cf98abb2ef63638954f3a4385}\label{matrizes_8c_a8114594cf98abb2ef63638954f3a4385}} 
+\index{matrizes.c@{matrizes.c}!conjugada@{conjugada}}
+\index{conjugada@{conjugada}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{conjugada()}{conjugada()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ conjugada (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md4}{}\doxyparagraph{Função Conjugada\+:}\label{matrizes_8h_autotoc_md4}
+A função {\ttfamily conjugada} implementa a operação de matriz conjugada. Essa operação consiste em inverter o sinal da parte imaginária de cada elemento da matriz de entrada.
+\begin{DoxyItemize}
+\item A função {\ttfamily conjugada} recebe três parâmetros\+: {\ttfamily mtx} (uma matriz de números complexos), {\ttfamily linhas} (o número de linhas da matriz) e {\ttfamily colunas} (o número de colunas da matriz).
+\item Ela declara uma variável do tipo {\ttfamily complexo$\ast$$\ast$} chamada {\ttfamily matrix}, que será usada para armazenar a matriz conjugada.
+\item Em seguida, a função aloca memória para a matriz {\ttfamily matrix} usando a função {\ttfamily allocate\+Complex\+Matrix}. A matriz {\ttfamily matrix} tem o mesmo tamanho da matriz de entrada {\ttfamily mtx}.
+\item A função usa dois loops aninhados para percorrer cada elemento da matriz {\ttfamily mtx}. O loop externo itera pelas linhas e o loop interno itera pelas colunas.
+\item Dentro do loop, a função atribui o valor real do elemento da matriz de entrada {\ttfamily mtx\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.real} ao elemento correspondente da matriz {\ttfamily matrix\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.real}, preservando o mesmo valor.
+\item A função inverte o sinal da parte imaginária do elemento da matriz de entrada, multiplicando-\/a por -\/1\+: {\ttfamily matrix\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.img = -\/mtx\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.img}.
+\item Depois que todos os elementos da matriz {\ttfamily mtx} são processados, a função retorna a matriz {\ttfamily matrix}, que contém a matriz conjugada resultante. 
+\begin{DoxyParams}[1]{Parâmetros}
+\mbox{\texttt{ in}}  & {\em mtx,linhas,colunas} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em mtx\+\_\+conjugada} & \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\mbox{\Hypertarget{matrizes_8c_a4c238ca1a9358c2ed01b2d855575d528}\label{matrizes_8c_a4c238ca1a9358c2ed01b2d855575d528}} 
+\index{matrizes.c@{matrizes.c}!hermitiana@{hermitiana}}
+\index{hermitiana@{hermitiana}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{hermitiana()}{hermitiana()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ hermitiana (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md5}{}\doxyparagraph{Função Hermitiana\+:}\label{matrizes_8h_autotoc_md5}
+A função {\ttfamily hermitiana} implementa a operação de matriz hermitiana. Essa operação consiste em obter a matriz conjugada da matriz de entrada e, em seguida, calcular a transposta dessa matriz conjugada. A matriz resultante é uma matriz hermitiana. ~\newline
+
+\begin{DoxyItemize}
+\item A função hermitiana recebe três parâmetros\+: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz) e colunas (o número de colunas da matriz). Ela declara duas variáveis do tipo complexo$\ast$$\ast$\+: matriz e matriz\+\_\+h.
+\item Em seguida, a função aloca memória para duas matrizes usando a função allocate\+Complex\+Matrix. A primeira matriz (matriz) tem o mesmo tamanho da matriz de entrada, enquanto a segunda matriz (matriz\+\_\+h), também tem o mesmo tamanho.
+\item A função chama a função conjugada passando a matriz de entrada mtx, linhas e colunas. Essa função retorna a matriz conjugada da matriz de entrada.
+\item O resultado da função conjugada é atribuído à matriz matriz.
+\item Em seguida, a função chama a função transposta passando a matriz matriz, linhas e colunas. Essa função retorna a transposta da matriz passada como argumento. O resultado da função transposta é atribuído à matriz matriz\+\_\+h.
+\item Por fim, a função retorna a matriz matriz\+\_\+h, que é a matriz hermitiana resultante. 
+\begin{DoxyParams}[1]{Parâmetros}
+\mbox{\texttt{ in}}  & {\em mtx,linhas,colunas} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em matriz\+\_\+h.} & \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\mbox{\Hypertarget{matrizes_8c_af4484a42d3c830bc933a292cdfea2d4a}\label{matrizes_8c_af4484a42d3c830bc933a292cdfea2d4a}} 
+\index{matrizes.c@{matrizes.c}!multcomp@{multcomp}}
+\index{multcomp@{multcomp}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{multcomp()}{multcomp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}} multcomp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}}}]{c1,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}}}]{c2 }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md14}{}\doxyparagraph{Função Multicomp\+:}\label{matrizes_8h_autotoc_md14}
+A função {\ttfamily multcomp} recebe dois números complexos {\ttfamily c1} e {\ttfamily c2} como parâmetros e retorna o resultado da multiplicação desses dois números complexos.
+\begin{DoxyItemize}
+\item Dentro da função, uma variável chamada {\ttfamily multiplicado} do tipo {\ttfamily complexo} é declarada para armazenar o resultado da multiplicação.
+\item A parte real do número resultante é calculada pela fórmula {\ttfamily (c1.\+real $\ast$ c2.\+real) -\/ (c1.\+img $\ast$ c2.\+img)}, onde {\ttfamily c1.\+real} e {\ttfamily c2.\+real} representam as partes reais dos números complexos {\ttfamily c1} e {\ttfamily c2}, e {\ttfamily c1.\+img} e {\ttfamily c2.\+img} representam as partes imaginárias dos números complexos {\ttfamily c1} e {\ttfamily c2}.
+\item Da mesma forma, a parte imaginária do número resultante é calculada pela fórmula {\ttfamily (c1.\+real $\ast$ c2.\+img) + (c1.\+img $\ast$ c2.\+real)}.
+\item Por fim, o número complexo {\ttfamily multiplicado}, contendo a parte real e a parte imaginária calculadas, é retornado pela função como resultado da multiplicação dos números complexos {\ttfamily c1} e {\ttfamily c2}. 
+\begin{DoxyParams}[1]{Parâmetros}
+\mbox{\texttt{ in}}  & {\em c1,c2} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em multiplicado} & \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\mbox{\Hypertarget{matrizes_8c_ac55611891ace3a8f1ee1bd1061ac101d}\label{matrizes_8c_ac55611891ace3a8f1ee1bd1061ac101d}} 
+\index{matrizes.c@{matrizes.c}!printComplex@{printComplex}}
+\index{printComplex@{printComplex}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{printComplex()}{printComplex()}}
+{\footnotesize\ttfamily void print\+Complex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}}}]{c }\end{DoxyParamCaption})}
+
+Impressao de um número complexo \mbox{\Hypertarget{matrizes_8c_ae9090c46635b64006efe6fa3ba3d0471}\label{matrizes_8c_ae9090c46635b64006efe6fa3ba3d0471}} 
+\index{matrizes.c@{matrizes.c}!produto\_interno@{produto\_interno}}
+\index{produto\_interno@{produto\_interno}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{produto\_interno()}{produto\_interno()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}} produto\+\_\+interno (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{v1,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{v2,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md8}{}\doxyparagraph{Função Produto Interno\+:}\label{matrizes_8h_autotoc_md8}
+A função {\ttfamily produto interno} implementa a operação de produto de dois vetores complexos.
+\begin{DoxyItemize}
+\item A função {\ttfamily produto interno} recebe quatro parâmetros\+: {\ttfamily v1} (um vetor \char`\"{}v1\char`\"{} de números complexos),{\ttfamily v2} (um vetor \char`\"{}v2\char`\"{} de números complexos), {\ttfamily linhas} (o número de linhas dos vetores) e {\ttfamily colunas} (o número de colunas dos vetores).
+\item Ela declara uma variável do tipo {\ttfamily complexo} chamada {\ttfamily resultado} com valores iniciais (0,0), que será usada para armazenar o resulado do produto interno.
+\item Em seguida, a função verifica se o número de colunas seja igual a 1. Caso contrário, exibi-\/se uma mensagem de erro que o produto não pode ser realizado pela a incompatibilidade de vetores, a função encerra com a função \textquotesingle{}exit(1)\textquotesingle{}
+\item A função após a verificação inicia um loop que percorre as linhas dos vetores, no loop é feita a multiplicação de \textquotesingle{}v1\mbox{[}l\mbox{]}\mbox{[}0\mbox{]}\textquotesingle{} e \textquotesingle{}v2\mbox{[}l\mbox{]}\mbox{[}0\mbox{]}\textquotesingle{} por meio da função \textquotesingle{}multcomp\textquotesingle{} que é armazenada na variável \textquotesingle{}temp\textquotesingle{}.
+\item Após a multiplicação, a variável \textquotesingle{}temp\textquotesingle{} é somada à variável \textquotesingle{}resultado\textquotesingle{} usando a função \textquotesingle{}multcomp\textquotesingle{}. 
+\begin{DoxyParams}[1]{Parâmetros}
+\mbox{\texttt{ in}}  & {\em v1,v2,linhas,colunas} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em resultado} & \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\mbox{\Hypertarget{matrizes_8c_a3892c48c33910aef73bc59273c596b5b}\label{matrizes_8c_a3892c48c33910aef73bc59273c596b5b}} 
+\index{matrizes.c@{matrizes.c}!produto\_matricial@{produto\_matricial}}
+\index{produto\_matricial@{produto\_matricial}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{produto\_matricial()}{produto\_matricial()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ produto\+\_\+matricial (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx\+\_\+a,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx\+\_\+b,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md9}{}\doxyparagraph{Função Produto Matricial\+:}\label{matrizes_8h_autotoc_md9}
+A função {\ttfamily produto matricial} implementa a operação de produto de duas matrizes complexos.
+\begin{DoxyItemize}
+\item A função {\ttfamily produto matricial} recebe quatro parâmetros\+: {\ttfamily mtx\+\_\+a} (uma matriz \char`\"{}a\char`\"{} de números complexos),{\ttfamily mtx\+\_\+b} (uma matriz \char`\"{}b\char`\"{} de números complexos), {\ttfamily linhas} (o número de linhas das matrizes) e {\ttfamily colunas} (o número de colunas das matrizes).
+\item Ela declara uma variável do tipo {\ttfamily complexo} chamada {\ttfamily matriz}, que será usada para armazenar o resulado do produto matricial.
+\item Em seguida, a função valida a operação verificando se o número de colunas da matriz \textquotesingle{}a\textquotesingle{} é igual ao número de linhas da matriz \textquotesingle{}b\textquotesingle{} seja igual. Caso não, exibi-\/se uma mensagem de erro que o produto não pode ser realizado pela a incompatibilidade de matrizes e encerra o programa com a função \textquotesingle{}exit(1)\textquotesingle{}.
+\item A função após a verificação inicia um loop para percorrer as células da matriz resultante, para cada célula um acumulador é iniciado com o valor zero.
+\item Dentro do loop, é realizado outro loop para calcular o somatório do produto da matriz a e matriz b, tal operação é feita a partir da função \textquotesingle{}multcomp\textquotesingle{}.
+\item Em seguida a função \textquotesingle{}soma\+\_\+complexo\textquotesingle{} é chamada para adiconar o resultado ao acumulador. 
+\begin{DoxyParams}[1]{Parâmetros}
+\mbox{\texttt{ in}}  & {\em mtx\+\_\+a,mtx\+\_\+b,linhas,colunas} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em matriz} & \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\mbox{\Hypertarget{matrizes_8c_a55b2aefd735321dabcb5669eb4d14ffc}\label{matrizes_8c_a55b2aefd735321dabcb5669eb4d14ffc}} 
+\index{matrizes.c@{matrizes.c}!produto\_por\_escalar@{produto\_por\_escalar}}
+\index{produto\_por\_escalar@{produto\_por\_escalar}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{produto\_por\_escalar()}{produto\_por\_escalar()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ produto\+\_\+por\+\_\+escalar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas,  }\item[{int}]{colunas,  }\item[{int}]{k }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md10}{}\doxyparagraph{Função Produto por Escalar\+:}\label{matrizes_8h_autotoc_md10}
+A função {\ttfamily produto por escalar} implementa a operação de matriz por um escalar qualquer.
+\begin{DoxyItemize}
+\item A função produto por escalar recebe quatro parâmetros\+: mtx (uma matriz de números complexos), linhas (o número de linhas da matriz), colunas (o número de colunas da matriz) e k(número inteiro escalar). Ela declara uma variável do tipo complexo$\ast$$\ast$\+: matriz.
+\item Em seguida, a função aloca memória para a matriz usando a função allocate\+Complex\+Matrix.
+\item A função usa dois loops aninhados para percorrer cada elemento da matriz {\ttfamily mtx}. O loop externo itera pelas linhas e o loop interno itera pelas colunas.
+\item Dentro do loop, a função atribui o valor real do elemento da matriz de entrada {\ttfamily mtx\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.real}, ao elemento correspondente da matriz {\ttfamily matriz\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.real} que é multiplicado pelo o inteiro \textquotesingle{}k\textquotesingle{}.
+\item A função atribui também de maneira análoga, o valor da multplicação do escalar pela a parte imaginária do elemento das matriz de entrada {\ttfamily mtx\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.img} , ao elemento correspondente da matriz {\ttfamily matriz\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.img}. ~\newline
+
+\item Depois que todos os elementos das matriz{\ttfamily mtx} são processados, a função retorna a matriz \`{}matriz
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parâmetros}
+\mbox{\texttt{ in}}  & {\em mtx,linhas,colunas,k} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em matriz.} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{matrizes_8c_adf520dbe06d6f70b80d8edd3b6a5e75f}\label{matrizes_8c_adf520dbe06d6f70b80d8edd3b6a5e75f}} 
+\index{matrizes.c@{matrizes.c}!soma@{soma}}
+\index{soma@{soma}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{soma()}{soma()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ soma (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx\+\_\+a,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx\+\_\+b,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md6}{}\doxyparagraph{Função Soma\+:}\label{matrizes_8h_autotoc_md6}
+A função {\ttfamily soma} implementa a operação de soma de matriz(es). Essa operação consiste em somar duas ou mais matrizes, entretanto no exemplo a seguir só com duas matrizes.
+\begin{DoxyItemize}
+\item A função {\ttfamily soma} recebe quatro parâmetros\+: {\ttfamily mtx\+\_\+a} (uma matriz \char`\"{}a\char`\"{} de números complexos),{\ttfamily mtx\+\_\+b} (uma matriz \char`\"{}b\char`\"{} de números complexos), {\ttfamily linhas} (o número de linhas da matriz) e {\ttfamily colunas} (o número de colunas da matriz).
+\item Ela declara uma variável do tipo {\ttfamily complexo$\ast$$\ast$} chamada {\ttfamily matriz}, que será usada para armazenar a matriz da operação de soma.
+\item Em seguida, a função aloca memória para a matriz {\ttfamily matriz} usando a função {\ttfamily allocate\+Complex\+Matrix}. A matriz {\ttfamily matriz} tem o mesmo tamanho das matrizes \char`\"{}a\char`\"{} e \char`\"{}b\char`\"{}.
+\item A função usa dois loops aninhados para percorrer cada elemento da matriz {\ttfamily mtx}. O loop externo itera pelas linhas e o loop interno itera pelas colunas.
+\item Dentro do loop, a função atribui o valor real da soma dos elementos da matriz de entrada {\ttfamily mtx\+\_\+a\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.real} e {\ttfamily mtx\+\_\+b\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.real}, ao elemento correspondente da matriz {\ttfamily matriz\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.real}.
+\item A função atribui também de maneira análoga a soma do valor da parte imaginária dos elementos das matrizes de entrada {\ttfamily mtx\+\_\+a\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.img} e {\ttfamily mtx\+\_\+b\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.real}, ao elemento correspondente da matriz {\ttfamily matriz\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.img}.
+\item Depois que todos os elementos das matrizes {\ttfamily mtx\+\_\+a} e \textquotesingle{}mtx\+\_\+b\textquotesingle{} são processados, a função retorna a matriz {\ttfamily matriz}, que contém a matriz da função soma. 
+\begin{DoxyParams}[1]{Parâmetros}
+\mbox{\texttt{ in}}  & {\em mtx\+\_\+a,mtx\+\_\+b,linhas,colunas} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em matriz} & \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\mbox{\Hypertarget{matrizes_8c_a05b04543866b53f506c523cc2eb861fa}\label{matrizes_8c_a05b04543866b53f506c523cc2eb861fa}} 
+\index{matrizes.c@{matrizes.c}!soma\_complexo@{soma\_complexo}}
+\index{soma\_complexo@{soma\_complexo}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{soma\_complexo()}{soma\_complexo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}} soma\+\_\+complexo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}}}]{c1,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}}}]{c2 }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md13}{}\doxyparagraph{Função Soma Complexo\+:}\label{matrizes_8h_autotoc_md13}
+A função {\ttfamily soma\+\_\+complexo} recebe dois números complexos {\ttfamily c1} e {\ttfamily c2} como parâmetros e retorna o resultado da soma desses dois números complexos.
+\begin{DoxyItemize}
+\item Dentro da função, uma variável chamada {\ttfamily soma} do tipo {\ttfamily complexo} é declarada para armazenar o resultado da soma.
+\item A parte real do número resultante é calculada somando as partes reais dos números complexos {\ttfamily c1} e {\ttfamily c2}, ou seja, {\ttfamily soma.\+real = c1.\+real + c2.\+real}.
+\item Da mesma forma, a parte imaginária do número resultante é calculada somando as partes imaginárias dos números complexos {\ttfamily c1} e {\ttfamily c2}, ou seja, {\ttfamily soma.\+img = c1.\+img + c2.\+img}.
+\item Por fim, o número complexo {\ttfamily soma}, contendo a parte real e a parte imaginária calculadas, é retornado pela função como resultado da soma dos números complexos {\ttfamily c1} e {\ttfamily c2}. 
+\begin{DoxyParams}[1]{Parâmetros}
+\mbox{\texttt{ in}}  & {\em c1,c2} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em resultado} & \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\mbox{\Hypertarget{matrizes_8c_a16ca849f070a336d14c19d77b66104df}\label{matrizes_8c_a16ca849f070a336d14c19d77b66104df}} 
+\index{matrizes.c@{matrizes.c}!subtracao@{subtracao}}
+\index{subtracao@{subtracao}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{subtracao()}{subtracao()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ subtracao (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx\+\_\+a,  }\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx\+\_\+b,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md7}{}\doxyparagraph{Função Subtração\+:}\label{matrizes_8h_autotoc_md7}
+A função {\ttfamily subtração} implementa a operação de soma de matriz(es). Essa operação consiste em subtrair duas ou mais matrizes, entretanto no exemplo a seguir como no acima só com duas matrizes.
+\begin{DoxyItemize}
+\item A função {\ttfamily subtração} recebe quatro parâmetros\+: {\ttfamily mtx\+\_\+a} (uma matriz \char`\"{}a\char`\"{} de números complexos),{\ttfamily mtx\+\_\+b} (uma matriz \char`\"{}b\char`\"{} de números complexos), {\ttfamily linhas} (o número de linhas da matriz) e {\ttfamily colunas} (o número de colunas da matriz).
+\item Ela declara uma variável do tipo {\ttfamily complexo$\ast$$\ast$} chamada {\ttfamily matriz}, que será usada para armazenar a matriz da operação de subtração.
+\item Em seguida, a função aloca memória para a matriz {\ttfamily matriz} usando a função {\ttfamily allocate\+Complex\+Matrix}. A matriz {\ttfamily matriz} tem o mesmo tamanho das matrizes \char`\"{}a\char`\"{} e \char`\"{}b\char`\"{}.
+\item A função usa dois loops aninhados para percorrer cada elemento da matriz {\ttfamily mtx}. O loop externo itera pelas linhas e o loop interno itera pelas colunas.
+\item Dentro do loop, a função atribui o valor real da subtração dos elementos da matriz de entrada {\ttfamily mtx\+\_\+a\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.real} e {\ttfamily mtx\+\_\+b\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.real}, ao elemento correspondente da matriz {\ttfamily matriz\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.real}.
+\item A função atribui também de maneira análoga a subtração do valor da parte imaginária dos elementos das matrizes de entrada {\ttfamily mtx\+\_\+a\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.img} e {\ttfamily mtx\+\_\+b\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.real}, ao elemento correspondente da matriz {\ttfamily matriz\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.img}. ~\newline
+
+\item Depois que todos os elementos das matrizes {\ttfamily mtx\+\_\+a} e \textquotesingle{}mtx\+\_\+b\textquotesingle{} são processados, a função retorna a matriz {\ttfamily matriz}, que contém a matriz da função subtração. 
+\begin{DoxyParams}[1]{Parâmetros}
+\mbox{\texttt{ in}}  & {\em mtx\+\_\+a,mtx\+\_\+b,linhas,colunas} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em matriz} & \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\mbox{\Hypertarget{matrizes_8c_ad5852d275ebeccd1a78727dc9a0835ef}\label{matrizes_8c_ad5852d275ebeccd1a78727dc9a0835ef}} 
+\index{matrizes.c@{matrizes.c}!teste\_conjugada@{teste\_conjugada}}
+\index{teste\_conjugada@{teste\_conjugada}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{teste\_conjugada()}{teste\_conjugada()}}
+{\footnotesize\ttfamily void teste\+\_\+conjugada (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Teste da Função conjugada \mbox{\Hypertarget{matrizes_8c_afa86f9df5766e512fb394079d56fd067}\label{matrizes_8c_afa86f9df5766e512fb394079d56fd067}} 
+\index{matrizes.c@{matrizes.c}!teste\_hermitiana@{teste\_hermitiana}}
+\index{teste\_hermitiana@{teste\_hermitiana}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{teste\_hermitiana()}{teste\_hermitiana()}}
+{\footnotesize\ttfamily void teste\+\_\+hermitiana (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Teste da função Hermitiana. \mbox{\Hypertarget{matrizes_8c_a617ab559ef89a9678d599998094170f2}\label{matrizes_8c_a617ab559ef89a9678d599998094170f2}} 
+\index{matrizes.c@{matrizes.c}!teste\_produto\_interno@{teste\_produto\_interno}}
+\index{teste\_produto\_interno@{teste\_produto\_interno}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{teste\_produto\_interno()}{teste\_produto\_interno()}}
+{\footnotesize\ttfamily void teste\+\_\+produto\+\_\+interno (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Teste da Função Produto Interno \mbox{\Hypertarget{matrizes_8c_a5fa152ec83e7ad257f2a8c4ca86be397}\label{matrizes_8c_a5fa152ec83e7ad257f2a8c4ca86be397}} 
+\index{matrizes.c@{matrizes.c}!teste\_produto\_matricial@{teste\_produto\_matricial}}
+\index{teste\_produto\_matricial@{teste\_produto\_matricial}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{teste\_produto\_matricial()}{teste\_produto\_matricial()}}
+{\footnotesize\ttfamily void teste\+\_\+produto\+\_\+matricial (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Teste da Função Produto Matricial \mbox{\Hypertarget{matrizes_8c_a51484ff5677a5d204b8c09b292e56628}\label{matrizes_8c_a51484ff5677a5d204b8c09b292e56628}} 
+\index{matrizes.c@{matrizes.c}!teste\_soma@{teste\_soma}}
+\index{teste\_soma@{teste\_soma}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{teste\_soma()}{teste\_soma()}}
+{\footnotesize\ttfamily void teste\+\_\+soma (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Teste da Função Soma \mbox{\Hypertarget{matrizes_8c_acb524111ea00a722483c75f54489939c}\label{matrizes_8c_acb524111ea00a722483c75f54489939c}} 
+\index{matrizes.c@{matrizes.c}!teste\_subtracao@{teste\_subtracao}}
+\index{teste\_subtracao@{teste\_subtracao}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{teste\_subtracao()}{teste\_subtracao()}}
+{\footnotesize\ttfamily void teste\+\_\+subtracao (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Teste da Função Subtração \mbox{\Hypertarget{matrizes_8c_a8214d171fd20751ee734ab0115eeba5f}\label{matrizes_8c_a8214d171fd20751ee734ab0115eeba5f}} 
+\index{matrizes.c@{matrizes.c}!teste\_todos@{teste\_todos}}
+\index{teste\_todos@{teste\_todos}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{teste\_todos()}{teste\_todos()}}
+{\footnotesize\ttfamily void teste\+\_\+todos (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Executa cada função de teste uma vez. 
+
+Esta função realiza o teste de todas as funções implementadas na biblioteca Matrizes. Cada teste é realizado para garantir o correto funcionamento das funções. \mbox{\Hypertarget{matrizes_8c_a8aafafd8fe49c18928ecbfac41ac9bdf}\label{matrizes_8c_a8aafafd8fe49c18928ecbfac41ac9bdf}} 
+\index{matrizes.c@{matrizes.c}!teste\_transposta@{teste\_transposta}}
+\index{teste\_transposta@{teste\_transposta}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{teste\_transposta()}{teste\_transposta()}}
+{\footnotesize\ttfamily void teste\+\_\+transposta (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md11}{}\doxyparagraph{Teste da função Transposta.}\label{matrizes_8h_autotoc_md11}
+\mbox{\Hypertarget{matrizes_8c_aff0ae830addccc15068fc29baec88651}\label{matrizes_8c_aff0ae830addccc15068fc29baec88651}} 
+\index{matrizes.c@{matrizes.c}!transposta@{transposta}}
+\index{transposta@{transposta}!matrizes.c@{matrizes.c}}
+\doxysubsubsection{\texorpdfstring{transposta()}{transposta()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomplexo}{complexo}}$\ast$$\ast$ transposta (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcomplexo}{complexo}} $\ast$$\ast$}]{mtx,  }\item[{int}]{linhas,  }\item[{int}]{colunas }\end{DoxyParamCaption})}
+
+\hypertarget{matrizes_8h_autotoc_md3}{}\doxyparagraph{Função Transposta\+:}\label{matrizes_8h_autotoc_md3}
+A função {\ttfamily transposta} implementa a operação de transposição de matriz. Essa operação consiste em trocar as linhas pelas colunas da matriz de entrada.
+\begin{DoxyItemize}
+\item A função {\ttfamily transposta} recebe três parâmetros\+: {\ttfamily mtx} (uma matriz de números complexos), {\ttfamily linhas} (o número de linhas da matriz) e {\ttfamily colunas} (o número de colunas da matriz).
+\item Ela declara uma variável do tipo {\ttfamily complexo$\ast$$\ast$} chamada {\ttfamily matriz}, que será usada para armazenar a matriz transposta.
+\item Em seguida, a função aloca memória para a matriz {\ttfamily matriz} usando a função {\ttfamily allocate\+Complex\+Matrix}. A matriz {\ttfamily matriz} tem o tamanho {\ttfamily colunas x linhas}, ou seja, o número de colunas da matriz de entrada se torna o número de linhas da matriz transposta, e o número de linhas da matriz de entrada se torna o número de colunas da matriz transposta.
+\item A função usa dois loops aninhados para percorrer cada elemento da matriz {\ttfamily mtx}. O loop externo itera pelas linhas e o loop interno itera pelas colunas.
+\item Dentro do loop, a função atribui o valor real do elemento da matriz de entrada {\ttfamily mtx\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.real} ao elemento correspondente da matriz {\ttfamily matriz\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.real}.
+\item A função atribui também o valor da parte imaginária do elemento da matriz de entrada {\ttfamily mtx\mbox{[}c\mbox{]}\mbox{[}l\mbox{]}.img} ao elemento correspondente da matriz {\ttfamily matriz\mbox{[}l\mbox{]}\mbox{[}c\mbox{]}.img}.
+\item Depois que todos os elementos da matriz {\ttfamily mtx} são processados, a função retorna a matriz {\ttfamily matriz}, que contém a matriz transposta resultante. 
+\begin{DoxyParams}[1]{Parâmetros}
+\mbox{\texttt{ in}}  & {\em mtx,linhas,colunas} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em mtx\+\_\+transposta} & \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}
