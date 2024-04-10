@@ -21,7 +21,9 @@ jobs:
 
       - name: Change directory and clone repository  # Novo passo: mudar de diretório e clonar o repositório
         run: |
-          cd /Doxyfiles/tema
+          cd /Doxyfiles
+          mkdir tema
+          cd tema
           git clone https://github.com/jothepro/doxygen-awesome-css
 
       - name: Build Doxygen documentation  # Quarto passo: gerar a documentação com Doxygen
