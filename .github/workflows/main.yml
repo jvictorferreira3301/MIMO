@@ -19,14 +19,17 @@ jobs:
       - name: Install Graphviz  # Terceiro passo: instalar Graphviz
         run: sudo apt-get install -y graphviz  # Executa o comando para instalar Graphviz
 
-      - name: Build Doxygen documentation  # Novo passo: mudar de diretório e clonar o repositório
+      - name: Clone Doxygen Awesome theme  # Quarto passo: clonar o tema Doxygen Awesome
+        run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome
+
+      - name: Build Doxygen documentation  # Quinto passo: gerar documentação Doxygen
         run: |
-          cd Doxyfiles
-          git clone https://github.com/jothepro/doxygen-awesome-css
-          cd ..
-          doxygen Doxyfile
+          doxygen -u Doxyfile  # Atualiza o arquivo de configuração Doxygen
+          echo "GENERATE_HTML = YES" >> Doxyfile  # Habilita a geração de HTML
+          echo "HTML_EXTRA_STYLESHEET = doxygen-awesome/doxygen-awesome.css" >> Doxyfile  # Especifica o caminho para o tema Doxygen Awesome
+          doxygen Doxyfile  # Gera a documentação com as configurações atualizadas
           
-      - name: Deploy to GitHub Pages  # Quinto passo: implantar a documentação no GitHub Pages
+      - name: Deploy to GitHub Pages  # Sexto passo: implantar a documentação no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3  # Usa a ação 'actions-gh-pages' na versão 3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # Usa o token do GitHub para autenticação
