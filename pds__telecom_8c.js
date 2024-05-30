@@ -1,10 +1,14 @@
 var pds__telecom_8c =
 [
-    [ "channel_gen", "pds__telecom_8c.html#ad3ef00a466212849dc5175bafdf784a1", null ],
-    [ "channel_rd_gen", "pds__telecom_8c.html#ab2b3c8e848a59d549a6b741993d38897", null ],
+    [ "calculate_capacity", "pds__telecom_8c.html#a6f66531e71ad9182d91d808b3982dc7a", null ],
+    [ "calculate_EVM", "pds__telecom_8c.html#a7cec802e673a884207ba799d1d0a98b7", null ],
+    [ "calculate_SNR", "pds__telecom_8c.html#a493369f2202b00e5400d4bcb9f8eb6d9", null ],
+    [ "channel_gen", "pds__telecom_8c.html#adb4d08c007fd5c91867f7bf5452aad48", null ],
+    [ "channel_rd_gen", "pds__telecom_8c.html#a44aedaa1c50fcc2c6c88f232cff45e85", null ],
     [ "channel_transmission", "pds__telecom_8c.html#a253ab9e633bedd7bedcbf54813bdbae7", null ],
     [ "expandMatrix", "pds__telecom_8c.html#a7b6aefb69421016701b4bf643a6fe61e", null ],
-    [ "gera_estatistica", "pds__telecom_8c.html#a86b7986db8bfdf925e8c6e14c1b4e02a", null ],
+    [ "gera_estatistica", "pds__telecom_8c.html#a6c41853afda4e3d62635bc93412cae7e", null ],
+    [ "getUserInput", "pds__telecom_8c.html#ac83844d4b0d2fd01030ef22aee1f07e9", null ],
     [ "is_running_in_wsl", "pds__telecom_8c.html#a6fc483247769776ab74af61caf8b616f", null ],
     [ "is_wsl_there", "pds__telecom_8c.html#a75acb5f2a6b6c148958a55c275cbdb11", null ],
     [ "main", "pds__telecom_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hermitiana_55',['hermitiana',['../matrizes_8c.html#a4c238ca1a9358c2ed01b2d855575d528',1,'matrizes.c']]]
+  ['hermitiana_55',['hermitiana',['../matrix_8c.html#a4c238ca1a9358c2ed01b2d855575d528',1,'matrix.c']]]
 ];
