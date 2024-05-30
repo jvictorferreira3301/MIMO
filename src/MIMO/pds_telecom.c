@@ -2,14 +2,73 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../matrizes/matrizes.h"
+#include "../matrix/matrix.h"
 #include <gsl/gsl_linalg.h>
+#include <gsl/gsl_rng.h>
+#include <gsl/gsl_randist.h>
 #include <time.h>
 #include <math.h>
 #include <string.h>
-#include <libgen.h> // para usar dirame()
-#include <stdbool.h> // para usar o tipo bool
+#include <libgen.h> 
+#include <stdbool.h> 
+#include <unistd.h>
 
+double calculate_capacity(double snr_dB) {
+    double snr = pow(10,snr_dB/10);
+    return log2(1 + snr);  // Capacity in bits per symbol
+}
+
+double calculate_EVM(complexo **original_signal, complexo **received_signal, int Nstream, long int Nsymbol) {
+    double error_power = 0.0;
+    double signal_power = 0.0;
+
+    for (int i = 0; i < Nstream; i++) {
+        for (int j = 0; j < Nsymbol/Nstream; j++) {
+            double real_diff = original_signal[i][j].real - received_signal[i][j].real;
+            double img_diff = original_signal[i][j].img - received_signal[i][j].img;
+            error_power += real_diff * real_diff + img_diff * img_diff;
+            signal_power += received_signal[i][j].real * received_signal[i][j].real + received_signal[i][j].img * received_signal[i][j].img;
+        }
+    }
+
+    if (signal_power == 0) {
+        return INFINITY; // If there's no signal, return infinity
+    } else {
+        double evm = sqrt(error_power / signal_power); // Calculate EVM
+        return 20 * log10(evm); // Convert EVM to dB
+    }
+}
+
+double calculate_SNR(complexo **original_signal, complexo **received_signal, int Nstream, long int Nsymbol) {
+    double signal_power = 0.0;
+    double noise_power = 0.0;
+
+    for (int i = 0; i < Nstream; i++) {
+        for (int j = 0; j < Nsymbol/Nstream; j++) {
+            double real_diff = original_signal[i][j].real - received_signal[i][j].real;
+            double img_diff = original_signal[i][j].img - received_signal[i][j].img;
+            noise_power += real_diff * real_diff + img_diff * img_diff;
+            signal_power += received_signal[i][j].real * received_signal[i][j].real + received_signal[i][j].img * received_signal[i][j].img;
+        }
+    }
+
+    if (noise_power == 0) {
+        return INFINITY; // If there's no noise, return infinity
+    } else {
+        return 10 * log10(signal_power / noise_power); // Calculate SNR in dB
+    }
+}
+
+void getUserInput(int* Nr, int* Nt, int* r) {
+    printf("Digite o valor para Nr: ");
+    scanf("%d", Nr);
+
+    printf("Digite o valor para Nt: ");
+    scanf("%d", Nt);
+
+    printf("Digite o valor para r: ");
+    scanf("%d", r);
+}
 /**
  * @brief Lê os dados de um arquivo e os converte em um array de inteiros.
  *
@@ -96,26 +155,31 @@ int * tx_data_padding(int* s, long int numBytes, int Npadding){
 complexo* tx_qam_mapper(int *s, long int numQAM){
     // Aloca memória para o vetor de complexos
     complexo *c1 = (complexo *)malloc(numQAM * sizeof(complexo));   
+    if (c1 == NULL) {
+        printf("Erro na alocação de memória\n");
+        return NULL;
+    }
     for(int i= 0; i<numQAM;i++){
-        if(s[i]==0){
-            c1[i].real = -1;
-            c1[i].img = 1;
-        }
-        else if (s[i]==1){
-            c1[i].real = -1;
-            c1[i].img = -1;
-        }
-        else if (s[i]==2){
-            c1[i].real = 1;
-            c1[i].img = 1;
-        }
-        else if(s[i]==3){
-            c1[i].real = 1;
-            c1[i].img = -1;
-        }
-        else{
-            c1[i].real = 0;
-            c1[i].img = 0;
+        switch(s[i]){
+            case 0:
+                c1[i].real = -1;
+                c1[i].img = 1;
+                break;
+            case 1:
+                c1[i].real = -1;
+                c1[i].img = -1;
+                break;
+            case 2:
+                c1[i].real = 1;
+                c1[i].img = 1;
+                break;
+            case 3:
+                c1[i].real = 1;
+                c1[i].img = -1;
+                break;
+            default:
+                c1[i].real = 0;
+                c1[i].img = 0;
         }
     }
     return c1;
@@ -352,42 +416,43 @@ complexo** produto_matricial_geral(complexo** mtx_a, complexo** mtx_b, int linha
  * @param Nt O número de antenas transmissoras.
  * @param minValue O valor mínimo para os elementos da matriz.
  * @param maxValue O valor máximo para os elementos da matriz.
+ * @param sigma O valor do desvio padrão da criação do canal
  *
  * @return Uma matriz complexa representando o canal de transferência gerado.
  *         O chamador é responsável por liberar a memória alocada utilizando a função free().
  */
-complexo ** channel_gen(int Nr, int Nt, float minValue, float maxValue) {
-    complexo** H;
-	
-    H = (complexo **) malloc(Nr * sizeof(complexo *));
-	
+complexo ** channel_gen(int Nr, int Nt, double sigma){
+    complexo** H = (complexo **) malloc(Nr * sizeof(complexo*));
     if (H == NULL) {
         printf("Memory allocation failed.\n");
-        exit(1);
+        return NULL;
     }
 
-    // Alocação de memória para cada linha da matriz
     for (int i = 0; i < Nr; i++) {
         H[i] = (complexo *) malloc(Nt * sizeof(complexo));
         if (H[i] == NULL) {
-            printf("Memory allocation failed.\n");
-            exit(1);
+            printf("Memory allocation failed\n");
+            // Free previously allocated memory
+            for (int j = 0; j < i; j++) {
+                free(H[j]);
+            }
+            free(H);
+            return NULL;
         }
     }
+    gsl_rng * r = gsl_rng_alloc (gsl_rng_default);
+    sigma = 1.0;
 
-    srand(time(NULL));
-
-    // Preenchimento da matriz com números complexos aleatórios
     for (int i = 0; i < Nr; i++) {
         for (int j = 0; j < Nt; j++) {
-            H[i][j].real = ((double)rand() / RAND_MAX) * (maxValue - minValue) + minValue;
+            gsl_rng_set(r, rand()%10000);
+            H[i][j].real = gsl_ran_gaussian(r, sigma);
             H[i][j].img = 0;
         }
     }
 
     return H;
 }
-
 /**
  * @brief Gera uma matriz de complexos representando o ruído do canal de comunicação.
  *
@@ -398,39 +463,43 @@ complexo ** channel_gen(int Nr, int Nt, float minValue, float maxValue) {
  *
  * @param Nr Número de antenas receptoras.
  * @param Nt Número de antenas transmissoras.
- * @param minValue Valor mínimo para os elementos da matriz.
- * @param maxValue Valor máximo para os elementos da matriz.
+ * @param sigma Valor do desvio padrão do ruído.
  *
  * @return A matriz de complexos representando o ruído do canal de comunicação.
  */
 
-complexo ** channel_rd_gen(int Nr, int Nt, float minValue, float maxValue){
-    complexo** H;
-	
-    H = (complexo **) malloc(Nr*sizeof(complexo*));
-	
-    if (H == NULL)
-    {
-        printf("Memory alocation failed.");
-        exit(1);
+complexo ** channel_rd_gen(int Nr, int Nt, double sigma){
+    complexo** H = (complexo **) malloc(Nr * sizeof(complexo*));
+    if (H == NULL) {
+        printf("Memory allocation failed.\n");
+        return NULL;
     }
-    //Alocação de memória para cada linha da matriz
-    for (int i = 0; i < Nr; i++)
-    {
-        H[i] = (complexo *) malloc(Nt*sizeof(complexo));
-        if (H[i] == NULL)
-        {
+
+    for (int i = 0; i < Nr; i++) {
+        H[i] = (complexo *) malloc(Nt * sizeof(complexo));
+        if (H[i] == NULL) {
             printf("Memory allocation failed\n");
-            exit(1);
+            // Free previously allocated memory
+            for (int j = 0; j < i; j++) {
+                free(H[j]);
+            }
+            free(H);
+            return NULL;
         }
     }
-    srand(time(NULL));
+    gsl_rng * r = gsl_rng_alloc (gsl_rng_default);
+    
+    sigma = 1.0;
+
+    // TO DO: noise~N(0,N0)
     for (int i = 0; i < Nr; i++) {
         for (int j = 0; j < Nt; j++) {
-            H[i][j].real = ((double)rand() / RAND_MAX) * (maxValue - minValue) + minValue;
-            H[i][j].img = ((double)rand() / RAND_MAX) * (maxValue - minValue) + minValue;
+            gsl_rng_set(r, rand()%10000);
+            H[i][j].real = gsl_ran_gaussian(r, sigma);
+            H[i][j].img = gsl_ran_gaussian(r, sigma);
         }
     }
+
     return H;
 }
 
@@ -626,22 +695,43 @@ complexo ** tx_precoder(complexo ** V, complexo **x, int Vlinhas, int Vcolunas, 
 
 complexo ** channel_transmission(complexo ** H, complexo ** xp, int Hlinhas, int Hcolunas, int xpLinhas, int xpColunas, int r){
     complexo **xh = produto_matricial_geral(H, xp, Hlinhas, Hcolunas, xpLinhas, xpColunas);
-    complexo ** Rd;
-    if (r == 0){
-        Rd = channel_rd_gen(Hlinhas, xpColunas, -0.001, 0.001);
-    }else if (r == 1){
-        Rd = channel_rd_gen(Hlinhas, xpColunas, -0.01, 0.01);
-    }else if (r == 2){
-        Rd = channel_rd_gen(Hlinhas, xpColunas, -0.5, 0.5);
-    }else if (r == 3){
-        Rd = channel_rd_gen(Hlinhas, xpColunas, -1, 1);
+    if (xh == NULL) {
+        printf("Erro na multiplicação de matrizes\n");
+        return NULL;
     }
+
+    complexo ** Rd;
+    switch(r){
+        case 0:
+            Rd = channel_rd_gen(Hlinhas, xpColunas, 0.001);
+            break;
+        case 1:
+            Rd = channel_rd_gen(Hlinhas, xpColunas, 0.01);
+            break;
+        case 2:
+            Rd = channel_rd_gen(Hlinhas, xpColunas, 0.5);
+            break;
+        case 3:
+            Rd = channel_rd_gen(Hlinhas, xpColunas, 1);
+            break;
+    }
+    if (Rd == NULL) {
+        printf("Erro na geração do ruído do canal\n");
+        free(xh);
+        return NULL;
+    }
+
     complexo ** xt = soma(xh, Rd, Hlinhas, xpColunas);
-    /*printf("\nVetor Ruído\n");
-    for (int l = 0 ; l < Hlinhas; l++){
-		printComplex(Rd[l][0]);
-        printf("\n");
-	}*/
+    if (xt == NULL) {
+        printf("Erro na soma de matrizes\n");
+        free(xh);
+        free(Rd);
+        return NULL;
+    }
+
+    free(xh);
+    free(Rd);
+
     return xt;
 }
 /**
@@ -706,10 +796,11 @@ complexo ** rx_feq(complexo ** S, complexo ** xc, int Slinhas, int Scolunas, int
  *
  * @note Esta função exibe as estatísticas na saída padrão.
  */
-void gera_estatistica(int *s, int *finals, long int numBytes){
+void gera_estatistica(int *s, int *finals, long int numBytes, int teste, int Nr, int Nt, double r, complexo **original_signal, complexo **received_signal, int Nstream, long int Nsymbol){
     int cont_acertos=0;
     int cont_erros=0;
     printf("\nNúmeros de simbolos QAM Transmitidos: %ld\n",numBytes*4);
+    printf("numBytes=%ld\n",numBytes);
     for(int i =0; i<numBytes*4; i++){
         if(s[i]==finals[i]){
             cont_acertos = cont_acertos + 1;
@@ -718,9 +809,41 @@ void gera_estatistica(int *s, int *finals, long int numBytes){
             cont_erros = cont_erros + 1;
         }
     }
-    float porcentagem_erro = (cont_erros*100)/(4*numBytes);
-    printf("Número de símbolos QAM recebidos com erro: %d\n",cont_erros);
-    printf("Porcentagem de símbolos QAM recebidos com erro: %0.2f%%\n\n",porcentagem_erro);
+    double porcentagem_erro = (cont_erros*100)/(4*numBytes);
+    printf("Número de bits recebidos com erro: %d\n",cont_erros);
+    printf("Porcentagem de bits recebidos com erro: %0.4f%%\n\n",porcentagem_erro);
+
+    // Cada símbolo QAM errado representa 2 bits errados
+    long int total_bits = 2 * numBytes * 4;
+    int erro_bits = 2 * cont_erros;
+
+    double ber = (double)erro_bits / total_bits;
+    printf("BER: %f\n", ber);
+
+    // Calculate SNR
+    double snr_dB = calculate_SNR(original_signal, received_signal, Nstream, Nsymbol);
+    printf("SNR: %f dB\n", snr_dB);
+
+    // Calculate EVM
+    double evm_dB = calculate_EVM(original_signal, received_signal, Nstream, Nsymbol);
+    printf("EVM: %f dB\n", evm_dB);
+
+    double cap = calculate_capacity(snr_dB);
+    printf("Capacity: %f bit/symbol\n", cap);
+
+    // FILE *file;
+
+    // // Open the file in append mode, so as not to overwrite existing data
+    // file = fopen("output.csv", "a");
+
+    // if (file == NULL) {
+    //     printf("Não foi possível abrir o arquivo\n");
+    //     return;
+    // }
+
+    // // Write the data to the file, including the SNR and EVM
+    // fprintf(file, "%d,%d,%d,%f,%f,%f,%f,%f,%f\n", teste, Nr, Nt, r, porcentagem_erro, ber, snr_dB, evm_dB, cap);
+    // fclose(file);
 }
 
 complexo** expandMatrix(complexo** matriz, int linhas, int colunas, int linhasExtras, int padding){
@@ -765,11 +888,12 @@ bool is_wsl_there(){
 }
 
 int main() {
+    srand(time(NULL));
     system("clear");
     char exec_path[1024];
     #ifdef __unix__
     // Código específico para sistemas Unix
-        #include <unistd.h>
+        
         printf("Executando dentro de Unix\n");
         ssize_t countt = readlink("/proc/self/exe", exec_path, sizeof(exec_path) - 1);
         if (countt != -1) {
@@ -854,21 +978,35 @@ int main() {
     fp = fopen(filename, "w+");
     // Solicitar ao usuário que escreva a mensagem
     printf("Digite a mensagem que quer enviar:\n");
-    char mensagem[1000];
+    char mensagem[50000];
     fgets(mensagem, sizeof(mensagem), stdin);
     // Escrever a mensagem no arquivo
     fprintf(fp, "%s", mensagem);
     // Fechar o arquivo
     fclose(fp);
 
-    int num_teste = 16; // Numero de testes necessarios //scanf("%d",&num_teste)
-    if(num_teste > 16){
+    int Nr, Nt, r;
+    int mode;
+    int num_teste = 7; // número de testes predefinidos
+
+    printf("Digite 1 para o modo predefinido ou 2 para o modo personalizado: ");
+    scanf("%d", &mode);
+  
+
+    if (mode == 2) {
+        getUserInput(&Nr, &Nt, &r);
+        num_teste = 25; // apenas um teste será executado no modo personalizado
+    }
+
+    if(num_teste > 61){
         printf("\nNumero de testes inviavel. saindo...");
         system("pause");
         exit(1);
     }
+    // printf("Quantos testes deseja realizar? (1-61): ");
+    // scanf("%d", &num_teste);
     for(int teste = 1; teste <= num_teste; teste++){
-        
+            
         printf("\n===================== Teste %d ===================\n\n", teste);
         fp = fopen(filename, "rb");
 
@@ -881,22 +1019,68 @@ int main() {
         fseek(fp, 0, SEEK_END);
         long int numBytes = ftell(fp);
         fseek(fp, 0, SEEK_SET);
-    
-        int Nr; // Número de antenas recpetoras
-        int Nt; // Número de antenas transmissoras
-        if(teste <= 4){
-            Nr = 2;
-            Nt = 4;
-        }else if (teste > 4 && teste <= 8){
-            Nr = 8;
-            Nt = 8;
-        }else if (teste > 8 && teste <= 12){
-            Nr = 8;
-            Nt = 32;
-        }else if (teste > 12 && teste <= 16){
-            Nr = 16;
-            Nt = 32;
-        } 
+
+        // Número de antenas recpetoras
+        // Número de antenas transmissoras
+        if(mode == 1) {     
+            r = 3;
+            if(teste == 1){
+                Nr = 2;
+                Nt = 4;
+            }else if (teste == 2){
+                Nr = 4;
+                Nt = 8;
+            }else if (teste == 3){
+                Nr = 8;
+                Nt = 16;
+            }else if (teste == 4){
+                Nr = 16;
+                Nt = 32;
+            }else if (teste == 5){
+                Nr = 32;
+                Nt = 64;
+            }else if (teste == 6){
+                Nr = 64;
+                Nt = 128;
+            }else if (teste == 7){
+                Nr = 128;
+                Nt = 256;
+            }
+                            
+            // if(teste <= 4){
+            //     Nr = 2;
+            //     Nt = 4;
+            // }else if (teste > 4 && teste <= 8 ){
+            //     Nr = 4;
+            //     Nt = 8;
+            // }else if (teste > 8 && teste <= 12){
+            //     Nr = 8;
+            //     Nt = 16;
+            // }else if (teste > 12 && teste <= 16){
+            //     Nr = 32;
+            //     Nt = 16;
+            // }else if (teste > 16 && teste <= 20){
+            //     Nr = 32;
+            //     Nt = 64;
+            // }else if (teste > 20 && teste <= 24){
+            //     Nr = 64;
+            //     Nt = 128;
+            // }else if (teste > 24 && teste <= 28){
+            //     Nr = 128;
+            //     Nt = 256;
+            // }else if (teste > 28 && teste <= 32){
+            //     Nr = 256;
+            //     Nt = 512;
+            // }else if (teste > 32 && teste <= 36){
+            //     Nr = 512;
+            //     Nt = 1024;
+            // }
+
+            // Choosing noise interval: 0 for [-0.01,0.01], 1 for [-0.1,0.1], 2 for [-0.5,0.5], 3 for [-1,1]
+            // r = (teste - 1) % 4;
+            // r = 3;
+
+        }
         //Declarando o número de fluxos
         int Nstream;
         if (Nr <= Nt){
@@ -928,21 +1112,7 @@ int main() {
         complexo **rx_mtx= allocateComplexMatrix(Nstream, Nsymbol/Nstream); // matriz receptora
         // Criação do Canal H com range entre -1 e 1
         printf("\nCriando canal de transferencia de dados...");
-        complexo ** H = channel_gen(Nr, Nt, -1, 1);
-        int r;
-        //Escolhendo intervalo de ruído : 0 para [-0.01,0.01], 1 para [-0.1,0.1], 2 para [-0.5,0.5], 3 para [-1,1]
-        if(teste == 1 || teste == 5 || teste == 9 || teste == 13){
-            r = 0;
-        }
-        else if(teste == 2 || teste == 6 || teste == 10 || teste == 14){
-            r = 1;
-        }
-        else if(teste == 3 || teste == 7 || teste == 11 || teste == 15){
-            r = 2;
-        }
-        else if(teste == 4 || teste == 8 || teste == 12 || teste == 16){
-            r = 3;
-        }
+        complexo ** H = channel_gen(Nr, Nt, 1);
         //Inciando transmissão pelo canal de Nsymbol/Nstream tempos de transmissão
         printf("\nIniciando segmentação de transmissão...");
         for (int Nx = 0; Nx < Nsymbol/Nstream; Nx++){
@@ -966,6 +1136,23 @@ int main() {
                     rx_mtx[l][Nx].real = xf[l][0].real;
                     rx_mtx[l][Nx].img = xf[l][0].img;
                 }
+                if (Nx+1 == Nsymbol/Nstream){
+                    FILE *fp;
+                    fp = fopen("lambsa.csv", "a+");
+                    if (fp == NULL){
+                        printf("Erro ao abrir o arquivo\n");
+                        return 1;
+                    }
+                    fprintf(fp, "%d, %d", Nr,Nt);
+                    for(int i=0; i<Nstream; i++){
+                        for(int j=0; j<Nstream; j++){
+                            if(i==j)
+                                fprintf(fp, ", %f",r, S[i][j].real);
+                        }
+                    }
+                    fprintf(fp, "\n");
+                }
+
             }else if (Nr >= Nt){
                 complexo ** x = allocateComplexMatrix(Nstream, 1);
                 for(int l = 0; l < Nstream; l++){
@@ -987,6 +1174,10 @@ int main() {
                 }
             }
         }
+
+
+
+
         printf("\nCompondo o vetor de complexos rx_map..");
         complexo *rx_map = rx_layer_demapper(rx_mtx, Nstream, Nsymbol);
         for(int i = 0; i < Nsymbol; i++){
@@ -1003,7 +1194,7 @@ int main() {
         
         sprintf(fileName, "%s/Teste_%d_Nr%d_Nt%d_Rd%d", destino, teste, Nr, Nt, r); // Formata o nome do arquivo com base no valor de i
         rx_data_write(s_rest, numBytes, fileName);
-        gera_estatistica(s,s_rest,numBytes);
+        gera_estatistica(s, s_rest, numBytes, teste, Nr, Nt, r, mtx, rx_mtx, Nstream, Nsymbol);        
         printf("================== Fim do teste %d================\n", teste);
     }
     fclose(fp);

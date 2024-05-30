@@ -1,33 +1,31 @@
 src = ./src
-matrizes = ./src/matrizes
+matrix = ./src/matrix
 obj = ./build
-out = aplicacao
+out = aplication
 w = -W -Wall -pedantic
 gsl = -lgslcblas -lgsl
 math = -lm
 font = ./src/MIMO/pds_telecom.c
-teste_arq = Teste_*
+test_arq = Test*
 
-all: $(obj) $(out)
+all: $(obj) $(obj)/$(out)
 
-$(out): $(obj)/matrizes.o $(font)
+$(obj)/$(out): $(obj)/matrix.o $(font)
 	@echo -e "\n=== Generanting the file $@... ==="
-	gcc $< -o $(obj)/$@ $(font) $(gsl) $(math) $(w)
-	@echo -e "\n=== To run the code from 'pds_telecom.c': run the file $(obj)/$@.exe or the rule command 'make teste'!! ==="
+	gcc $^ -o $@ $(gsl) $(math) $(w)
+	@echo -e "\n=== To run the code from 'pds_telecom.c': run the file $@ or the rule command 'make test'!! ==="
 
-$(obj)/matrizes.o: $(matrizes)/matrizes.c  
+$(obj)/matrix.o: $(matrix)/matrix.c $(obj)
 	@echo -e "\n=== Generating the file $@... ==="
-	gcc -c $< -J $(obj) -o $@ $(gsl) $(w)
+	gcc -c $< -o $@ $(gsl) $(w)
 
 $(obj):
-	mkdir $(obj)
+	mkdir -p $(obj)
 	
-teste: $(obj)/$(out)
-	@ $(obj)/$(out)
+test: $(obj)/$(out)
+	@./$(obj)/$(out)
 
 clean:
 	@echo -e "\n=== Starting the repository cleaning ==="
-	rm -rf $(obj)/*.exe
-	rm -rf $(obj)/
-	rm -rf $(teste_arq)
-
+	rm -rf $(obj)/*
+	rm -rf $(test_arq)

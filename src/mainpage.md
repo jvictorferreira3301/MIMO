@@ -25,9 +25,10 @@ Para mais informações, visite https://github.com/jvictorferreira3301/Projeto-d
 - [Kauan Miranda Tavares](https://github.com/kkauanjjk)
 - [Marco Antonio do Espirito Santo Maues Junior](https://github.com/Mauesjr)
 - [Natalie Giovanna Pinto da Cunha](https://github.com/gioocunha)
+
 <div style="display: flex; justify-content: center;">
   <div style="display: flex; gap: 130px;">
-    <img src="ufpa.png" alt="Texto alternativo" title="Título opcional" style="width: 300px;">
+    <img src="ufpa.png" alt="Texto alternativo" title="Título opcional" style="width: 130px;">
     <img src="itec.png" alt="Imagem 2" style="width: 500px;">
   </div>
 </div>
